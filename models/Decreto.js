@@ -32,4 +32,3 @@ const decretoSchema = new Schema({
     deroga_dec: String,
     derogado_por: String
 })
-

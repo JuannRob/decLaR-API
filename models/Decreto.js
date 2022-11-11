@@ -1,7 +1,6 @@
-const mongoose = require(mongoose);
-const { Schema } = mongoose;
+const mongoose = require('mongoose');
 
-const decretoSchema = new Schema({
+const decretoSchema = new mongoose.Schema({
     numero: String,
     anho: String,
     fecha: Date,
@@ -31,4 +30,6 @@ const decretoSchema = new Schema({
     tipeo_y_dictado: String,
     deroga_dec: String,
     derogado_por: String
-})
+});
+
+module.exports = mongoose.model('Decreto', decretoSchema, 'decretos');

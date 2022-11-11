@@ -4,41 +4,32 @@ const { Schema } = mongoose;
 const decretoSchema = new Schema({
     numero: String,
     anho: String,
-    fecha: {
-        $date: 2013 - 10 - 13T03: 00: 00Z
-    },
-    fecha_pub: {
-        $date: 2014 - 01 - 24T03: 00: 00Z
-    },
+    fecha: Date,
+    fecha_pub: Date,
     cant_art: String,
-    firmantes: [
-        Herrera,
-        Guerra,
-        Agost
-    ],
-    publicacion: BO,
-    num_publi: 11143,
-    pag_publi: 3,
-    tomo_biblioteca: 1,
-    anexo:   ,
-    ley_promulgada: 9450,
-    ley_vetada:   ,
-    parte_vetada:   ,
-    ratif_ley:   ,
-    ratif_pendiente:   ,
-    ley_reglamentada:   ,
-    tema:   ,
-    titulo:   ,
-    estado:   ,
-    modificado_por:   ,
-    modifica_a:   ,
-    link_publi:   ,
-    ref_normativas:   ,
-    observaciones:   ,
-    fecha_carga: {
-        $date: 2022 - 10 - 05T03: 00: 00Z
-    },
-    tipeo/ dictado : Marcelo(Sebastian),
-    deroga_dec :   ,
-    derogado_por :   
+    firmantes: [String],
+    publicacion: String,
+    num_publi: String,
+    pag_publi: String,
+    tomo_biblioteca: String,
+    anexo: String,
+    ley_promulgada: String,
+    ley_vetada: String,
+    parte_vetada: String,
+    ratif_ley: String,
+    ratif_pendiente: String,
+    ley_reglamentada: String,
+    tema: String,
+    titulo: String,
+    estado: String,
+    modificado_por: String,
+    modifica_a: String,
+    link_publi: String,
+    ref_normativas: String,
+    observaciones: String,
+    fecha_carga: { type: Date, default: Date.now },
+    tipeo_y_dictado: String,
+    deroga_dec: String,
+    derogado_por: String
 })
+

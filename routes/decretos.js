@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
         ref_normativas: req.body.ref_normativas,
         observaciones: req.body.observaciones,
         fecha_carga: req.body.fecha_carga,
-        tipeo_y_dictado: req.body.tipeo_y_dictado,
+        tipeo_dictado: req.body.tipeo_y_dictado,
         deroga_dec: req.body.deroga_dec,
         derogado_por: req.body.derogado_por
     });

@@ -27,9 +27,9 @@ const decretoSchema = new mongoose.Schema({
     ref_normativas: String,
     observaciones: String,
     fecha_carga: { type: Date, default: Date.now },
-    tipeo_y_dictado: String,
+    tipeo_dictado: String,
     deroga_dec: String,
     derogado_por: String
 });
 
-module.exports = mongoose.model('Decreto', decretoSchema, 'decretos');
+module.exports = mongoose.model('Decreto', decretoSchema, '2014');

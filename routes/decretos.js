@@ -39,8 +39,8 @@ router.post("/", async (req, res) => {
         tipeo_y_dictado: req.body.tipeo_y_dictado,
         deroga_dec: req.body.deroga_dec,
         derogado_por: req.body.derogado_por
-    })
-    await decreto.save()
+    });
+    await Decreto.save();
     res.send(decreto)
 })
 

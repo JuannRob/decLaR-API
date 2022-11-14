@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
         derogado_por: req.body.derogado_por
     });
     await Decreto.save();
-    res.send(decreto)
+    res.send(`Decreto creado: ${decreto}`)
 })
 
 module.exports = router;

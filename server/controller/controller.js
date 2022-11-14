@@ -1,14 +1,19 @@
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
 const Decreto = require('../models/Decreto.js');
 
-router.get('/', async (req, res, next) => {
+//obtener todos los decretos
+exports.find = async (req, res) => {
     const decretos = await Decreto.find();
-    res.send(decretos);
-});
+    res.status(200).send(decretos);
+}
 
-router.post("/", async (req, res) => {
+//crea y guarda un decreto nuevo
+exports.create = async (req, res) => {
+
+    if (!req.body) {
+        res.status(400).send({ message: "Los datos no deben estar vacíos" });
+        return;
+    }
+
     const decreto = new Decreto({
         numero: req.body.numero,
         anho: req.body.anho,
@@ -40,8 +45,15 @@ router.post("/", async (req, res) => {
         deroga_dec: req.body.deroga_dec,
         derogado_por: req.body.derogado_por
     })
-    await decreto.save()
-    res.send(decreto)
-})
+    await decreto
+        .save(decreto)
+        .then(data => {
+            res.status(200).send(data)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Algo salió mal durante la creación"
+            });
+        });
 
-module.exports = router;
+}

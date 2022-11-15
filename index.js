@@ -1,20 +1,19 @@
 const express = require("express");
 const mongoose = require('mongoose');
-const decretos = require('./routes/decretos');
+const connectDB = require('./server/database/connection');
+const api = require('./server/routes/router');
 require('dotenv').config()
 
-const db_pass = process.env.DB_PASS;
-const mongoDB = "mongodb+srv://admin:" + db_pass + "@decretosdb.wgq2r.mongodb.net/decretos?retryWrites=true&w=majority";
+const app = express();
 
-mongoose
-    .connect(mongoDB, { useNewUrlParser: true })
-    .then(() => {
-        const app = express();
-        app.use(express.json())
-        app.use('/decretos', decretos);
+const PORT = process.env.PORT || 5000;
 
-        app.listen(5000, () => {
-            console.log("Servidor levantado.")
-        })
-    })
-    .catch((err) => console.error(err));
+//mongodb connection
+connectDB();
+
+app.get('/', (req, res) => {
+    res.status(200).send('<h1>DECRETOS API</h1>');
+});
+app.use(express.json())
+app.use('/api', api);
+app.listen(PORT, () => { console.log(`Server running: http://localhost:${PORT}/`)})

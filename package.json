@@ -1,4 +1,7 @@
 {
+  "name": "decretos-api",
+  "version": "0.1.0",
+  "main": "index.js",
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
@@ -6,5 +9,6 @@
   },
   "scripts": {
     "start": "node index.js"
-  }
+  },
+  "author": "Juan Robledo"
 }

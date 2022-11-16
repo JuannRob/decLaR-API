@@ -8,7 +8,6 @@ const connectDB = require('./server/database/connection');
 const routes = require('./server/routes/router');
 
 const app = express();
-
 const PORT = process.env.PORT || 5000;
 
 //log requests
@@ -20,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //set view engine
 app.set("view engine", "ejs")
 
+//set assets path
 app.use('/css', express.static(path.resolve(`${__dirname}/assets/css`)));
 app.use('/js', express.static(path.resolve(`${__dirname}/assets/js`)));
 

@@ -6,5 +6,4 @@ router.get("/", getAll);
 
 router.post("/decretos", create);
 
-
 module.exports = router;

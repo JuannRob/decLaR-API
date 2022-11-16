@@ -19,9 +19,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //set view engine
 app.set("view engine", "ejs")
 
-//set assets path
-app.use('/css', express.static(path.resolve(`${__dirname}/assets/css`)));
-app.use('/js', express.static(path.resolve(`${__dirname}/assets/js`)));
+//set public folder
+app.use(express.static("public"));
 
 //mongodb connection
 connectDB();

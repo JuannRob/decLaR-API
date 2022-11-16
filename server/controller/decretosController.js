@@ -3,7 +3,7 @@ const Decreto = require('../models/Decreto.js');
 //obtener todos los decretos
 exports.getAll = async (req, res) => {
     const decretos = await Decreto.find();
-    res.status(200).render('index', { title: 'decretos', data: decretos });
+    res.status(200).render('index', { title: 'decretos', data: decretos })
 }
 
 //crea y guarda un decreto nuevo

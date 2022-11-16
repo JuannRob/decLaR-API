@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { find, create } = require('../controller/controller')
+const { getAll, create } = require('../controller/decretosController')
 
-
-router.get("/decretos", find);
+router.get("/", getAll);
 
 router.post("/decretos", create);
 

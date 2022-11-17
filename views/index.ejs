@@ -18,7 +18,7 @@
     <header id="header">
       <nav>
         <div class="container">
-          <h3>Estás mostrando: <%= title %></h3>
+          <h3>Estás viendo: <%= title %></h3>
         </div>
       </nav>
     </header>
@@ -80,10 +80,8 @@
             <td><%= decreto.ratif_ley %></td>
             <td><%= decreto.ratif_pendiente %></td>
             <td><%= decreto.ley_reglamentada %></td>
-            <td class="h-50 d-inline-block overflow-scroll">
-              <%= decreto.tema %>
-            </td>
-            <td class="w-25"><%= decreto.titulo %></td>
+            <td class="long-text"><%= decreto.tema %></td>
+            <td class="long-text"><%= decreto.titulo %></td>
             <td><%= decreto.estado %></td>
             <td><%= decreto.modificado_por %></td>
             <td><%= decreto.modifica_a %></td>

@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getAll, create, getByNumAndYear } = require('../controller/decretosController')
+const { obtener, crear } = require('../controller/decretosController')
 
-router.get("/decretos", getAll);
+router.get("/", obtener);
 
-router.get("/decreto", getByNumAndYear);
-
-router.post("/decretos", create);
+router.post("/decretos", crear);
 
 module.exports = router;

@@ -1,13 +1,24 @@
 const Decreto = require('../models/Decreto.js');
 
-//obtener todos los decretos
-exports.getAll = async (req, res) => {
-    const decretos = await Decreto.find();
-    res.status(200).render('index', { title: 'decretos', data: decretos });
+//obtener decretos
+//filtra decretos si hay queries si no, muestra todos
+exports.obtener = async (req, res) => {
+    let decretos = {};
+    let title = '';
+
+    if (Object.keys(req.query).length === 0) {
+        decretos = await Decreto.find();
+        title = 'todos los decretos'
+    } else {
+        decretos = await Decreto.find(req.query).exec();
+        title = 'decretos filtrados'
+    }
+
+    res.status(200).render('index', { title: title, data: decretos })
 }
 
 //crea y guarda un decreto nuevo
-exports.create = async (req, res) => {
+exports.crear = async (req, res) => {
 
     if (!req.body) {
         res.status(400).send({ message: "Los datos no deben estar vacíos" });

@@ -1,0 +1,10 @@
+.tabla-decretos {
+    table-layout: auto;
+}
+
+
+.tabla-decretos {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

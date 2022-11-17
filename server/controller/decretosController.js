@@ -2,8 +2,28 @@ const Decreto = require('../models/Decreto.js');
 
 //obtener todos los decretos
 exports.getAll = async (req, res) => {
-    const decretos = await Decreto.find();
+
+    let decretos = {};
+
+    if (req.query.numero && req.query.anho) {
+        decretos = await Decreto.findOne({ numero: req.query.numero, anho: req.query.anho }).exec();
+        console.log('====================================');
+        console.log('decretos solo:', decretos);
+        console.log('====================================');
+    } else {
+        decretos = await Decreto.find();
+        console.log('====================================');
+        console.log('decretos:', decretos);
+        console.log('====================================');
+    }
     res.status(200).render('index', { title: 'decretos', data: decretos })
+}
+
+//obtener un decreto utilizando número y año
+exports.getByNumAndYear = async (req, res) => {
+    const decretos = await Decreto.findOne({ numero: req.query.numero, anho: req.query.anho }).exec();
+
+    res.status(200).render('index', { title: `Decreto número: ${req.query.numero}`, data: decretos })
 }
 
 //crea y guarda un decreto nuevo

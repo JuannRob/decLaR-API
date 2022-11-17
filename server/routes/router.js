@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getAll, create } = require('../controller/decretosController')
+const { getAll, create, getByNumAndYear } = require('../controller/decretosController')
 
-router.get("/", getAll);
+router.get("/decretos", getAll);
+
+router.get("/decreto", getByNumAndYear);
 
 router.post("/decretos", create);
 

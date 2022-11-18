@@ -1,19 +1,31 @@
 const express = require("express");
-const mongoose = require('mongoose');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const path = require('path');
+require('dotenv').config();
+
 const connectDB = require('./server/database/connection');
-const api = require('./server/routes/router');
-require('dotenv').config()
+const routes = require('./server/routes/router');
 
 const app = express();
-
 const PORT = process.env.PORT || 5000;
+
+//log requests
+app.use(morgan('tiny'));
+
+//parse request to body-parser
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//set view engine
+app.set("view engine", "ejs")
+
+//set public folder
+app.use(express.static("public"));
 
 //mongodb connection
 connectDB();
 
-app.get('/', (req, res) => {
-    res.status(200).send('<h1>DECRETOS API</h1>');
-});
-app.use(express.json())
-app.use('/api', api);
-app.listen(PORT, () => { console.log(`Server running: http://localhost:${PORT}/`)})
+app.use(express.json());
+app.use('/', routes);
+
+app.listen(PORT, () => { console.log(`Server running: http://localhost:${PORT}/`) })

@@ -3,17 +3,30 @@ const Decreto = require('../models/Decreto.js');
 //obtener decretos
 //filtra decretos si hay queries si no, muestra todos
 exports.obtener = async (req, res) => {
+    const req_query = req.query;
     let decretos = {};
+    let queries = {};
     let title = '';
+
+    console.log('====================================');
+    console.log('req_query: ', req_query);
+    console.log('====================================');
 
     if (Object.keys(req.query).length === 0) {
         decretos = await Decreto.find();
         title = 'todos los decretos'
     } else {
-        decretos = await Decreto.find(req.query).exec();
+        for (const entry in req_query) {
+            console.log(`${entry}: ${req_query[entry]}`);
+            queries[entry] = new RegExp(req_query[entry], 'i');
+            
+        }
+        console.log('====================================');
+        console.log('queries:', queries);
+        console.log('====================================');
+        decretos = await Decreto.find(queries).exec();
         title = 'decretos filtrados'
     }
-
     res.status(200).render('index', { title: title, data: decretos })
 }
 

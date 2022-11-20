@@ -19,10 +19,11 @@
       <nav>
         <div class="container">
           <div class="search-container">
-            <form action="/action_page.php">
-              <input type="text" placeholder="Columna" name="search" />
-              <input type="text" placeholder="Valor" name="search" />
-              <button type="submit">Buscar</button>
+            <form action="/" method="GET">
+              <input type="search" placeholder="Número" name="numero" />
+              <input type="search" placeholder="Año" name="anho" />
+              <button type="submit" value="search">Buscar</button>
+              <a href="%">Agregar filtros</a>
             </form>
           </div>
 

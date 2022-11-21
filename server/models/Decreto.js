@@ -30,6 +30,6 @@ const decretoSchema = new mongoose.Schema({
     tipeo_dictado: String,
     deroga_dec: String,
     derogado_por: String
-}, { collection: 'userinfo' });
+}, { collection: '2014' });
 
 module.exports = mongoose.model('Decreto', decretoSchema);

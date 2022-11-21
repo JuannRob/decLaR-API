@@ -1,0 +1,1 @@
+document.getElementById("add-filter").addEventListener("click", () => document.getElementById("text").innerText = "Filtros!");

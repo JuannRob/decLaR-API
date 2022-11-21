@@ -19,7 +19,7 @@ exports.obtener = async (req, res) => {
         for (const entry in req_query) {
             console.log(`${entry}: ${req_query[entry]}`);
             queries[entry] = new RegExp(req_query[entry], 'i');
-            
+
         }
         console.log('====================================');
         console.log('queries:', queries);

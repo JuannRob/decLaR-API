@@ -26,11 +26,13 @@
           <form id="search-form" action="/" method="GET">
             <input type="search" placeholder="Número" name="numero" />
             <input type="search" placeholder="Año" name="anho" />
-            <button type="submit" value="search">Buscar</button>
+            <button id="search-button" class="m-1" type="submit" value="search">
+              Buscar
+            </button>
           </form>
-          <a id="add-filter" href="#">Agregar filtros</a>
+          <button id="add-filter">Agregar filtros</button>
         </div>
-        <div class="status">
+        <div class="filter-status">
           <h3>Estás viendo: <%= title %></h3>
         </div>
       </div>

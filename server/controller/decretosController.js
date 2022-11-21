@@ -17,9 +17,10 @@ exports.obtener = async (req, res) => {
         title = 'todos los decretos'
     } else {
         for (const entry in req_query) {
-            console.log(`${entry}: ${req_query[entry]}`);
-            queries[entry] = new RegExp(req_query[entry], 'i');
-
+            if (req_query[entry]) {
+                console.log(`${entry}: ${req_query[entry]}`);
+                queries[entry] = new RegExp(req_query[entry], 'i');
+            }
         }
         console.log('====================================');
         console.log('queries:', queries);

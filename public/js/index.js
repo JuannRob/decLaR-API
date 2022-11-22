@@ -33,18 +33,10 @@ const addFilter = () => {
 
     filterId = filterId + 1;
 }
-
 document.getElementById("add-filter").onclick = addFilter;
 
 const changeInputValue = (selectId) => {
-
     const dropDown = document.getElementById(selectId);
     const input = document.getElementById(dropDown.getAttribute('inputid'));
     input.name = dropDown.value;
-    console.log('Se cambió del item: ', dropDown.getAttribute('inputid'));
-    console.log('dropdown:', dropDown);
-    console.log('input:', input);
 }
-
-// const selectText = select.options[select.selectedIndex].text;
-// const selectValue = select.value;

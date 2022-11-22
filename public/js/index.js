@@ -25,6 +25,7 @@ const addFilter = () => {
     const inputText = document.createElement("input");
     inputText.type = "search";
     inputText.id = `filter-value-input-${filterId}`;
+    inputText.name = 'tema'
     inputText.setAttribute("form", "search-form");
 
     const addFilterButton = document.getElementById("add-filter")

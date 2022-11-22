@@ -8,10 +8,6 @@ exports.obtener = async (req, res) => {
     let queries = {};
     let title = '';
 
-    console.log('====================================');
-    console.log('req_query: ', req_query);
-    console.log('====================================');
-
     if (Object.keys(req.query).length === 0) {
         decretos = await Decreto.find();
         title = 'todos los decretos'

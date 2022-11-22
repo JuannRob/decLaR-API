@@ -24,7 +24,7 @@
             <h1>LOGO xd</h1>
           </a>
         </div>
-        <div class="search-container d-flex gap-2">
+        <div class="search-container d-flex flex-column">
           <form id="search-form" action="/" method="GET">
             <input type="search" placeholder="Número" name="numero" />
             <input type="search" placeholder="Año" name="anho" />
@@ -32,7 +32,9 @@
               Buscar
             </button>
           </form>
-          <button id="add-filter">Agregar filtros</button>
+          <div id="adv-filters">
+            <button id="add-filter">Agregar filtros</button>
+          </div>
         </div>
         <div class="filter-status">
           <h3>Estás viendo: <%= title %></h3>

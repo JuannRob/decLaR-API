@@ -20,7 +20,7 @@
         class="container-fluid d-inline-flex justify-content-between align-items-center"
       >
         <div class="logo">
-          <a href="http://localhost:5000/">
+          <a href="?">
             <h1>LOGO xd</h1>
           </a>
         </div>
@@ -82,31 +82,32 @@
         <tbody>
           <% data.forEach((decreto) => {%>
           <tr>
-            <td><%= decreto.numero %></td>
+            <td><%= decreto.num %></td>
             <td><%= decreto.anho %></td>
             <td><%= decreto.fecha.toLocaleDateString() %></td>
             <td><%= decreto.fecha_pub.toLocaleDateString() %></td>
-            <td><%= decreto.cant_art %></td>
-            <td><%= decreto.firmantes %></td>
-            <td><%= decreto.publicacion %></td>
-            <td><%= decreto.num_publi %></td>
-            <td><%= decreto.pag_publi %></td>
-            <td><%= decreto.tomo_biblioteca %></td>
+            <td><%= decreto.cant_arts %></td>
+            <td><%= decreto.firman %></td>
+            <td><%= decreto.pub %></td>
+            <td><%= decreto.num_ed_pub %></td>
+            <td><%= decreto.pag_pub %></td>
+            <td><%= decreto.anho_tomo %></td>
+            <td><%= decreto.nro_tomo %></td>
             <td><%= decreto.anexo %></td>
-            <td><%= decreto.ley_promulgada %></td>
+            <td><%= decreto.ley_promul %></td>
             <td><%= decreto.ley_vetada %></td>
             <td><%= decreto.parte_vetada %></td>
-            <td><%= decreto.ratif_ley %></td>
-            <td><%= decreto.ratif_pendiente %></td>
-            <td><%= decreto.ley_reglamentada %></td>
+            <td><%= decreto.ratif_x_ley %></td>
+            <td><%= decreto.dnu %></td>
+            <td><%= decreto.reglamenta_ley %></td>
             <td class="long-text"><%= decreto.tema %></td>
             <td class="long-text"><%= decreto.titulo %></td>
             <td><%= decreto.estado %></td>
-            <td><%= decreto.modificado_por %></td>
-            <td><%= decreto.modifica_a %></td>
-            <td><%= decreto.link_publi %></td>
-            <td><%= decreto.ref_normativas %></td>
-            <td><%= decreto.observaciones %></td>
+            <td><%= decreto.modif_por %></td>
+            <td><%= decreto.modif_a %></td>
+            <td><%= decreto.link_pub %></td>
+            <td><%= decreto.ref_norm %></td>
+            <td><%= decreto.obs %></td>
             <td><%= decreto.fecha_carga.toLocaleDateString() %></td>
             <td><%= decreto.tipeo_dictado %></td>
             <td><%= decreto.deroga_dec %></td>

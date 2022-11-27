@@ -27,7 +27,7 @@ const decretoSchema = new mongoose.Schema({
     link_pub: String,
     ref_norm: String,
     obs: String,
-    fecha_carga: { type: Date, default: Date.now },
+    fecha_carga: Date,
     tipeo_dictado: String,
     deroga_dec: String,
     derogado_por: String

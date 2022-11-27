@@ -35,11 +35,21 @@ exports.crear = async (req, res) => {
         return;
     }
 
+    const date = new Date(req.body.fecha);
+    const pubDate = new Date(req.body.fecha_pub);
+
+    let loadDate = req.body.fecha_carga;
+    if (!loadDate || loadDate === null) {
+        console.log(`No hay fecha: ${loadDate}, chango`);
+        loadDate = Date.now;
+    }
+
+
     const decreto = new Decreto({
         num: req.body.num,
-        anho: req.body.anho,
-        fecha: req.body.fecha,
-        fecha_pub: req.body.fecha_pub,
+        anho: date.getFullYear().toString(),
+        fecha: date.getTime().toString(),
+        fecha_pub: pubDate.getTime().toString(),
         cant_arts: req.body.cant_arts,
         firman: req.body.firman,
         pub: req.body.pub,
@@ -62,7 +72,7 @@ exports.crear = async (req, res) => {
         link_pub: req.body.link_pub,
         ref_norm: req.body.ref_norm,
         obs: req.body.obs,
-        fecha_carga: req.body.fecha_carga,
+        fecha_carga: loadDate,
         tipeo_dictado: req.body.tipeo_dictado,
         deroga_dec: req.body.deroga_dec,
         derogado_por: req.body.derogado_por
@@ -77,5 +87,4 @@ exports.crear = async (req, res) => {
                 message: err.message || "Algo salió mal durante la creación"
             });
         });
-
 }

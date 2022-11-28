@@ -39,11 +39,10 @@ exports.crear = async (req, res) => {
     const pubDate = new Date(req.body.fecha_pub);
 
     let loadDate = req.body.fecha_carga;
-    if (!loadDate || loadDate === null) {
+    if (!loadDate || loadDate === "null") {
         console.log(`No hay fecha: ${loadDate}, chango`);
         loadDate = Date.now;
     }
-
 
     const decreto = new Decreto({
         num: req.body.num,
@@ -80,6 +79,9 @@ exports.crear = async (req, res) => {
     await decreto
         .save(decreto)
         .then(data => {
+            console.log('====================================');
+            console.log('data => ', data);
+            console.log('====================================');
             res.status(200).send(data)
         })
         .catch(err => {

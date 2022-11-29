@@ -22,9 +22,8 @@ exports.obtener = async (req, res) => {
         console.log('queries:', queries);
         console.log('====================================');
         decretos = await Decreto.find(queries).exec();
-        title = 'decretos filtrados'
     }
-    res.status(200).render('index', { title: title, data: decretos })
+    res.status(200).render('index', { data: decretos })
 }
 
 //crea y guarda un decreto nuevo

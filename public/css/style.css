@@ -6,6 +6,13 @@
     table-layout: auto;
 }
 
+#reg-sb input {
+    color: blueviolet;
+}
+
+#main-sb input {
+    color: green;
+}
 
 .tabla-decretos {
     white-space: nowrap;

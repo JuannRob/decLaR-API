@@ -2,8 +2,8 @@ var filterId = 0;
 
 const addFilter = () => {
     const filters = {
-        "firmantes": "Firmantes",
-        "ley_promulgada": "Ley promulgada",
+        "firman": "Firmantes",
+        "ley_promul": "Ley promulgada",
         "tema": "Tema",
         "titulo": "Título"
     }

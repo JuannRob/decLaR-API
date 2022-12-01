@@ -4,18 +4,8 @@
 
 <!-- Main -->
 <main>
-  <div class="search-container d-flex flex-column">
-    <form id="search-form" action="/" method="GET">
-      <input type="search" placeholder="Número" name="numero" />
-      <input type="search" placeholder="Año" name="anho" />
-      <button id="search-button" class="m-1" type="submit" value="search">
-        Buscar
-      </button>
-    </form>
-    <div id="adv-filters">
-      <button id="add-filter">Agregar filtros</button>
-    </div>
-  </div>
+  <%- include('components/searchBar', {id:'reg-sb'}) %>
+
   <table class="tabla-decretos table table-bordered">
     <thead>
       <tr>

@@ -1,96 +1,96 @@
-    <!-- Header -->
-    <%- include('partials/header') %> 
-    <!-- /Header -->
+<!-- Header -->
+<%- include('partials/header') %>
+<!-- /Header -->
 
-    <!-- Main -->
-    <main>
-      <div class="search-container d-flex flex-column">
-        <form id="search-form" action="/" method="GET">
-          <input type="search" placeholder="Número" name="numero" />
-          <input type="search" placeholder="Año" name="anho" />
-          <button id="search-button" class="m-1" type="submit" value="search">
-            Buscar
-          </button>
-        </form>
-        <div id="adv-filters">
-          <button id="add-filter">Agregar filtros</button>
-        </div>
-      </div>
-      <table class="tabla-decretos table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Número</th>
-            <th scope="col">Año</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Fecha de publi.</th>
-            <th scope="col">Cant. de arts.</th>
-            <th scope="col">Firmantes</th>
-            <th scope="col">Publicación</th>
-            <th scope="col">Núm. publi.</th>
-            <th scope="col">Pág. publi.</th>
-            <th scope="col">Año tomo</th>
-            <th scope="col">Núm Tomo</th>
-            <th scope="col">Anexo</th>
-            <th scope="col">Ley promul.</th>
-            <th scope="col">Ley vetada</th>
-            <th scope="col">Parte vetada</th>
-            <th scope="col">Ratif por ley</th>
-            <th scope="col">DNU</th>
-            <th scope="col">Reglamenta ley</th>
-            <th scope="col">Tema</th>
-            <th scope="col">Título</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Modif. por</th>
-            <th scope="col">Modif. a</th>
-            <th scope="col">Link publi.</th>
-            <th scope="col">Ref. normativas</th>
-            <th scope="col">Observaciones</th>
-            <th scope="col">Fecha de carga</th>
-            <th scope="col">Tipeo (Dictado)</th>
-            <th scope="col">Deroga decreto</th>
-            <th scope="col">Derogado por</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% data.forEach((decreto) => {%>
-          <tr>
-            <td><%= decreto.num %></td>
-            <td><%= decreto.anho %></td>
-            <td><%= decreto.fecha.toLocaleDateString() %></td>
-            <td><%= decreto.fecha_pub.toLocaleDateString() %></td>
-            <td><%= decreto.cant_arts %></td>
-            <td><%= decreto.firman %></td>
-            <td><%= decreto.pub %></td>
-            <td><%= decreto.num_ed_pub %></td>
-            <td><%= decreto.pag_pub %></td>
-            <td><%= decreto.anho_tomo %></td>
-            <td><%= decreto.nro_tomo %></td>
-            <td><%= decreto.anexo %></td>
-            <td><%= decreto.ley_promul %></td>
-            <td><%= decreto.ley_vetada %></td>
-            <td><%= decreto.parte_vetada %></td>
-            <td><%= decreto.ratif_x_ley %></td>
-            <td><%= decreto.dnu %></td>
-            <td><%= decreto.reglamenta_ley %></td>
-            <td class="long-text"><%= decreto.tema %></td>
-            <td class="long-text"><%= decreto.titulo %></td>
-            <td><%= decreto.estado %></td>
-            <td><%= decreto.modif_por %></td>
-            <td><%= decreto.modif_a %></td>
-            <td><%= decreto.link_pub %></td>
-            <td><%= decreto.ref_norm %></td>
-            <td><%= decreto.obs %></td>
-            <td><%= decreto.fecha_carga %></td>
-            <td><%= decreto.tipeo_dictado %></td>
-            <td><%= decreto.deroga_dec %></td>
-            <td><%= decreto.derogado_por %></td>
-          </tr>
-          <% }); %>
-        </tbody>
-      </table>
-    </main>
-    <!-- /Main -->
+<!-- Main -->
+<main>
+  <div class="search-container d-flex flex-column">
+    <form id="search-form" action="/" method="GET">
+      <input type="search" placeholder="Número" name="numero" />
+      <input type="search" placeholder="Año" name="anho" />
+      <button id="search-button" class="m-1" type="submit" value="search">
+        Buscar
+      </button>
+    </form>
+    <div id="adv-filters">
+      <button id="add-filter">Agregar filtros</button>
+    </div>
+  </div>
+  <table class="tabla-decretos table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Número</th>
+        <th scope="col">Año</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Fecha de publi.</th>
+        <th scope="col">Cant. de arts.</th>
+        <th scope="col">Firmantes</th>
+        <th scope="col">Publicación</th>
+        <th scope="col">Núm. publi.</th>
+        <th scope="col">Pág. publi.</th>
+        <th scope="col">Año tomo</th>
+        <th scope="col">Núm Tomo</th>
+        <th scope="col">Anexo</th>
+        <th scope="col">Ley promul.</th>
+        <th scope="col">Ley vetada</th>
+        <th scope="col">Parte vetada</th>
+        <th scope="col">Ratif por ley</th>
+        <th scope="col">DNU</th>
+        <th scope="col">Reglamenta ley</th>
+        <th scope="col">Tema</th>
+        <th scope="col">Título</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Modif. por</th>
+        <th scope="col">Modif. a</th>
+        <th scope="col">Link publi.</th>
+        <th scope="col">Ref. normativas</th>
+        <th scope="col">Observaciones</th>
+        <th scope="col">Fecha de carga</th>
+        <th scope="col">Tipeo (Dictado)</th>
+        <th scope="col">Deroga decreto</th>
+        <th scope="col">Derogado por</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach((decreto) => {%>
+      <tr>
+        <td><%= decreto.num %></td>
+        <td><%= decreto.anho %></td>
+        <td><%= decreto.fecha.toLocaleDateString() %></td>
+        <td><%= decreto.fecha_pub.toLocaleDateString() %></td>
+        <td><%= decreto.cant_arts %></td>
+        <td><%= decreto.firman %></td>
+        <td><%= decreto.pub %></td>
+        <td><%= decreto.num_ed_pub %></td>
+        <td><%= decreto.pag_pub %></td>
+        <td><%= decreto.anho_tomo %></td>
+        <td><%= decreto.nro_tomo %></td>
+        <td><%= decreto.anexo %></td>
+        <td><%= decreto.ley_promul %></td>
+        <td><%= decreto.ley_vetada %></td>
+        <td><%= decreto.parte_vetada %></td>
+        <td><%= decreto.ratif_x_ley %></td>
+        <td><%= decreto.dnu %></td>
+        <td><%= decreto.reglamenta_ley %></td>
+        <td class="long-text"><%= decreto.tema %></td>
+        <td class="long-text"><%= decreto.titulo %></td>
+        <td><%= decreto.estado %></td>
+        <td><%= decreto.modif_por %></td>
+        <td><%= decreto.modif_a %></td>
+        <td><%= decreto.link_pub %></td>
+        <td><%= decreto.ref_norm %></td>
+        <td><%= decreto.obs %></td>
+        <td><%= decreto.fecha_carga %></td>
+        <td><%= decreto.tipeo_dictado %></td>
+        <td><%= decreto.deroga_dec %></td>
+        <td><%= decreto.derogado_por %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</main>
+<!-- /Main -->
 
-    <!-- Footer -->
-    <%- include('partials/footer') %> 
-    <!-- /Footer -->
+<!-- Footer -->
+<%- include('partials/footer') %>
+<!-- /Footer -->

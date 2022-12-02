@@ -2,7 +2,19 @@
 <%- include('partials/header') %>
 <!-- /Header -->
 
-<%- include('components/searchBar', {id:'main-sb'}) %>
+<div class="container-fluid justify-content-center align-items-center">
+  <form class="" id="search-form" action="/decretos" method="GET">
+    <input type="search" placeholder="Número" name="numero" />
+    <input type="search" placeholder="Año" name="anho" />
+    <button id="search-button" class="m-1" type="submit" value="search">
+      Buscar
+    </button>
+  </form>
+  <div id="adv-filters">
+    <button id="add-filter">Agregar filtros</button>
+  </div>
+</div>
+
 <!-- Footer -->
 <%- include('partials/footer') %>
 <!-- /Footer -->

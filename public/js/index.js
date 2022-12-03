@@ -28,9 +28,12 @@ const addFilter = () => {
     inputText.name = 'tema'
     inputText.setAttribute("form", "search-form");
 
-    const addFilterButton = document.getElementById("add-filter")
-    document.getElementById("adv-filters").insertBefore(select, addFilterButton);
-    document.getElementById("adv-filters").insertBefore(inputText, addFilterButton);
+    // const addFilterButton = document.getElementById("add-filter")
+    const newDiv = document.createElement("div");
+    newDiv.id = `div-${filterId}`
+    document.getElementById("adv-filters").appendChild(newDiv);
+    document.getElementById(`div-${filterId}`).appendChild(select);
+    document.getElementById(`div-${filterId}`).appendChild(inputText);
 
     filterId = filterId + 1;
 }

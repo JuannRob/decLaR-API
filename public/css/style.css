@@ -6,16 +6,28 @@
     table-layout: auto;
 }
 
-#reg-sb input {
-    color: blueviolet;
-}
-
-#main-sb input {
-    color: green;
-}
-
 .tabla-decretos {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
+/* #searchBar{
+ border:#BA4A00 solid;
+ border-width: .2em;
+ border-radius: .7em 0 0 .7em;
+ padding: .2em .2em .2em .5em;
+ width: 225px;
+}
+
+#searchBtn{
+ border:#BA4A00 solid;
+ border-width: .2em;
+ border-radius: 0 .7em .7em 0;
+ background-color: #BA4A00;
+ color:white;
+ font-weight:bold;
+ padding-bottom: .2em;
+
+} */

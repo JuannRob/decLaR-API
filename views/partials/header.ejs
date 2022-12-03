@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -24,6 +25,19 @@
             <h1>LOGO xd</h1>
           </a>
         </div>
+
+        <%if (showSearchBar) { %>
+          <div class="search-container d-flex justify-content-center">
+            <div>
+              <form id="search-form" action="/decretos" method="GET">
+                <input type="search" placeholder="Número" name="num" />
+                <input type="search" placeholder="Año" name="anho" />
+                <button id="search-button" type="submit" value="search">Buscar</button>
+              </form>
+              <div id="adv-filters" class="d-flex flex-column"></div>
+              <button id="add-filter">Agregar filtros</button>
+            </div>
+        <% } %>
       </div>
     </header>
   </body>

@@ -1,8 +1,19 @@
 <!-- Header -->
-<%- include('partials/header') %>
+<%- include('partials/header', {showSearchBar: false}) %>
 <!-- /Header -->
 
-<%- include('components/searchBar', {id:'main-sb'}) %>
-<!-- Footer -->
-<%- include('partials/footer') %>
-<!-- /Footer -->
+<div class="search-container d-flex justify-content-center">
+  <div>
+    <form id="search-form" action="/decretos" method="GET">
+      <input type="search" placeholder="Número" name="num" />
+      <input type="search" placeholder="Año" name="anho" />
+      <button id="search-button" type="submit" value="search">Buscar</button>
+    </form>
+    <div id="adv-filters" class="d-flex flex-column"></div>
+    <button id="add-filter">Agregar filtros</button>
+  </div>
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+  <!-- /Footer -->
+</div>

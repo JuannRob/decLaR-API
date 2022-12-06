@@ -4,10 +4,10 @@
 
 <!-- Main -->
 <main>
-
   <table class="tabla-decretos table table-bordered">
     <thead>
       <tr>
+        <th scope="col">Ver</th>
         <th scope="col">Número</th>
         <th scope="col">Año</th>
         <th scope="col">Fecha</th>
@@ -43,6 +43,7 @@
     <tbody>
       <% data.forEach((decreto) => {%>
       <tr>
+        <td class="arrow" decreto-id="<%= decreto._id %>">-></td>
         <td><%= decreto.num %></td>
         <td><%= decreto.anho %></td>
         <td><%= decreto.fecha.toLocaleDateString() %></td>

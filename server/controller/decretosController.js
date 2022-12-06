@@ -2,7 +2,7 @@ const Decreto = require('../models/Decreto.js');
 
 //obtener decretos
 //filtra decretos si hay queries si no, muestra todos
-exports.obtener = async (req, res) => {
+exports.buscarDecretos = async (req, res) => {
     const req_query = req.query;
     let decretos = {};
     let queries = {};
@@ -21,9 +21,13 @@ exports.obtener = async (req, res) => {
         console.log('====================================');
         console.log('queries:', queries);
         console.log('====================================');
+
         decretos = await Decreto.find(queries).exec();
     }
-    res.status(200).render('index', { data: decretos })
+    console.log('====================================');
+    console.log('decretos:', decretos);
+    console.log('====================================');
+    res.status(200).render('results', { data: decretos })
 }
 
 //crea y guarda un decreto nuevo
@@ -88,4 +92,15 @@ exports.crear = async (req, res) => {
                 message: err.message || "Algo salió mal durante la creación"
             });
         });
+}
+
+exports.verDecreto = async (req, res) => {
+
+    const decretoId = req.params.id;
+
+    console.log('====================================');
+    console.log('id: ', decretoId);
+    console.log('====================================');
+    const decreto = await Decreto.findById(decretoId).exec();
+    res.status(200).render('decreto', { data: decreto })
 }

@@ -1,7 +1,51 @@
 <!-- Header -->
-<%- include('partials/header', {showSearchBar: true}) %>
+<%- include('partials/header', {showSearchBar: false}) %>
 <!-- /Header -->
-<p><%= data.num %></p>
+
+<!-- Main -->
+<main>
+
+
+<section>
+  <p>Decreto <b><%= data.num %>/<%= data.anho %></b>, del <b><%= data.fecha %></b>.</p>
+<p>Publicado el <%= data.fecha %> (<%= data.pub %> N.º <%= data.num_ed_pub %>) </p>
+<p>Firmantes: <b><%= data.firman %></b></p>
+
+Derogado por: Decreto 6000/2008
+
+Decreto de Necesidad y Urgencia. Fija el sueldo mínimo para los empleados públicos
+Ratificado por Ley 4000
+Reglamenta a la Ley 9000
+Veto: Ley 2500 art. 4, parcial; Veta la cartografía del Anexo.
+Promulga Ley 6000
+Modifica a Dec. 310/2009
+Modificado por: Dec. 880
+Contiene 2 Anexos
+Referencias normativas: Ley 3500; Dec. 880/2011
+
+Nota de la SIT:
+
+Boletín Oficial disponible en:
+	Biblioteca de la S.I.T.: Volumen 2011, tomo 4, pág. 6
+	Versión digital en 2002//2002-04-12-B.pdf
+
+</section>
+
+
+  <section>
+    <h3>Decerto N°<%= data.num %></h3>
+
+    <ul>
+      <li>Fecha: <%= data.fecha %></li>
+      <li>Firmantes: <%= data.firman %></li>
+      <li>Cantidad de artículos: <%= data.cant_arts %></li>
+    </ul>
+  </section>
+</main>
+<!-- /Main -->
+
 <!-- Footer -->
 <%- include('partials/footer') %>
 <!-- /Footer -->
+l
+

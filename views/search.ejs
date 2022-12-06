@@ -2,18 +2,46 @@
 <%- include('partials/header', {showSearchBar: false}) %>
 <!-- /Header -->
 
-<div class="search-container d-flex justify-content-center">
-  <div>
+<main>
+  <div class="container">
     <form id="search-form" action="/decretos" method="GET">
-      <input type="search" placeholder="Número" name="num" />
-      <input type="search" placeholder="Año" name="anho" />
-      <button id="search-button" type="submit" value="search">Buscar</button>
+      <div class="row">
+        <input
+          type="search"
+          placeholder="Número"
+          name="num"
+          class="form-control col"
+          aria-describedby="numberInput"
+        />
+        <input
+          type="search"
+          placeholder="Año"
+          name="anho"
+          class="form-control col"
+          aria-describedby="yearInput"
+        />
+      </div>
+      <div id="adv-filters" class="row"></div>
+      <div class="row">
+        <button
+          id="search-button"
+          type="submit"
+          class="btn btn-primary col"
+          value="search"
+        >
+          Buscar
+        </button>
+        <button
+          id="add-filter"
+          onclick="addFilter(event)"
+          class="btn btn-secondary col"
+        >
+          Agregar filtros
+        </button>
+      </div>
     </form>
-    <div id="adv-filters" class="d-flex flex-column"></div>
-    <button id="add-filter">Agregar filtros</button>
   </div>
-</div>
-
+</main>
 
 <!-- Footer -->
 <%- include('partials/footer') %>

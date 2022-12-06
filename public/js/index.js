@@ -1,6 +1,8 @@
 var filterId = 0;
 
-const addFilter = () => {
+const addFilter = (event) => {
+    event.preventDefault();
+
     const filters = {
         "firman": "Firmantes",
         "ley_promul": "Ley promulgada",
@@ -11,6 +13,7 @@ const addFilter = () => {
     const select = document.createElement("select");
     select.name = "column-names";
     select.id = `column-names-${filterId}`;
+    select.className = 'form-select col'
     select.setAttribute("inputid", `filter-value-input-${filterId}`);
     select.setAttribute("onchange", "changeInputValue(this.id)");
 
@@ -24,6 +27,7 @@ const addFilter = () => {
 
     const inputText = document.createElement("input");
     inputText.type = "search";
+    inputText.className = "form-control col"
     inputText.id = `filter-value-input-${filterId}`;
     inputText.name = 'tema'
     inputText.setAttribute("form", "search-form");
@@ -31,13 +35,13 @@ const addFilter = () => {
     // const addFilterButton = document.getElementById("add-filter")
     const newDiv = document.createElement("div");
     newDiv.id = `div-${filterId}`
+    newDiv.className = "input-group row"
     document.getElementById("adv-filters").appendChild(newDiv);
     document.getElementById(`div-${filterId}`).appendChild(select);
     document.getElementById(`div-${filterId}`).appendChild(inputText);
 
     filterId = filterId + 1;
 }
-document.getElementById("add-filter").onclick = addFilter;
 
 const changeInputValue = (selectId) => {
     const dropDown = document.getElementById(selectId);

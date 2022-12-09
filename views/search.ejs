@@ -2,46 +2,57 @@
 <%- include('partials/header', {showSearchBar: false}) %>
 <!-- /Header -->
 
-<main>
-  <div class="container">
-    <form id="search-form" action="/decretos" method="GET">
-      <div class="row">
-        <input
-          type="search"
-          placeholder="Número"
-          name="num"
-          class="form-control col"
-          aria-describedby="numberInput"
-        />
-        <input
-          type="search"
-          placeholder="Año"
-          name="anho"
-          class="form-control col"
-          aria-describedby="yearInput"
-        />
+<section id="search">
+  <div
+    class="form-container container-lg w-100 d-flex align-items-center justify-content-center"
+  >
+    <form id="search-form" class="w-75" action="/decretos" method="GET">
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <input
+              type="search"
+              placeholder="Número"
+              name="num"
+              class="form-control form-control-lg"
+              aria-describedby="numberInput"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="search"
+              placeholder="Año"
+              name="anho"
+              class="form-control form-control-lg"
+            />
+          </div>
+        </div>
       </div>
-      <div id="adv-filters" class="row"></div>
+
+      <div id="adv-filters" class="my-3"></div>
+
       <div class="row">
-        <button
-          id="search-button"
-          type="submit"
-          class="btn btn-primary col"
-          value="search"
-        >
-          Buscar
-        </button>
-        <button
-          id="add-filter"
-          onclick="addFilter(event)"
-          class="btn btn-secondary col"
-        >
-          Agregar filtros
-        </button>
+        <div class="col">
+          <button
+            id="search-button"
+            type="submit"
+            class="btn btn-primary"
+            value="search"
+          >
+            Buscar
+          </button>
+          <button
+            id="add-filter"
+            onclick="addFilter(event)"
+            class="btn btn-secondary"
+          >
+            Agregar filtros
+          </button>
+        </div>
       </div>
     </form>
   </div>
-</main>
+</section>
 
 <!-- Footer -->
 <%- include('partials/footer') %>

@@ -13,7 +13,7 @@ const addFilter = (event) => {
     const select = document.createElement("select");
     select.name = "column-names";
     select.id = `column-names-${filterId}`;
-    select.className = 'form-select col'
+    select.className = 'form-select w-25'
     select.setAttribute("inputid", `filter-value-input-${filterId}`);
     select.setAttribute("onchange", "changeInputValue(this.id)");
 
@@ -27,18 +27,17 @@ const addFilter = (event) => {
 
     const inputText = document.createElement("input");
     inputText.type = "search";
-    inputText.className = "form-control col"
+    inputText.className = "form-control w-75"
     inputText.id = `filter-value-input-${filterId}`;
     inputText.name = 'tema'
     inputText.setAttribute("form", "search-form");
 
-    // const addFilterButton = document.getElementById("add-filter")
     const newDiv = document.createElement("div");
-    newDiv.id = `div-${filterId}`
-    newDiv.className = "input-group row"
+    newDiv.id = `filters-group-${filterId}`;
+    newDiv.className = "input-group my-3";
     document.getElementById("adv-filters").appendChild(newDiv);
-    document.getElementById(`div-${filterId}`).appendChild(select);
-    document.getElementById(`div-${filterId}`).appendChild(inputText);
+    document.getElementById(`filters-group-${filterId}`).appendChild(select);
+    document.getElementById(`filters-group-${filterId}`).appendChild(inputText);
 
     filterId = filterId + 1;
 }

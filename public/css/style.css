@@ -1,39 +1,58 @@
-.logo a {
-    text-decoration: none;
+body {
+    background-color: #f3f3eb;
 }
 
-.form-container {
-    height: 50vh;
+main {
+    background-color: #252D35;
+    height: 35vh;
     width: 130vh;
 }
 
-#search-form .tabla-decretos {
-    table-layout: auto;
-}
+/* HEADER */
 
-.tabla-decretos {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+header {
+    background-color: #252D35;
+    color: #f3f3eb;
 }
 
 
 
-/* #searchBar{
- border:#BA4A00 solid;
- border-width: .2em;
- border-radius: .7em 0 0 .7em;
- padding: .2em .2em .2em .5em;
- width: 225px;
+.logo-container {
+    width: 120px;
+    height: 120px;
 }
 
-#searchBtn{
- border:#BA4A00 solid;
- border-width: .2em;
- border-radius: 0 .7em .7em 0;
- background-color: #BA4A00;
- color:white;
- font-weight:bold;
- padding-bottom: .2em;
+.logo-container img {
+    border: 2px solid #f3f3eb;
+    border-radius: 100px;
+}
 
-} */
+.titles p {
+    margin: 0 10px;
+}
+
+/* MAIN SEARCH BAR */
+
+.title-container h3,
+p {
+    color: #f3f3eb;
+}
+
+/* SEARCH BARS */
+
+
+/* ----------- */
+
+
+/* RESULTS */
+
+
+/* FOOTER */
+
+footer {
+    background-color: #252D35;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5rem;
+}

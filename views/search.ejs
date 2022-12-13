@@ -2,13 +2,16 @@
 <%- include('partials/header', {showSearchBar: false}) %>
 <!-- /Header -->
 
-<section id="search">
-  <div
-    class="form-container container-lg w-100 d-flex align-items-center justify-content-center"
-  >
+    <div class="title-container mb-2">
+      <h3>Buscador de Decretos de la Función Ejecutiva de La Rioja</h3>
+      <p class="text-center">
+        publicados en el Boletín Oficial (Período 2011-2015)
+      </p>
+    </div>
+
     <form id="search-form" class="w-75" action="/decretos" method="GET">
       <div class="form-group">
-        <div class="row">
+        <div class="row gx-2">
           <div class="col">
             <input
               type="search"
@@ -51,8 +54,6 @@
         </div>
       </div>
     </form>
-  </div>
-</section>
 
 <!-- Footer -->
 <%- include('partials/footer') %>

@@ -47,8 +47,3 @@ const changeInputValue = (selectId) => {
     const input = document.getElementById(dropDown.getAttribute('inputid'));
     input.name = dropDown.value;
 }
-
-const verDecreto = (id) => {
-    const location = window.location.origin
-    window.location.href = `${location}/decretos/${id}`
-};

@@ -10,6 +10,6 @@ router.get("/decretos", buscarDecretos);
 
 router.post("/decretos", crear);
 
-router.get("/decretos/:id", verDecreto)
+router.get("/:id", verDecreto);
 
 module.exports = router;

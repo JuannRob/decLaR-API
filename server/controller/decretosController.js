@@ -27,7 +27,7 @@ exports.buscarDecretos = async (req, res) => {
     console.log('====================================');
     console.log('decretos:', decretos);
     console.log('====================================');
-    res.status(200).render('results', { data: decretos })
+    res.render('results', { data: decretos })
 }
 
 //crea y guarda un decreto nuevo
@@ -95,12 +95,7 @@ exports.crear = async (req, res) => {
 }
 
 exports.verDecreto = async (req, res) => {
-
     const decretoId = req.params.id;
-
-    console.log('====================================');
-    console.log('id: ', decretoId);
-    console.log('====================================');
-    const decreto = await Decreto.findById(decretoId).exec();
-    res.status(200).render('decreto', { data: decreto })
+    const dcrto = await Decreto.findById(decretoId).exec();
+    res.render('decreto', { data: dcrto })
 }

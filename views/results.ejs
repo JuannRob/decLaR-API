@@ -3,20 +3,16 @@
 <!-- /Header -->
 
 <!-- Main -->
-<main>
-  <% data.forEach((decreto) => {%>
-  <p>----------------------------------------------------------</p>
 
-  <p
-    class="arrow"
-    decreto-id="<%= decreto._id %>"
-    onclick="verDecreto(this.getAttribute('decreto-id'))"
+  <% data.forEach((decreto) => {%>
+
+  <a href="<%= `/${decreto._id}` %>" class="link-primary"
+    >Decreto N° <%= decreto.num %> de la fecha <%=
+    decreto.fecha.toLocaleDateString() %></a
   >
-    -> Decreto N° <%= decreto.num %> de la fecha <%=
-    decreto.fecha.toLocaleDateString() %>
-  </p>
+  <hr />
   <% }); %>
-</main>
+
 <!-- /Main -->
 
 <!-- Footer -->

@@ -1,14 +1,67 @@
-.logo a {
-    text-decoration: none;
+body {
+    background-color: #f3f3eb;
 }
 
-.tabla-decretos {
-    table-layout: auto;
+.indented {
+    display: block;
+    margin-left: 30px;
+}
+
+/* HEADER */
+
+header {
+    background-color: #252D35;
+    color: #f3f3eb;
 }
 
 
-.tabla-decretos {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+.logo-container {
+    width: 120px;
+    height: 120px;
+}
+
+.logo-container img {
+    border: 2px solid #f3f3eb;
+    border-radius: 100px;
+}
+
+.titles p {
+    margin: 0 10px;
+}
+
+/* MAIN SEARCH BAR */
+
+.search-container {
+    background-color: #252D35;
+    height: 35vh;
+    width: 130vh;
+}
+
+.title-container {
+    color: #f3f3eb;
+}
+
+/* SEARCH BARS */
+
+
+/* ----------- */
+
+
+/* RESULTS */
+
+
+/* FOOTER */
+
+footer {
+    background-color: #252D35;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5%;
+}
+
+/* DECRETO */
+.decreto-container {
+    font-size: larger;
 }

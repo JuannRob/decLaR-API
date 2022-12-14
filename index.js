@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const path = require('path');
+const path = require('path')
 require('dotenv').config();
 
 const connectDB = require('./server/database/connection');
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs")
 
 //set public folder
-app.use(express.static("public"));
+app.use('/', express.static(__dirname + '/public'));
 
 //mongodb connection
 connectDB();

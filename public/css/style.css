@@ -2,10 +2,9 @@ body {
     background-color: #f3f3eb;
 }
 
-main {
-    background-color: #252D35;
-    height: 35vh;
-    width: 130vh;
+.indented {
+    display: block;
+    margin-left: 30px;
 }
 
 /* HEADER */
@@ -33,8 +32,13 @@ header {
 
 /* MAIN SEARCH BAR */
 
-.title-container h3,
-p {
+.search-container {
+    background-color: #252D35;
+    height: 35vh;
+    width: 130vh;
+}
+
+.title-container {
     color: #f3f3eb;
 }
 
@@ -54,5 +58,10 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 5rem;
+    height: 5%;
+}
+
+/* DECRETO */
+.decreto-container {
+    font-size: larger;
 }

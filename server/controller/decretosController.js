@@ -47,6 +47,16 @@ exports.crear = async (req, res) => {
         loadDate = Date.now;
     }
 
+    const pubPag = req.body.pag_pub;
+    let pubLink = '';
+    if (!req.body.link_pub) {
+        pubLink = `http://www.boletinoflarioja.com.ar/pdf/${pubDate.getFullYear()}//${pubDate.getFullYear()}-${pubDate.toLocaleString("default", { month: "2-digit" })}-${pubDate.toLocaleString("default", { day: "2-digit" })}.pdf#page=${pubPag}`
+        console.log('Se generó un link nuevo: ', pubLink);
+    } else {
+        pubLink = req.body.link_pub;
+        console.log('Se usó el link cargado: ', pubLink);
+    };
+
     const decreto = new Decreto({
         num: req.body.num,
         anho: date.getFullYear().toString(),
@@ -60,7 +70,7 @@ exports.crear = async (req, res) => {
         anho_tomo: req.body.anho_tomo,
         nro_tomo: req.body.nro_tomo,
         anexo: req.body.anexo,
-        ley_promul: req.body.ley_promulgada,
+        ley_promul: req.body.ley_promul,
         ley_vetada: req.body.ley_vetada,
         parte_vetada: req.body.parte_vetada,
         ratif_x_ley: req.body.ratif_x_ley,
@@ -71,7 +81,7 @@ exports.crear = async (req, res) => {
         estado: req.body.estado,
         modif_por: req.body.modif_por,
         modif_a: req.body.modif_a,
-        link_pub: req.body.link_pub,
+        link_pub: pubLink,
         ref_norm: req.body.ref_norm,
         obs: req.body.obs,
         fecha_carga: loadDate,

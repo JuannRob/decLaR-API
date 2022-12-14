@@ -14,7 +14,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Decretos App</title>
   </head>
   <body>
@@ -27,7 +27,7 @@
           <div class="logo-container">
             <a href="http://localhost:5000">
               <img
-                src="images/logo.png"
+                src="/images/logo.png"
                 class="img-fluid"
                 alt="tribunales logo"
               />
@@ -42,8 +42,8 @@
         </div>
 
         <%if (showSearchBar) { %>
-        <div class="search-container d-flex justify-content-center">
-            <form id="search-form" class="w-75" action="/decretos" method="GET">
+        <div class="header-search-container d-flex justify-content-center">
+            <form id="search-form" action="/decretos" method="GET">
               <div class="form-group">
                 <div class="row gx-2">
                   <div class="col">
@@ -91,7 +91,3 @@
         <% } %>
       </div>
     </header>
-
-    <main
-      class="container d-flex flex-column align-items-center justify-content-center"
-    >

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { buscarDecretos, crear, verDecreto, importarDecretos } = require('../controller/decretosController');
+const { buscarDecretos, crear, verDecreto } = require('../controller/decretosController');
 
 // IMPORTAR
 const csv = require('csvtojson');
@@ -8,7 +8,7 @@ const multer = require("multer")
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../public/uploads')
+        cb(null, 'public/uploads')
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname)

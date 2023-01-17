@@ -115,8 +115,3 @@ exports.verDecreto = async (req, res) => {
     const dcrto = await Decreto.findById(decretoId).exec();
     res.render('decreto', { data: dcrto })
 }
-
-//IMPORTAR
-exports.importarDecretos = async (req, res) => {
-    res.render('import', {data: ''})
-}

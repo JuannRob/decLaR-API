@@ -4,7 +4,7 @@ const addFilter = (event) => {
     event.preventDefault();
 
     const filters = {
-        "firman": "Firmantes",
+        "otros_firman": "Firmantes",
         "ley_promul": "Ley promulgada",
         "tema": "Tema",
         "titulo": "Título"
@@ -46,4 +46,10 @@ const changeInputValue = (selectId) => {
     const dropDown = document.getElementById(selectId);
     const input = document.getElementById(dropDown.getAttribute('inputid'));
     input.name = dropDown.value;
+}
+
+const goToImport = () => {
+    let pass = prompt("Ingrese contraseña");
+    console.log(pass);
+    location.replace(`/importar?pwd=${pass}`);
 }

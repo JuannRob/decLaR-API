@@ -1,6 +1,9 @@
 const Decreto = require('../models/Decreto.js');
 
-exports.formatDecreto = (dec) => {
+// CSV2JSON
+const csv = require('csvtojson');
+
+const formatDecreto = (dec) => {
     if (!dec) {
         console.log({ message: "🛑 No se recibieron datos para formatear" });
     }
@@ -36,38 +39,38 @@ exports.formatDecreto = (dec) => {
         cant_arts: dec.cant_arts,
         firma: dec.firma,
         otros_firman: dec.otros_firman,
-        pub: dec.body.pub,
-        num_ed_pub: dec.body.num_ed_pub,
-        pag_pub: dec.body.pag_pub,
-        anho_tomo: dec.body.anho_tomo,
-        nro_tomo: dec.body.nro_tomo,
-        anexo: dec.body.anexo,
-        ley_promul: dec.body.ley_promul,
-        ley_vetada: dec.body.ley_vetada,
-        parte_vetada: dec.body.parte_vetada,
-        ratif_x_ley: dec.body.ratif_x_ley,
-        dnu: dec.body.dnu,
-        reglamenta_ley: dec.body.reglamenta_ley,
-        tema: dec.body.tema,
-        titulo: dec.body.titulo,
-        estado: dec.body.estado,
-        modif_por: dec.body.modif_por,
-        modif_a: dec.body.modif_a,
+        pub: dec.pub,
+        num_ed_pub: dec.num_ed_pub,
+        pag_pub: dec.pag_pub,
+        anho_tomo: dec.anho_tomo,
+        nro_tomo: dec.nro_tomo,
+        anexo: dec.anexo,
+        ley_promul: dec.ley_promul,
+        ley_vetada: dec.ley_vetada,
+        parte_vetada: dec.parte_vetada,
+        ratif_x_ley: dec.ratif_x_ley,
+        dnu: dec.dnu,
+        reglamenta_ley: dec.reglamenta_ley,
+        tema: dec.tema,
+        titulo: dec.titulo,
+        estado: dec.estado,
+        modif_por: dec.modif_por,
+        modif_a: dec.modif_a,
         link_pub: pubLink,
-        ref_norm: dec.body.ref_norm,
-        obs: dec.body.obs,
+        ref_norm: dec.ref_norm,
+        obs: dec.obs,
         fecha_carga: loadDate.getTime().toString(),
-        tipeo_dictado: dec.body.tipeo_dictado,
-        deroga_dec: dec.body.deroga_dec,
-        derogado_por: dec.body.derogado_por,
-        pendiente: dec.body.pendiente,
-        obs_tomo: dec.body.obs_tomo,
+        tipeo_dictado: dec.tipeo_dictado,
+        deroga_dec: dec.deroga_dec,
+        derogado_por: dec.derogado_por,
+        pendiente: dec.pendiente,
+        obs_tomo: dec.obs_tomo,
     })
 
     console.log('====================================');
     console.log('RESULTADO DE FORMATEO: ', dec);
     console.log('====================================');
-    return
+    return decreto;
 }
 
 //obtener decretos
@@ -110,8 +113,7 @@ exports.crear = async (req, res) => {
     }
 
     //formatea el decreto recibido en el body utilizando la función anterior formatDecreto()
-    const decretoFormateado = this.formatDecreto(req.body)
-
+    const decretoFormateado = formatDecreto(req.body)
     await decretoFormateado
         .save(decretoFormateado)
         .then(data => {
@@ -131,4 +133,14 @@ exports.verDecreto = async (req, res) => {
     const decretoId = req.params.id;
     const dcrto = await Decreto.findById(decretoId).exec();
     res.render('decreto', { data: dcrto })
+}
+
+exports.crearVarios = async (req, res) => {
+    csv()
+        .fromFile(req.file.path)
+        .then((response) => {
+            console.log('====================================');
+            console.log('RESPUESTA CSV: ', response);
+            console.log('====================================');
+        });
 }

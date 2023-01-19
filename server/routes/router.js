@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { buscarDecretos, crear, verDecreto } = require('../controller/decretosController');
+const { buscarDecretos, crear, verDecreto, crearVarios } = require('../controller/decretosController');
+//Acceso con contraseña
+const { isAuth } = require('../services/authService');
 
-// IMPORTAR
-const csv = require('csvtojson');
-const multer = require("multer")
-
+//CARGAR CSV
+const multer = require('multer');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '././public/uploads')
+        cb(null, 'public/uploads')
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname)
@@ -16,8 +16,6 @@ const storage = multer.diskStorage({
 })
 const uploads = multer({ storage: storage })
 
-//IMPORTAR
-const { isAuth, cargarCSV } = require('../controller/importController');
 
 router.get("/", (req, res) => {
     res.render('search')
@@ -35,28 +33,6 @@ router.get("/importar", isAuth, (req, res) => {
 });
 
 //CARGAR CSV
-router.post("/importar/csv", uploads.single('csvFile'), (req, res) => {
-    csv()
-        .fromFile(req.file.path)
-        .then((response) => {
-            for (var x = 0; x < response; x++) {
-                empResponse = parseFloat(response[x].Name)
-                response[x].Name = empResponse
-                empResponse = parseFloat(response[x].Email)
-                response[x].Email = empResponse
-                empResponse = parseFloat(response[x].Designation)
-                response[x].Designation = empResponse
-                empResponse = parseFloat(response[x].Mobile)
-                response[x].Mobile = empResponse
-            }
-            empSchema.insertMany(response, (err, data) => {
-                if (err) {
-                    console.log(err)
-                } else {
-                    res.redirect('/')
-                }
-            })
-        })
-});
+router.post("/importar/csv", uploads.single('csvFile'), crearVarios);
 
 module.exports = router;

@@ -25,10 +25,10 @@ const formatDecreto = (dec) => {
     let pubLink = '';
     if (!dec.link_pub) {
         pubLink = `http://www.boletinoflarioja.com.ar/pdf/${pubDate.getFullYear()}//${pubDate.getFullYear()}-${pubDate.toLocaleString("default", { month: "2-digit" })}-${pubDate.toLocaleString("default", { day: "2-digit" })}.pdf#page=${pubPag}`
-        console.log('Se generó un link nuevo: ', pubLink);
+        // console.log('Se generó un link nuevo: ', pubLink);
     } else {
         pubLink = dec.link_pub;
-        console.log('Se usó el link cargado: ', pubLink);
+        // console.log('Se usó el link cargado: ', pubLink);
     };
 
     const decreto = new Decreto({
@@ -138,9 +138,18 @@ exports.verDecreto = async (req, res) => {
 exports.crearVarios = async (req, res) => {
     csv()
         .fromFile(req.file.path)
-        .then((response) => {
-            console.log('====================================');
-            console.log('RESPUESTA CSV: ', response);
-            console.log('====================================');
+        .then((decretos) => {
+            let decretosFormateados = [];
+            decretos.forEach((decreto) => {
+                decretosFormateados.push(formatDecreto(decreto))
+            })
+            Decreto.insertMany(decretosFormateados, (error, decs) => {
+                if (error) {
+                    console.log(error.errors[0]);
+                    res.send(error.errors.fecha.value)
+                } else {
+                    res.render('import', { data: decs })
+                }
+            });
         });
 }

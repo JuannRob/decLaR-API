@@ -13,13 +13,13 @@ const decretoSchema = new mongoose.Schema({
     fecha: {
         type: Date,
         required: [true, 'La fecha es obligatoria'],
-        min: '1853-01-01',
+        min: '1809-01-01',
         max: '2026-11-13'
     },
     fecha_pub: {
         type: Date,
         required: [true, 'La fecha de publicación es obligatoria'],
-        min: '1853-01-01',
+        min: '1809-01-01',
         max: '2026-11-13',
     },
     cant_arts: {
@@ -42,7 +42,6 @@ const decretoSchema = new mongoose.Schema({
     num_ed_pub: {
         type: String,
         required: [true, 'Especificar num ed pub es obligatorio'],
-        match: /^\d+$/
     },
     pag_pub: {
         type: String,
@@ -94,7 +93,7 @@ const decretoSchema = new mongoose.Schema({
     fecha_carga: {
         type: Date,
         required: [true, 'Fecha de carga es obligatoria'],
-        min: '1853-01-01',
+        min: '1809-01-01',
         max: '2026-11-13',
     },
     tipeo_dictado: String,

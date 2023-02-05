@@ -105,7 +105,7 @@ const decretoSchema = new mongoose.Schema({
 
 decretoSchema.pre('validate', function (next) {
     if (this.parte_vetada && !this.ley_vetada) {
-        next(new Error('No se puede especificar la parte vetada sin una ley vetada'));
+        next(new Error(`No se puede especificar la parte vetada sin una ley vetada. Ley N° ${this.num}/${this.anho}`));
     } else {
         next();
     }

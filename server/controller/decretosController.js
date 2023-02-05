@@ -1,8 +1,5 @@
 const Decreto = require('../models/Decreto.js');
 
-// CSV2JSON
-const csv = require('csvtojson');
-
 const formatDecreto = (dec) => {
     if (!dec) {
         console.log({ message: "🛑 No se recibieron datos para formatear" });
@@ -133,22 +130,4 @@ exports.verDecreto = async (req, res) => {
     const decretoId = req.params.id;
     const dcrto = await Decreto.findById(decretoId).exec();
     res.render('decreto', { data: dcrto })
-}
-
-exports.crearVarios = async (req, res) => {
-    csv()
-        .fromFile(req.file.path)
-        .then((decretos) => {
-            let decretosFormateados = [];
-            decretos.forEach((decreto) => {
-                decretosFormateados.push(formatDecreto(decreto))
-            })
-            Decreto.insertMany(decretosFormateados, (error, decs) => {
-                if (error) {
-                    console.log(error);
-                } else {
-                    res.render('import', { data: decs })
-                }
-            });
-        });
 }

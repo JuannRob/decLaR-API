@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { buscarDecretos, crear, verDecreto } = require('../controller/decretosController')
+const { buscarDecretos, crear, verDecreto, crearVarios } = require('../controller/decretosController');
+
 
 router.get("/", (req, res) => {
     res.render('search')

@@ -1,9 +1,78 @@
 const Decreto = require('../models/Decreto.js');
 
+const formatDecreto = (dec) => {
+    if (!dec) {
+        console.log({ message: "🛑 No se recibieron datos para formatear" });
+    }
+
+    const toDate = (dateStr) => {
+        const [day, month, year] = dateStr.split("/")
+        return new Date(year, month - 1, day)
+    }
+
+    const date = toDate(dec.fecha);
+    const pubDate = toDate(dec.fecha_pub);
+
+    let loadDate = new Date();
+    if (dec.fecha_carga !== '') {
+        loadDate = toDate(dec.fecha_carga);
+    }
+
+    const pubPag = dec.pag_pub;
+    let pubLink = '';
+    if (!dec.link_pub) {
+        pubLink = `http://www.boletinoflarioja.com.ar/pdf/${pubDate.getFullYear()}//${pubDate.getFullYear()}-${pubDate.toLocaleString("default", { month: "2-digit" })}-${pubDate.toLocaleString("default", { day: "2-digit" })}.pdf#page=${pubPag}`
+        // console.log('Se generó un link nuevo: ', pubLink);
+    } else {
+        pubLink = dec.link_pub;
+        // console.log('Se usó el link cargado: ', pubLink);
+    };
+
+    const decreto = new Decreto({
+        num: dec.num,
+        anho: date.getFullYear().toString(),
+        fecha: date.getTime().toString(),
+        fecha_pub: pubDate.getTime().toString(),
+        cant_arts: dec.cant_arts,
+        firma: dec.firma,
+        otros_firman: dec.otros_firman,
+        pub: dec.pub,
+        num_ed_pub: dec.num_ed_pub,
+        pag_pub: dec.pag_pub,
+        anho_tomo: dec.anho_tomo,
+        nro_tomo: dec.nro_tomo,
+        anexo: dec.anexo,
+        ley_promul: dec.ley_promul,
+        ley_vetada: dec.ley_vetada,
+        parte_vetada: dec.parte_vetada,
+        ratif_x_ley: dec.ratif_x_ley,
+        dnu: dec.dnu,
+        reglamenta_ley: dec.reglamenta_ley,
+        tema: dec.tema,
+        titulo: dec.titulo,
+        estado: dec.estado,
+        modif_por: dec.modif_por,
+        modif_a: dec.modif_a,
+        link_pub: pubLink,
+        ref_norm: dec.ref_norm,
+        obs: dec.obs,
+        fecha_carga: loadDate.getTime().toString(),
+        tipeo_dictado: dec.tipeo_dictado,
+        deroga_dec: dec.deroga_dec,
+        derogado_por: dec.derogado_por,
+        pendiente: dec.pendiente,
+        obs_tomo: dec.obs_tomo,
+    })
+
+    console.log('====================================');
+    console.log('RESULTADO DE FORMATEO: ', dec);
+    console.log('====================================');
+    return decreto;
+}
+
 //obtener decretos
 //filtra decretos si hay queries si no, muestra todos
 exports.buscarDecretos = async (req, res) => {
-    const req_query = req.query;
     let decretos = {};
     let queries = {};
     let title = '';
@@ -12,10 +81,10 @@ exports.buscarDecretos = async (req, res) => {
         decretos = await Decreto.find();
         title = 'todos los decretos'
     } else {
-        for (const entry in req_query) {
-            if (req_query[entry]) {
-                console.log(`${entry}: ${req_query[entry]}`);
-                queries[entry] = new RegExp(req_query[entry], 'i');
+        for (const entry in req.query) {
+            if (req.query[entry]) {
+                console.log(`${entry}: ${req.query[entry]}`);
+                queries[entry] = new RegExp(req.query[entry], 'i');
             }
         }
         console.log('====================================');
@@ -30,67 +99,20 @@ exports.buscarDecretos = async (req, res) => {
     res.render('results', { data: decretos })
 }
 
+
+
 //crea y guarda un decreto nuevo
 exports.crear = async (req, res) => {
 
     if (!req.body) {
-        res.status(400).send({ message: "Los datos no deben estar vacíos" });
+        res.status(400).send({ message: "No se recibieron datos" });
         return;
     }
 
-    const date = new Date(req.body.fecha);
-    const pubDate = new Date(req.body.fecha_pub);
-
-    let loadDate = req.body.fecha_carga;
-    if (!loadDate || loadDate === "null") {
-        console.log(`No hay fecha: ${loadDate}, chango`);
-        loadDate = Date.now;
-    }
-
-    const pubPag = req.body.pag_pub;
-    let pubLink = '';
-    if (!req.body.link_pub) {
-        pubLink = `http://www.boletinoflarioja.com.ar/pdf/${pubDate.getFullYear()}//${pubDate.getFullYear()}-${pubDate.toLocaleString("default", { month: "2-digit" })}-${pubDate.toLocaleString("default", { day: "2-digit" })}.pdf#page=${pubPag}`
-        console.log('Se generó un link nuevo: ', pubLink);
-    } else {
-        pubLink = req.body.link_pub;
-        console.log('Se usó el link cargado: ', pubLink);
-    };
-
-    const decreto = new Decreto({
-        num: req.body.num,
-        anho: date.getFullYear().toString(),
-        fecha: date.getTime().toString(),
-        fecha_pub: pubDate.getTime().toString(),
-        cant_arts: req.body.cant_arts,
-        firman: req.body.firman,
-        pub: req.body.pub,
-        num_ed_pub: req.body.num_ed_pub,
-        pag_pub: req.body.pag_pub,
-        anho_tomo: req.body.anho_tomo,
-        nro_tomo: req.body.nro_tomo,
-        anexo: req.body.anexo,
-        ley_promul: req.body.ley_promul,
-        ley_vetada: req.body.ley_vetada,
-        parte_vetada: req.body.parte_vetada,
-        ratif_x_ley: req.body.ratif_x_ley,
-        dnu: req.body.dnu,
-        reglamenta_ley: req.body.reglamenta_ley,
-        tema: req.body.tema,
-        titulo: req.body.titulo,
-        estado: req.body.estado,
-        modif_por: req.body.modif_por,
-        modif_a: req.body.modif_a,
-        link_pub: pubLink,
-        ref_norm: req.body.ref_norm,
-        obs: req.body.obs,
-        fecha_carga: loadDate,
-        tipeo_dictado: req.body.tipeo_dictado,
-        deroga_dec: req.body.deroga_dec,
-        derogado_por: req.body.derogado_por
-    })
-    await decreto
-        .save(decreto)
+    //formatea el decreto recibido en el body utilizando la función anterior formatDecreto()
+    const decretoFormateado = formatDecreto(req.body)
+    await decretoFormateado
+        .save(decretoFormateado)
         .then(data => {
             console.log('====================================');
             console.log('data => ', data);

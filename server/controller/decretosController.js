@@ -108,7 +108,7 @@ exports.buscarDecretos = async (req, res) => {
 exports.crear = async (req, res) => {
 
     if (!req.body) {
-        res.status(400).send({ message: "No se recibieron datos" });
+        res.status(400).send({ message: "No se recibieron datos." });
         return;
     }
 

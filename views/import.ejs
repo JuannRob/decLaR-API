@@ -1,23 +1,16 @@
 <!-- Header -->
 <%- include('partials/header', {showSearchBar: false}) %>
-<!-- /Header -->
+  <!-- /Header -->
 
-<main
-  class="search-container container d-flex flex-column align-items-center justify-content-center"
->
-  <form
-    action="/importar/csv"
-    method="post"
-    class="w-75"
-    enctype="multipart/form-data"
-  >
-    <div class="mb-3">
-      <input type="file" class="form-control" name="csvFile" />
-    </div>
-    <button type="submit" class="btn btn-success">Upload</button>
-  </form>
+  <main class="search-container container d-flex flex-column align-items-center justify-content-center">
+    <form action="/importar/csv" method="post" class="w-75" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="file" class="form-control" name="csvFile" />
+      </div>
+      <button type="submit" class="btn btn-success">Upload</button>
+    </form>
 
-  <%if(data){%>
+    <!-- <%if(data){%>
   <div class="container mt-4">
     <table class="table">
       <thead>
@@ -41,9 +34,9 @@
       </tbody>
     </table>
   </div>
-  <%}%>
-</main>
+  <%}%> -->
+  </main>
 
-<!-- Footer -->
-<%- include('partials/footer') %>
-<!-- /Footer -->
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+    <!-- /Footer -->

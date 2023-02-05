@@ -145,8 +145,7 @@ exports.crearVarios = async (req, res) => {
             })
             Decreto.insertMany(decretosFormateados, (error, decs) => {
                 if (error) {
-                    console.log(error.errors[0]);
-                    res.send(error.errors.fecha.value)
+                    console.log(error);
                 } else {
                     res.render('import', { data: decs })
                 }

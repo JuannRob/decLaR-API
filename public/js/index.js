@@ -47,9 +47,3 @@ const changeInputValue = (selectId) => {
     const input = document.getElementById(dropDown.getAttribute('inputid'));
     input.name = dropDown.value;
 }
-
-const goToImport = () => {
-    let pass = prompt("Ingrese contraseña");
-    console.log(pass);
-    location.replace(`/importar?pwd=${pass}`);
-}

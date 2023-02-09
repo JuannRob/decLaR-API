@@ -1,12 +1,17 @@
 const express = require("express");
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require("cors");
 
 require('dotenv').config();
 
 const app = express();
+
 const connectDB = require('./server/database/connection');
 const routes = require('./server/routes/router');
+
+// CORS
+app.use(cors());
 
 //log requests
 app.use(morgan('tiny'));

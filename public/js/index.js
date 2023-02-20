@@ -14,6 +14,7 @@ const addFilter = (event) => {
             "ley_promul": "Ley promulgada",
             "ley_vetada": "Ley vetada",
             "ratif_x_ley": "Ratif. por ley",
+            "dnu": "DNU",
             "reglamenta_ley": "Reglamenta ley",
             "tema": "Tema",
             "titulo": "Título",

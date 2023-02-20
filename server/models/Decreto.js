@@ -101,7 +101,7 @@ const decretoSchema = new mongoose.Schema({
     derogado_por: String,
     pendiente: String,
     obs_tomo: String
-}, { collection: 'decs_csv_v1' });
+}, { collection: 'decs_csv_v1.1' });
 
 decretoSchema.pre('validate', function (next) {
     if (this.parte_vetada && !this.ley_vetada) {

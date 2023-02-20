@@ -6,32 +6,38 @@
 <main
   class="results-container container d-flex flex-column align-items-center justify-content-center"
 >
+  <div class="row w-100 py-2 fs-5 fw-bold">
+    Cantidad de resultados: <%= data.length %>
+  </div>
   <table class="table table-bordered border-dark">
     <tbody>
-      <% data.forEach((decreto) => {%>
+      <% data.forEach((decreto)=> {%>
       <tr>
         <td>
-          <p>
+          <p class="fs-5">
             <a href="/decretos/<%= decreto._id %>" class="link-primary"
               >Dec. N° <%= decreto.num %>/<%= decreto.anho %></a
             ><br />
             Del <%= decreto.fecha.toLocaleDateString() %> - Pub. <%=
             decreto.fecha_pub.toLocaleDateString() %><br />
-            <%if (decreto.dnu !== '') { %> Decreto de Necesidad y Urgencia<br /><%
-            } %> <%if (decreto.ley_promul !== '' && decreto.ley_vetada !== '') {
-            %> De promulgación y veto parcial<br /><% } %> <%if
-            (decreto.ley_promul !== '' && decreto.ley_vetada === '') { %> De
-            promulgación<br />
-            <% } %> <%if (decreto.parte_vetada === '' && decreto.ley_vetada !==
-            '') { %> De veto <br /><% } %> <%if (decreto.reglamenta_ley !== '')
-            { %> Decreto reglamentario <br /><% } %> <%if (decreto.derogado_por
-            !== '') { %> DEROGADO <br /><% } %> <%if (decreto.deroga_dec !== '')
-            { %> De derogación <% } %>
+            <%if (decreto.dnu !== '' ) { %> Decreto de Necesidad y Urgencia<br />
+            <% } %> <%if (decreto.ley_promul !== '' && decreto.ley_vetada !== ''
+            ) { %> De promulgación y veto parcial<br />
+            <% } %> <%if (decreto.ley_promul !== '' && decreto.ley_vetada=== ''
+            ) { %> De promulgación<br />
+            <% } %> <%if (decreto.parte_vetada=== '' && decreto.ley_vetada !==
+            '' ) { %> De veto <br />
+            <% } %> <%if (decreto.reglamenta_ley !== '' ) { %> Decreto
+            reglamentario <br />
+            <% } %> <%if (decreto.derogado_por !== '' ) { %> DEROGADO <br />
+            <% } %> <%if (decreto.deroga_dec !== '' ) { %> De derogación <% } %>
           </p>
         </td>
 
         <td class="text-center align-middle">
-          <a href="/decretos/<%= decreto._id %>" class="link-primary">Ver</a>
+          <a href="/decretos/<%= decreto._id %>" class="link-primary fs-5"
+            >Ver</a
+          >
         </td>
       </tr>
       <% }); %>

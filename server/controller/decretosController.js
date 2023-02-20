@@ -99,8 +99,6 @@ exports.buscarDecretos = async (req, res) => {
     res.render('results', { data: decretos })
 }
 
-
-
 //crea y guarda un decreto nuevo
 exports.crear = async (req, res) => {
 

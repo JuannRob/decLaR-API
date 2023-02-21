@@ -10,10 +10,12 @@
               Publicado el <%= data.fecha_pub.toLocaleDateString() %> (<%= data.pub %> N.º
                   <%= data.num_ed_pub %>) <%if (data.cant_arts==0) { %> en verión resumida
                       <% } %>. <br />
-                        Firmantes: <%= data.otros_firman %>.
+                        Gobernador: <%= data.firma %>.
       </p>
 
       <p>
+        <%if (data.otros_firman !== '' ) { %> Otros firmantes: <%= data.otros_firman %>. <br />
+          <% } %>
         <%if (data.dnu !=='' ) { %> Decreto de Necesidad y Urgencia. <br />
           <% } %>
             <%if (data.ratif_x_ley !=='' ) { %> Ratificado por Ley <%= data.ratif_x_ley %>. <br />
@@ -38,7 +40,7 @@
                                                               anexos. <br />
                                                               <% } %>
                                                                 <%if (data.ref_norm !=='' ) { %> Referencias normativas:
-                                                                  <%= data.anexo %>.<% } %>
+                                                                  <%= data.ref_norm %>.<% } %>
       </p>
 
       <p>

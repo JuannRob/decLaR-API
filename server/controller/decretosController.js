@@ -72,26 +72,28 @@ const formatDecreto = (dec) => {
 
 //obtener decretos
 //filtra decretos si hay queries si no, muestra todos
+//TODO: usar index y pasar busqueda como body
 exports.buscarDecretos = async (req, res) => {
     let decretos = {};
     let queries = {};
-    let title = '';
+    const query = req.query;
+    const params = req.params;
+    const { limit = 25 } = query;
+    const { pag } = params;
 
-    if (Object.keys(req.query).length === 0) {
-        decretos = await Decreto.find();
-        title = 'todos los decretos'
-    } else {
-        for (const entry in req.query) {
-            if (req.query[entry]) {
-                console.log(`${entry}: ${req.query[entry]}`);
-                queries[entry] = new RegExp(req.query[entry], 'i');
+
+    if (Object.keys(query).length !== 0) {
+        for (const entry in query) {
+            if (query[entry]) {
+                console.log(`${entry}: ${query[entry]}`);
+                queries[entry] = new RegExp(query[entry], 'i');
             }
         }
         console.log('====================================');
         console.log('queries:', queries);
         console.log('====================================');
 
-        decretos = await Decreto.find(queries).exec();
+        decretos = await Decreto.paginate(queries, { limit: limit, page: pag ?? 1 });
     }
     console.log('====================================');
     console.log('decretos:', decretos);

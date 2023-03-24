@@ -1,51 +1,79 @@
 <!-- Header -->
 <%- include('partials/header', {showSearchBar: true}) %>
-<!-- /Header -->
+  <!-- /Header -->
 
-<!-- Main -->
-<main
-  class="results-container container d-flex flex-column align-items-center justify-content-center"
->
-  <div class="row w-100 py-2 fs-5 fw-bold">
-    Cantidad de resultados: <%= data.length %>
-  </div>
-  <table class="table table-bordered border-dark">
-    <tbody>
-      <% data.forEach((decreto)=> {%>
-      <tr>
-        <td>
-          <p class="fs-5">
-            <a href="/decretos/<%= decreto._id %>" class="link-primary"
-              >Dec. N° <%= decreto.num %>/<%= decreto.anho %></a
-            ><br />
-            Del <%= decreto.fecha.toLocaleDateString() %> - Pub. <%=
-            decreto.fecha_pub.toLocaleDateString() %><br />
-            <%if (decreto.dnu !== '' ) { %> Decreto de Necesidad y Urgencia<br />
-            <% } %> <%if (decreto.ley_promul !== '' && decreto.ley_vetada !== ''
-            ) { %> De promulgación y veto parcial<br />
-            <% } %> <%if (decreto.ley_promul !== '' && decreto.ley_vetada=== ''
-            ) { %> De promulgación<br />
-            <% } %> <%if (decreto.parte_vetada=== '' && decreto.ley_vetada !==
-            '' ) { %> De veto <br />
-            <% } %> <%if (decreto.reglamenta_ley !== '' ) { %> Decreto
-            reglamentario <br />
-            <% } %> <%if (decreto.derogado_por !== '' ) { %> DEROGADO <br />
-            <% } %> <%if (decreto.deroga_dec !== '' ) { %> De derogación <% } %>
-          </p>
-        </td>
+  <!-- Main -->
+  <main class="results-container container d-flex flex-column align-items-center justify-content-center">
+    <% if (Object.keys(data).length !==0) { %>
+      <div class="row w-100 py-2 fs-5 fw-bold">
+        <div class="col-6">Cantidad de resultados: <%= data.totalDocs %>
+        </div>
+        <div id="res-num" class="col-6 text-end">
+          Resultados por página: <a href="/">25</a>
+          <a href="javascript:void(0)">50</a> <a href="javascript:void(0)">100</a>
+        </div>
+      </div>
+      <table class="table table-bordered border-dark">
+        <tbody>
+          <% data.docs.forEach((decreto)=> {%>
+            <tr>
+              <td>
+                <p class="fs-5">
+                  <a href="/decretos/<%= decreto._id %>" class="link-primary">Dec. N° <%= decreto.num %>/<%=
+                        decreto.anho %></a><br />
+                  Del <%= decreto.fecha.toLocaleDateString() %> - Pub. <%= decreto.fecha_pub.toLocaleDateString() %>
+                      <br />
+                      <%if (decreto.dnu !=='' ) { %> Decreto de Necesidad y Urgencia<br />
+                        <% } %>
+                          <%if (decreto.ley_promul !=='' && decreto.ley_vetada !=='' ) { %> De promulgación y veto
+                            parcial<br />
+                            <% } %>
+                              <%if (decreto.ley_promul !=='' && decreto.ley_vetada==='' ) { %> De promulgación<br />
+                                <% } %>
+                                  <%if (decreto.parte_vetada==='' && decreto.ley_vetada !=='' ) { %> De veto <br />
+                                    <% } %>
+                                      <%if (decreto.reglamenta_ley !=='' ) { %> Decreto
+                                        reglamentario <br />
+                                        <% } %>
+                                          <%if (decreto.derogado_por !=='' ) { %> DEROGADO <br />
+                                            <% } %>
+                                              <%if (decreto.deroga_dec !=='' ) { %> De derogación <% } %>
+                </p>
+              </td>
 
-        <td class="text-center align-middle">
-          <a href="/decretos/<%= decreto._id %>" class="link-primary fs-5"
-            >Ver</a
-          >
-        </td>
-      </tr>
-      <% }); %>
-    </tbody>
-  </table>
-</main>
-<!-- /Main -->
+              <td class="text-center align-middle">
+                <a href="/decretos/<%= decreto._id %>" class="link-primary fs-5">Ver</a>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+      <%} else { %>
+        <div class="search-container container d-flex flex-column align-items-center py-4 fs-4 text-white w-50">
+          Debe ingresar algún parámetro
+        </div>
+        <% } %>
+  </main>
 
-<!-- Footer -->
-<%- include('partials/footer') %>
-<!-- /Footer -->
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link rounded-0" href="#"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item"><a class="page-link" href="">1</a></li>
+      <li class="page-item"><a class="page-link" href="">2</a></li>
+      <li class="page-item"><a class="page-link" href="">3</a></li>
+      <li class="page-item">
+        <a class="page-link rounded-0" href="#">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="sv-data" svData="<%= JSON.stringify(data) %>"></div>
+  <!-- /Main -->
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+    <!-- /Footer -->

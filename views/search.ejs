@@ -1,64 +1,43 @@
 <!-- Header -->
 <%- include('partials/header', {showSearchBar: false}) %>
-<!-- /Header -->
+  <!-- /Header -->
 
-<main
-  class="search-container container d-flex flex-column align-items-center py-5"
->
-  <div class="title-container mb-2">
-    <h3>Buscador de Decretos de la Función Ejecutiva de La Rioja</h3>
-    <p class="text-center">
-      publicados en el Boletín Oficial (Período 2011-2015)
-    </p>
-  </div>
-
-  <form id="search-form" class="w-75" action="/decretos" method="GET">
-    <div class="form-group">
-      <div class="row gx-2">
-        <div class="col">
-          <input
-            type="search"
-            placeholder="Número"
-            name="num"
-            class="form-control form-control-lg"
-            aria-describedby="numberInput"
-          />
-        </div>
-        <div class="col">
-          <input
-            type="search"
-            placeholder="Año"
-            name="anho"
-            class="form-control form-control-lg"
-          />
-        </div>
-      </div>
+  <main class="search-container container d-flex flex-column align-items-center py-5">
+    <div class="title-container mb-2">
+      <h3>Buscador de Decretos de la Función Ejecutiva de La Rioja</h3>
+      <p class="text-center">
+        publicados en el Boletín Oficial (Período 2011-2015)
+      </p>
     </div>
 
-    <div id="adv-filters" class="my-3"></div>
-
-    <div class="row">
-      <div class="col">
-        <button
-          id="search-button"
-          type="submit"
-          class="btn btn-primary btn-lg"
-          value="search"
-        >
-          Buscar
-        </button>
-        <button
-          id="add-filter"
-          onclick="addFilter(event)"
-          class="btn btn-secondary btn-lg"
-        >
-          Agregar filtros
-        </button>
+    <form id="search-form" class="w-75" action="/decretos/1" method="GET">
+      <div class="form-group">
+        <div class="row gx-2">
+          <div class="col">
+            <input type="number" placeholder="Número" name="num" class="form-control form-control-lg"
+              aria-describedby="numberInput" />
+          </div>
+          <div class="col">
+            <input type="number" placeholder="Año" name="anho" class="form-control form-control-lg" />
+          </div>
+        </div>
       </div>
-    </div>
-  </form>
-</main>
 
-<!-- Footer -->
-<%- include('partials/footer') %>
-<!-- /Footer -->
+      <div id="adv-filters" class="my-3"></div>
+
+      <div class="row">
+        <div class="col">
+          <button id="search-button" type="submit" class="btn btn-primary btn-lg" value="search">
+            Buscar
+          </button>
+          <button id="add-filter" onclick="addFilter(event)" class="btn btn-secondary btn-lg">
+            Agregar filtros
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+    <!-- /Footer -->

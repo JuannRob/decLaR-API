@@ -8,7 +8,6 @@ const addFilter = (event) => {
     //agrega filtros hasta un limite de 5
     //pasado el limite convierte el botón en 'disabled'
     const filters = {
-        "fecha": "Fecha",
         "fecha_pub": "Fecha de publicación",
         "firma": "Gobernador",
         "otros_firman": "Otros firmantes",
@@ -92,4 +91,10 @@ myForm.addEventListener('submit', () => {
     for (input of allInputs) {
         if (!input.value) input.name = '';
     }
+
+
 });
+
+const $data = $('#sv-data').attr('svData');
+const dataObj = JSON.parse($data);
+console.log(dataObj);

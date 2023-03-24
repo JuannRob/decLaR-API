@@ -10,11 +10,9 @@ body {
 /* HEADER */
 
 header {
-    background-color: #252D35;
+    background-color: #252d35;
     color: #f3f3eb;
 }
-
-
 
 .logo-container {
     width: 120px;
@@ -33,7 +31,7 @@ header {
 /* MAIN SEARCH BAR */
 
 .search-container {
-    background-color: #252D35;
+    background-color: #252d35;
     width: 130vh;
 }
 
@@ -41,19 +39,32 @@ header {
     color: #f3f3eb;
 }
 
-/* SEARCH BARS */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* SEARCH BARS */
 
 /* ----------- */
 
-
 /* RESULTS */
-
+.page-link {
+    background-color: #f3f3eb;
+    border: 2px solid #dee2e6;
+}
 
 /* FOOTER */
 
 footer {
-    background-color: #252D35;
+    background-color: #252d35;
     position: absolute;
     bottom: 0;
     width: 100%;

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const decretoSchema = new mongoose.Schema({
     num: {
@@ -103,6 +104,8 @@ const decretoSchema = new mongoose.Schema({
     obs_tomo: String
 }, { collection: 'decs_csv_v1.1' });
 
+decretoSchema.plugin(mongoosePaginate);
+
 decretoSchema.pre('validate', function (next) {
     if (this.parte_vetada && !this.ley_vetada) {
         next(new Error(`No se puede especificar la parte vetada sin una ley vetada. Ley N° ${this.num}/${this.anho}`));
@@ -110,5 +113,7 @@ decretoSchema.pre('validate', function (next) {
         next();
     }
 });
+
+
 
 module.exports = mongoose.model('Decreto', decretoSchema);

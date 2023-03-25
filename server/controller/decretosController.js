@@ -76,29 +76,33 @@ const formatDecreto = (dec) => {
 exports.buscarDecretos = async (req, res) => {
     let decretos = {};
     let queries = {};
-    const query = req.query;
-    const params = req.params;
-    const { limit = 25 } = query;
-    const { pag } = params;
+    const body = req.body;
 
-
-    if (Object.keys(query).length !== 0) {
-        for (const entry in query) {
-            if (query[entry]) {
-                console.log(`${entry}: ${query[entry]}`);
-                queries[entry] = new RegExp(query[entry], 'i');
+    if (Object.keys(body).length !== 0) {
+        for (const entry in body) {
+            if (body[entry]) {
+                console.log(`${entry}: ${body[entry]}`);
+                queries[entry] = new RegExp(body[entry], 'i');
             }
         }
         console.log('====================================');
         console.log('queries:', queries);
         console.log('====================================');
-
-        decretos = await Decreto.paginate(queries, { limit: limit, page: pag ?? 1 });
+        decretos = await Decreto.paginate(queries, { limit: limit, page: pag });
     }
+
     console.log('====================================');
     console.log('decretos:', decretos);
     console.log('====================================');
     res.render('results', { data: decretos })
+}
+
+exports.filtrar = async (req, res) => {
+    const { limit = 25 } = body;
+    const { pag = 1 } = params;
+    let decretos = {};
+    
+    decretos = await Decreto.paginate(queries, { limit: limit, page: pag });
 }
 
 //crea y guarda un decreto nuevo

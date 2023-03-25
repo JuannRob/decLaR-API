@@ -98,3 +98,6 @@ myForm.addEventListener('submit', () => {
 const $data = $('#sv-data').attr('svData');
 const dataObj = JSON.parse($data);
 console.log(dataObj);
+
+const resNum = document.getElementById('res-num');
+resNum.setAttribute('action', window.location.pathname + window.location.search)

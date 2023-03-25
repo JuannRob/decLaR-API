@@ -8,10 +8,12 @@
       <div class="row w-100 py-2 fs-5 fw-bold">
         <div class="col-6">Cantidad de resultados: <%= data.totalDocs %>
         </div>
-        <div id="res-num" class="col-6 text-end">
-          Resultados por página: <a href="/">25</a>
-          <a href="javascript:void(0)">50</a> <a href="javascript:void(0)">100</a>
-        </div>
+        <form id="res-num" class="col-6 text-end" method="POST">
+          <label for="">Resultados por página:</label>
+          <input class="button" type="submit" name="limit" value="25">
+          <input class="button" type="submit" name="limit" value="50">
+          <input class="button" type="submit" name="limit" value="100">
+        </form>
       </div>
       <table class="table table-bordered border-dark">
         <tbody>
@@ -19,8 +21,8 @@
             <tr>
               <td>
                 <p class="fs-5">
-                  <a href="/decretos/<%= decreto._id %>" class="link-primary">Dec. N° <%= decreto.num %>/<%=
-                        decreto.anho %></a><br />
+                  <a href="/decreto/<%= decreto._id %>" class="link-primary">Dec. N° <%= decreto.num %>/<%= decreto.anho
+                        %></a><br />
                   Del <%= decreto.fecha.toLocaleDateString() %> - Pub. <%= decreto.fecha_pub.toLocaleDateString() %>
                       <br />
                       <%if (decreto.dnu !=='' ) { %> Decreto de Necesidad y Urgencia<br />
@@ -60,9 +62,12 @@
       <li class="page-item">
         <a class="page-link rounded-0" href="#"><span aria-hidden="true">&laquo;</span></a>
       </li>
-      <li class="page-item"><a class="page-link" href="">1</a></li>
-      <li class="page-item"><a class="page-link" href="">2</a></li>
-      <li class="page-item"><a class="page-link" href="">3</a></li>
+      <li class="page-item"><a class="page-link" onclick="window.location='/decretos/1'+window.location.search;">1</a>
+      </li>
+      <li class="page-item"><a class="page-link" onclick="window.location='/decretos/2'+window.location.search;">2</a>
+      </li>
+      <li class="page-item"><a class="page-link" onclick="window.location='/decretos/3'+window.location.search;">3</a>
+      </li>
       <li class="page-item">
         <a class="page-link rounded-0" href="#">
           <span aria-hidden="true">&raquo;</span>

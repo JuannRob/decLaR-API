@@ -8,8 +8,8 @@ router.get("/", (req, res) => {
 
 router.get("/decretos/:pag", buscarDecretos);
 
-router.post("/decretos", crear);
+router.post("/decretos/:pag", buscarDecretos);
 
-router.get("/decretos/:id", verDecreto);
+router.get("/decreto/:id", verDecreto);
 
 module.exports = router;

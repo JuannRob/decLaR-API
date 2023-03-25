@@ -76,13 +76,13 @@ const formatDecreto = (dec) => {
 exports.buscarDecretos = async (req, res) => {
     let decretos = {};
     let queries = {};
-    const body = req.body;
+    const query = req.query;
 
-    if (Object.keys(body).length !== 0) {
-        for (const entry in body) {
-            if (body[entry]) {
-                console.log(`${entry}: ${body[entry]}`);
-                queries[entry] = new RegExp(body[entry], 'i');
+    if (Object.keys(query).length !== 0) {
+        for (const entry in query) {
+            if (query[entry]) {
+                console.log(`${entry}: ${query[entry]}`);
+                queries[entry] = new RegExp(query[entry], 'i');
             }
         }
         console.log('====================================');
@@ -95,14 +95,6 @@ exports.buscarDecretos = async (req, res) => {
     console.log('decretos:', decretos);
     console.log('====================================');
     res.render('results', { data: decretos })
-}
-
-exports.filtrar = async (req, res) => {
-    const { limit = 25 } = body;
-    const { pag = 1 } = params;
-    let decretos = {};
-    
-    decretos = await Decreto.paginate(queries, { limit: limit, page: pag });
 }
 
 //crea y guarda un decreto nuevo

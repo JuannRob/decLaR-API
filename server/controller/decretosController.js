@@ -1,4 +1,9 @@
 const Decreto = require('../models/Decreto.js');
+let queries = {};
+let filters = {
+    limit: 10,
+    page: 1
+};
 
 const formatDecreto = (dec) => {
     if (!dec) {
@@ -70,31 +75,39 @@ const formatDecreto = (dec) => {
     return decreto;
 }
 
+const renderDecs = async (res) => {
+    const decretos = await Decreto.paginate(queries, filters);
+    console.log('res: ', decretos);
+    res.render('results', { data: decretos })
+}
+
 //obtener decretos
 //filtra decretos si hay queries si no, muestra todos
 //TODO: usar index y pasar busqueda como body
-exports.buscarDecretos = async (req, res) => {
-    let decretos = {};
-    let queries = {};
+exports.buscarDecretos = (req, res) => {
+    queries = {};
+    filters.page = 1;
     const query = req.query;
 
-    if (Object.keys(query).length !== 0) {
+    if (Object.keys(query).length > 0) {
         for (const entry in query) {
             if (query[entry]) {
                 console.log(`${entry}: ${query[entry]}`);
                 queries[entry] = new RegExp(query[entry], 'i');
             }
         }
-        console.log('====================================');
-        console.log('queries:', queries);
-        console.log('====================================');
-        decretos = await Decreto.paginate(queries, { limit: limit, page: pag });
     }
 
-    console.log('====================================');
-    console.log('decretos:', decretos);
-    console.log('====================================');
-    res.render('results', { data: decretos })
+    renderDecs(res);
+}
+
+exports.filtrarDecretos = (req, res) => {
+    const { limit, page } = req.body
+
+    filters.limit = limit ?? filters.limit;
+    filters.page = page ?? filters.page;
+
+    renderDecs(res);
 }
 
 //crea y guarda un decreto nuevo
@@ -127,3 +140,5 @@ exports.verDecreto = async (req, res) => {
     const dcrto = await Decreto.findById(decretoId).exec();
     res.render('decreto', { data: dcrto })
 }
+
+

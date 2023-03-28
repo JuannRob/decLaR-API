@@ -4,15 +4,30 @@
 
   <!-- Main -->
   <main class="results-container container d-flex flex-column align-items-center justify-content-center">
-    <% if (Object.keys(data).length !==0) { %>
-      <div class="row w-100 py-2 fs-5 fw-bold">
-        <div class="col-6">Cantidad de resultados: <%= data.totalDocs %>
+    <% if (data.totalDocs) { %>
+      <div class="row w-100 fs-5 fw-bold pb-3">
+        <div class="col-4 align-self-end">Cantidad de resultados: <%= data.totalDocs %>
         </div>
-        <form id="res-num" class="col-6 text-end" method="POST">
+        <form action="/decretos" method="POST" class="col-4">
+          <ul class="pagination justify-content-center gap-1 m-0">
+            <% for(let i=data.page> 5 ? data.page - 4 : 1;i < data.totalPages && i<=data.page + 3; i++) { %>
+                <li class="page-item">
+                  <input class="btn btn-outline-dark btn-sm" type="submit" name="page" page1="<%= i %>"
+                    value="<%= i %>">
+                </li>
+                <% } %>
+                  <li>...</li>
+                  <li class="page-item">
+                    <input class="btn btn-outline-dark btn-sm" type="submit" name="page" page2="<%= data.totalPages %>"
+                      value="<%= data.totalPages %>">
+                  </li>
+          </ul>
+        </form>
+        <form id="res-num" class="col-4 text-end" action="/decretos" method="POST">
           <label for="">Resultados por página:</label>
-          <input class="button" type="submit" name="limit" value="25">
-          <input class="button" type="submit" name="limit" value="50">
-          <input class="button" type="submit" name="limit" value="100">
+          <input class="btn btn-outline-dark btn-sm" type="submit" name="limit" limit="10" value="10">
+          <input class="btn btn-outline-dark btn-sm" type="submit" name="limit" limit="25" value="25">
+          <input class="btn btn-outline-dark btn-sm" type="submit" name="limit" limit="50" value="50">
         </form>
       </div>
       <table class="table table-bordered border-dark">
@@ -52,28 +67,26 @@
       </table>
       <%} else { %>
         <div class="search-container container d-flex flex-column align-items-center py-4 fs-4 text-white w-50">
-          Debe ingresar algún parámetro
+          Ingresó algún parámetro incorrecto.
         </div>
         <% } %>
   </main>
 
   <nav>
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link rounded-0" href="#"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item"><a class="page-link" onclick="window.location='/decretos/1'+window.location.search;">1</a>
-      </li>
-      <li class="page-item"><a class="page-link" onclick="window.location='/decretos/2'+window.location.search;">2</a>
-      </li>
-      <li class="page-item"><a class="page-link" onclick="window.location='/decretos/3'+window.location.search;">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link rounded-0" href="#">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
+    <form action="/decretos" method="POST" class="pt-5">
+      <ul class="pagination justify-content-center gap-1">
+        <% for(let i=data.page> 5 ? data.page - 4 : 1;i < data.totalPages && i<=data.page + 3; i++) { %>
+            <li class="page-item">
+              <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= i %>" value="<%= i %>">
+            </li>
+            <% } %>
+              <li>...</li>
+              <li class="page-item">
+                <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= data.totalPages %>"
+                  value="<%= data.totalPages %>">
+              </li>
+      </ul>
+    </form>
   </nav>
 
   <div id="sv-data" svData="<%= JSON.stringify(data) %>"></div>

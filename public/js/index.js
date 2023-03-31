@@ -117,3 +117,11 @@ limitBtn.classList.remove("btn-outline-dark");
 limitBtn.classList.add("btn-dark");
 limitBtn.setAttribute('disabled', '');
 
+//GO HOME
+function goHome() {
+    window.location.href = document.location.origin;
+}
+
+function prevPage() {
+    window.location.href = document.referrer;
+}

@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
-    <title>Decretos App</title>
-  </head>
-  <body>
-    <!-- Header -->
-    <header id="header" class="p-3 mb-5">
-      <div
-        class="container-fluid d-inline-flex justify-content-between align-items-center"
-      >
-        <div class="brand-container d-flex">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Decretos App</title>
+</head>
+
+<body>
+  <!-- Header -->
+  <header id="header" class="p-3 mb-5">
+    <div class="container-fluid d-inline-flex justify-content-between align-items-center py-3">
+      <!-- <div class="brand-container d-flex">
           <div class="logo-container">
             <a href="http://localhost:5000">
               <img
@@ -35,55 +32,39 @@
             <p class="fs-4">Tribunal Superior de Justicia</p>
             <p class="fs-5 fw-bold">Secretaría de Información Técnica</p>
           </div>
-        </div>
+        </div> -->
 
-        <%if (showSearchBar) { %>
-        <div class="header-search-container d-flex justify-content-center">
-            <form id="search-form" action="/decretos" method="GET">
-              <div class="form-group">
-                <div class="row gx-2">
-                  <div class="col">
-                    <input
-                      type="search"
-                      placeholder="Número"
-                      name="num"
-                      class="form-control form-control-lg"
-                      aria-describedby="numberInput"
-                    />
-                  </div>
-                  <div class="col">
-                    <input
-                      type="search"
-                      placeholder="Año"
-                      name="anho"
-                      class="form-control form-control-lg"
-                    />
-                  </div>
-                </div>
-              </div>
-        
-              <div id="adv-filters" class="my-3"></div>
-        
-              <div class="row">
-                <div class="col">
-                  <button
-                    id="search-button"
-                    type="submit"
-                    class="btn btn-primary"
-                    value="search"
-                  >
-                    Buscar
-                  </button>
-                  <button
-                    id="add-filter"
-                    onclick="addFilter(event)"
-                    class="btn btn-secondary"
-                  >
-                    Agregar filtros
-                  </button>
-                </div>
-              </div>
-            </form>
-        <% } %>
+      <div>
+        <button type="button" class="btn btn-light" onclick="prevPage()">
+          <i class="bi bi-arrow-left" style="font-size: 25px"></i>
+        </button>
+        <button type="button" class="btn btn-light" onclick="goHome()">
+          <i class="bi bi-house" style="font-size: 25px"></i>
+        </button>
+
       </div>
-    </header>
+
+      <%if (showSearchBar) { %>
+        <div class="header-search-container d-flex justify-content-center">
+          <form id="search-form" action="/decretos" method="GET">
+            <div class="form-group">
+              <div class="row gx-2">
+                <div class="col">
+                  <input type="search" placeholder="Número" name="num"
+                    class="form-control form-control-lg border rounded-0" aria-describedby="numberInput" />
+                </div>
+                <div class="col">
+                  <input type="search" placeholder="Año" name="anho"
+                    class="form-control form-control-lg border rounded-0" />
+                </div>
+                <div class="col-1">
+                  <button id="search-button" type="submit" class="btn btn-light" value="search">
+                    <i class="bi bi-search" style="font-size: 22px"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <% } %>
+        </div>
+  </header>

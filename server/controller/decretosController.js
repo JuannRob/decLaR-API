@@ -5,7 +5,7 @@ let filters = {
     page: 1
 };
 
-const formatDecreto = (dec) => {
+const formatDec = (dec) => {
     if (!dec) {
         console.log({ message: "🛑 No se recibieron datos para formatear" });
     }
@@ -73,18 +73,15 @@ const formatDecreto = (dec) => {
     console.log('RESULTADO DE FORMATEO: ', dec);
     console.log('====================================');
     return decreto;
-}
+};
 
 const renderDecs = async (res) => {
     const decretos = await Decreto.paginate(queries, filters);
     console.log('res: ', decretos);
-    res.render('results', { data: decretos })
-}
+    res.render('results', { data: decretos });
+};
 
-//obtener decretos
-//filtra decretos si hay queries si no, muestra todos
-//TODO: usar index y pasar busqueda como body
-exports.buscarDecretos = (req, res) => {
+exports.getDecs = (req, res) => {
     queries = {};
     filters.page = 1;
     const query = req.query;
@@ -93,25 +90,28 @@ exports.buscarDecretos = (req, res) => {
         for (const entry in query) {
             if (query[entry]) {
                 console.log(`${entry}: ${query[entry]}`);
-                queries[entry] = new RegExp(query[entry], 'i');
+                if (query[entry].includes('"')) {
+                    queries[entry] = new RegExp('^' + query[entry].replaceAll('"', '') + '$', 'i');
+                } else {
+                    queries[entry] = new RegExp(query[entry], 'i');
+                }
             }
         }
-    }
+    };
 
     renderDecs(res);
-}
+};
 
-exports.filtrarDecretos = (req, res) => {
-    const { limit, page } = req.body
+exports.filterDecs = (req, res) => {
+    const { limit, page } = req.body;
 
     filters.limit = limit ?? filters.limit;
     filters.page = page ?? filters.page;
 
     renderDecs(res);
-}
+};
 
-//crea y guarda un decreto nuevo
-exports.crear = async (req, res) => {
+exports.saveDec = async (req, res) => {
 
     if (!req.body) {
         res.status(400).send({ message: "No se recibieron datos." });
@@ -119,26 +119,26 @@ exports.crear = async (req, res) => {
     }
 
     //formatea el decreto recibido en el body utilizando la función anterior formatDecreto()
-    const decretoFormateado = formatDecreto(req.body)
+    const decretoFormateado = formatDec(req.body);
     await decretoFormateado
         .save(decretoFormateado)
         .then(data => {
             console.log('====================================');
             console.log('data => ', data);
             console.log('====================================');
-            res.status(200).send(data)
+            res.status(200).send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Algo salió mal durante la creación"
             });
         });
-}
+};
 
-exports.verDecreto = async (req, res) => {
+exports.findDecById = async (req, res) => {
     const decretoId = req.params.id;
     const dcrto = await Decreto.findById(decretoId).exec();
-    res.render('decreto', { data: dcrto })
-}
+    res.render('decreto', { data: dcrto });
+};
 
 

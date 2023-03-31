@@ -3,7 +3,7 @@
   <!-- /Header -->
 
   <!-- Main -->
-  <main class="results-container container d-flex flex-column align-items-center justify-content-center">
+  <main class="results-container container d-flex flex-column align-items-center justify-content-center flex-grow-1">
     <% if (data.totalDocs) { %>
       <div class="row w-100 fs-5 fw-bold pb-3">
         <div class="col-4 align-self-end">Cantidad de resultados: <%= data.totalDocs %>
@@ -73,7 +73,7 @@
   </main>
 
   <nav>
-    <form action="/decretos" method="POST" class="pt-5">
+    <form action="/decretos" method="POST" class="pt-3">
       <ul class="pagination justify-content-center gap-1">
         <% for(let i=data.page> 5 ? data.page - 4 : 1;i < data.totalPages && i<=data.page + 3; i++) { %>
             <li class="page-item">

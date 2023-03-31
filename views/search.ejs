@@ -1,42 +1,58 @@
-<!-- Header -->
-<%- include('partials/header', {showSearchBar: false}) %>
-  <!-- /Header -->
+<!DOCTYPE html>
+<html lang="es">
 
-  <main class="search-container container d-flex flex-column align-items-center py-5">
-    <div class="title-container mb-2">
-      <h3>Buscador de Decretos de la Función Ejecutiva de La Rioja</h3>
-      <p class="text-center">
-        publicados en el Boletín Oficial (Período 2011-2015)
-      </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Decretos App</title>
+</head>
+
+<body>
+  <div class="main-container d-flex align-items-center justify-content-center">
+    <div class="search-container container d-flex flex-column align-items-center py-5">
+      <div class="title-container mb-4">
+        <h3>Buscador de Decretos de la Función Ejecutiva de La Rioja</h3>
+        <p class="text-center">
+          publicados en el Boletín Oficial (Período 2011-2015)
+        </p>
+      </div>
+
+      <form id="search-form" class="w-75" action="/decretos" method="GET">
+
+        <div class="form-group">
+          <div class="row gx-2">
+            <div class="col">
+              <input type="text" placeholder="Número" name="num" class="form-control form-control-lg border rounded-0"
+                aria-describedby="numberInput" />
+            </div>
+            <div class="col">
+              <input type="text" placeholder="Año" name="anho" class="form-control form-control-lg border rounded-0" />
+            </div>
+          </div>
+        </div>
+
+        <div id="adv-filters" class="my-3"></div>
+
+        <div class="row">
+          <div class="col d-flex gap-1 justify-content-between">
+            <div>
+              <button id="search-button" type="submit" class="btn btn-light btn-lg border rounded-0" value="search">
+                Buscar
+              </button>
+              <button id="add-filter" onclick="addFilter(event)" class="btn btn-secondary btn-lg border rounded-0">
+                Agregar filtros
+              </button>
+            </div>
+            <p>*Ingrese texto entre comillas para una búsqueda exacta. Ej: "341"</p>
+          </div>
+        </div>
+      </form>
     </div>
-
-    <form id="search-form" class="w-75" action="/decretos" method="GET">
-      <div class="form-group">
-        <div class="row gx-2">
-          <div class="col">
-            <input type="number" placeholder="Número" name="num" class="form-control form-control-lg"
-              aria-describedby="numberInput" />
-          </div>
-          <div class="col">
-            <input type="number" placeholder="Año" name="anho" class="form-control form-control-lg" />
-          </div>
-        </div>
-      </div>
-
-      <div id="adv-filters" class="my-3"></div>
-
-      <div class="row">
-        <div class="col">
-          <button id="search-button" type="submit" class="btn btn-primary btn-lg" value="search">
-            Buscar
-          </button>
-          <button id="add-filter" onclick="addFilter(event)" class="btn btn-secondary btn-lg">
-            Agregar filtros
-          </button>
-        </div>
-      </div>
-    </form>
-  </main>
+  </div>
 
   <!-- Footer -->
   <%- include('partials/footer') %>

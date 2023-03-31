@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { buscarDecretos, crearDecreto, verDecreto, filtrarDecretos } = require('../controller/decretosController');
+const { getDecs, saveDec, findDecById, filterDecs } = require('../controller/decretosController');
 
 router.get("/", (req, res) => {
     res.render('search')
 });
 
-router.get("/decretos", buscarDecretos);
+router.get("/decretos", getDecs);
 
-router.post("/decretos", filtrarDecretos);
+router.post("/decretos", filterDecs);
 
-router.get("/decreto/:id", verDecreto);
+router.get("/decreto/:id", findDecById);
 
 module.exports = router;

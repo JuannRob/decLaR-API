@@ -99,9 +99,6 @@ const $data = $('#sv-data').attr('svData');
 const dataObj = JSON.parse($data);
 console.log(dataObj);
 
-// const resNum = document.getElementById('res-num');
-// resNum.setAttribute('action', window.location.pathname + window.location.search);
-
 const page1Btn = document.querySelector(`[page1='${dataObj.page}']`);
 page1Btn.classList.remove("btn-outline-dark");
 page1Btn.classList.add("btn-dark");
@@ -125,3 +122,24 @@ function goHome() {
 function prevPage() {
     window.location.href = document.referrer;
 }
+
+// function save() {
+//     const value = $("#search-form input").val();
+//     console.log(value);
+
+//     // if (value !== ""){
+//     //     $("#form2 input").val(encodeQuotes(value));
+//     //     $('#form').submit();
+//     // }
+
+
+// }
+
+
+// function encodeQuotes(word) {
+//     if (word.includes('"')) {
+//         return word.replaceAll('"', '%22');
+//     } else {
+//         return word;
+//     }
+// }

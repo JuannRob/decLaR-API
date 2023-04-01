@@ -90,8 +90,8 @@ exports.getDecs = (req, res) => {
         for (const entry in query) {
             if (query[entry]) {
                 console.log(`${entry}: ${query[entry]}`);
-                if (query[entry].includes('"')) {
-                    queries[entry] = new RegExp('^' + query[entry].replaceAll('"', '') + '$', 'i');
+                if (query[entry].includes("'")) {
+                    queries[entry] = new RegExp('^' + query[entry].replaceAll("'", "") + '$', 'i');
                 } else {
                     queries[entry] = new RegExp(query[entry], 'i');
                 }

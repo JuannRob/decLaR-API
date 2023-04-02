@@ -1,7 +1,8 @@
 const express = require("express");
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const favicon = require('serve-favicon')
+const favicon = require('serve-favicon');
+const serveStatic = require('serve-static');
 const cors = require("cors");
 
 require('dotenv').config();
@@ -24,13 +25,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
 //set public folder
-app.use('/', express.static(__dirname + '/public'));
+app.use('/', serveStatic(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 //mongodb connection
 connectDB();
 
-app.use(express.json());
+app.use(bodyParser.json());
 app.use('/', routes);
 
 const PORT = process.env.PORT || 5000;

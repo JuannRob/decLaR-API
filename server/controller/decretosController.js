@@ -85,14 +85,12 @@ exports.getDecs = (req, res) => {
     queries = {};
     filters.page = 1;
     const query = req.query;
-    const quotesCode = '%22';
-
     if (Object.keys(query).length > 0) {
         for (const entry in query) {
             if (query[entry]) {
                 console.log(`${entry}: ${query[entry]}`);
-                if (query[entry].includes('"')) {
-                    queries[entry] = new RegExp('^' + query[entry].replaceAll('"', '') + '$', 'i');
+                if (query[entry].charAt(0) === ':') {
+                    queries[entry] = new RegExp('^' + query[entry].replace(':', '') + '$', 'i');
                 } else {
                     queries[entry] = new RegExp(query[entry], 'i');
                 }

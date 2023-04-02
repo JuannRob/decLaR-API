@@ -96,23 +96,24 @@ myForm.addEventListener('submit', () => {
 });
 
 const $data = $('#sv-data').attr('svData');
-const dataObj = JSON.parse($data);
-console.log(dataObj);
+if ($data !== undefined) {
+    const dataObj = JSON.parse($data);
 
-// const page1Btn = document.querySelector(`[page1='${dataObj.page}']`);
-// page1Btn.classList.remove("btn-outline-dark");
-// page1Btn.classList.add("btn-dark");
-// page1Btn.setAttribute('disabled', '');
+    const page1Btn = document.querySelector(`[page1='${dataObj.page}']`);
+    page1Btn.classList.remove("btn-outline-dark");
+    page1Btn.classList.add("btn-dark");
+    page1Btn.setAttribute('disabled', '');
 
-// const page2Btn = document.querySelector(`[page2='${dataObj.page}']`);
-// page2Btn.classList.remove("btn-outline-dark");
-// page2Btn.classList.add("btn-dark");
-// page2Btn.setAttribute('disabled', '');
+    const page2Btn = document.querySelector(`[page2='${dataObj.page}']`);
+    page2Btn.classList.remove("btn-outline-dark");
+    page2Btn.classList.add("btn-dark");
+    page2Btn.setAttribute('disabled', '');
 
-// const limitBtn = document.querySelector(`[limit='${dataObj.limit}']`);
-// limitBtn.classList.remove("btn-outline-dark");
-// limitBtn.classList.add("btn-dark");
-// limitBtn.setAttribute('disabled', '');
+    const limitBtn = document.querySelector(`[limit='${dataObj.limit}']`);
+    limitBtn.classList.remove("btn-outline-dark");
+    limitBtn.classList.add("btn-dark");
+    limitBtn.setAttribute('disabled', '');
+}
 
 //GO HOME
 function goHome() {
@@ -136,10 +137,10 @@ function prevPage() {
 // }
 
 
-// function encodeQuotes(word) {
-//     if (word.includes('"')) {
-//         return word.replaceAll('"', '%22');
-//     } else {
-//         return word;
-//     }
-// }
+function encodeQuotes(word) {
+    if (word.includes('"')) {
+        return word.replaceAll('"', '%22');
+    } else {
+        return word;
+    }
+}

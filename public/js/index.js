@@ -95,25 +95,44 @@ myForm.addEventListener('submit', () => {
 
 });
 
-const $data = $('#sv-data').attr('svData');
-if ($data !== undefined) {
-    const dataObj = JSON.parse($data);
+var variableJSON = JSON.parse($('#variableJSON').text());
+$('#variableJSON').remove();
 
-    const page1Btn = document.querySelector(`[page1='${dataObj.page}']`);
-    page1Btn.classList.remove("btn-outline-dark");
-    page1Btn.classList.add("btn-dark");
-    page1Btn.setAttribute('disabled', '');
+const navPags = document.getElementsByClassName("pagination");
 
-    const page2Btn = document.querySelector(`[page2='${dataObj.page}']`);
-    page2Btn.classList.remove("btn-outline-dark");
-    page2Btn.classList.add("btn-dark");
-    page2Btn.setAttribute('disabled', '');
 
-    const limitBtn = document.querySelector(`[limit='${dataObj.limit}']`);
-    limitBtn.classList.remove("btn-outline-dark");
-    limitBtn.classList.add("btn-dark");
-    limitBtn.setAttribute('disabled', '');
+for (let item of navPags) {
+    console.log(item);
 }
+
+// for(let i=data.page> 5 ? data.page - 4 : 1;i < data.totalPages && i<=data.page + 3; i++)
+
+/*  
+<li class="page-item">
+    <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= i %>" value="<%= i %>"></input>
+</li>
+
+<li class="page-item">
+    <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= data.totalPages %>" value="<%= data.totalPages %>">
+</li> 
+*/
+
+// if (variableJSON !== undefined) {
+//     const page1Btn = document.querySelector(`[page1='${variableJSON.page}']`);
+//     page1Btn.classList.remove("btn-outline-dark");
+//     page1Btn.classList.add("btn-dark");
+//     page1Btn.setAttribute('disabled', '');
+
+//     const page2Btn = document.querySelector(`[page2='${variableJSON.page}']`);
+//     page2Btn.classList.remove("btn-outline-dark");
+//     page2Btn.classList.add("btn-dark");
+//     page2Btn.setAttribute('disabled', '');
+
+//     const limitBtn = document.querySelector(`[limit='${variableJSON.limit}']`);
+//     limitBtn.classList.remove("btn-outline-dark");
+//     limitBtn.classList.add("btn-dark");
+//     limitBtn.setAttribute('disabled', '');
+// }
 
 //GO HOME
 function goHome() {

@@ -10,17 +10,6 @@
         </div>
         <form action="/decretos" method="POST" class="col-4">
           <ul class="pagination justify-content-center gap-1 m-0">
-            <% for(let i=data.page> 5 ? data.page - 4 : 1;i < data.totalPages && i<=data.page + 3; i++) { %>
-                <li class="page-item">
-                  <input class="btn btn-outline-dark btn-sm" type="submit" name="page" page1="<%= i %>"
-                    value="<%= i %>">
-                </li>
-                <% } %>
-                  <li>...</li>
-                  <li class="page-item">
-                    <input class="btn btn-outline-dark btn-sm" type="submit" name="page" page2="<%= data.totalPages %>"
-                      value="<%= data.totalPages %>">
-                  </li>
           </ul>
         </form>
         <form id="res-num" class="col-4 text-end" action="/decretos" method="POST">
@@ -71,26 +60,19 @@
         </div>
         <% } %>
   </main>
+  <!-- /Main -->
 
   <nav>
     <form action="/decretos" method="POST" class="pt-3">
       <ul class="pagination justify-content-center gap-1">
-        <% for(let i=data.page> 5 ? data.page - 4 : 1;i < data.totalPages && i<=data.page + 3; i++) { %>
-            <li class="page-item">
-              <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= i %>" value="<%= i %>">
-            </li>
-            <% } %>
-              <li>...</li>
-              <li class="page-item">
-                <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= data.totalPages %>"
-                  value="<%= data.totalPages %>">
-              </li>
       </ul>
     </form>
   </nav>
 
-  <div id="sv-data" svData="<%= JSON.stringify(data) %>"></div>
-  <!-- /Main -->
+  <span id='variableJSON' hidden>
+    <%= JSON.stringify(data); %>
+  </span>
+
 
   <!-- Footer -->
   <%- include('partials/footer') %>

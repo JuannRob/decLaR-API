@@ -139,5 +139,3 @@ exports.findDecById = async (req, res) => {
     const dcrto = await Decreto.findById(decretoId).exec();
     res.render('decreto', { data: dcrto });
 };
-
-

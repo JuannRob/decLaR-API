@@ -18,9 +18,6 @@ exports.getDecs = (req, res) => {
     const query = req.query;
     const queryKeys = Object.keys(query);
 
-    console.log(queryKeys.length);
-    console.log(queryKeys);
-
     if (queryKeys.length) {
         for (const entry in query) {
             console.log(`${entry}: ${query[entry]}`);

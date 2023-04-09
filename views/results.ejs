@@ -1,79 +1,80 @@
 <!-- Header -->
 <%- include('partials/header', {showSearchBar: true}) %>
-  <!-- /Header -->
+<!-- /Header -->
 
-  <!-- Main -->
-  <main class="results-container container d-flex flex-column align-items-center justify-content-center flex-grow-1">
-    <% if (data.totalDocs) { %>
-      <div class="row w-100 fs-5 fw-bold pb-3">
-        <div class="col-4 align-self-end">Cantidad de resultados: <%= data.totalDocs %>
-        </div>
-        <form action="/decretos" method="POST" class="col-4">
-          <ul class="pagination justify-content-center gap-1 m-0">
-          </ul>
-        </form>
-        <form id="res-num" class="col-4 text-end" action="/decretos" method="POST">
-          <label for="">Resultados por página:</label>
-          <input class="btn btn-outline-dark btn-sm" type="submit" name="limit" limit="10" value="10">
-          <input class="btn btn-outline-dark btn-sm" type="submit" name="limit" limit="25" value="25">
-          <input class="btn btn-outline-dark btn-sm" type="submit" name="limit" limit="50" value="50">
-        </form>
-      </div>
-      <table class="table table-bordered border-dark">
-        <tbody>
-          <% data.docs.forEach((decreto)=> {%>
-            <tr>
-              <td>
-                <p class="fs-5">
-                  <a href="/decreto/<%= decreto._id %>" class="link-primary">Dec. N° <%= decreto.num %>/<%= decreto.anho
-                        %></a><br />
-                  Del <%= decreto.fecha.toLocaleDateString() %> - Pub. <%= decreto.fecha_pub.toLocaleDateString() %>
-                      <br />
-                      <%if (decreto.dnu !=='' ) { %> Decreto de Necesidad y Urgencia<br />
-                        <% } %>
-                          <%if (decreto.ley_promul !=='' && decreto.ley_vetada !=='' ) { %> De promulgación y veto
-                            parcial<br />
-                            <% } %>
-                              <%if (decreto.ley_promul !=='' && decreto.ley_vetada==='' ) { %> De promulgación<br />
-                                <% } %>
-                                  <%if (decreto.parte_vetada==='' && decreto.ley_vetada !=='' ) { %> De veto <br />
-                                    <% } %>
-                                      <%if (decreto.reglamenta_ley !=='' ) { %> Decreto
-                                        reglamentario <br />
-                                        <% } %>
-                                          <%if (decreto.derogado_por !=='' ) { %> DEROGADO <br />
-                                            <% } %>
-                                              <%if (decreto.deroga_dec !=='' ) { %> De derogación <% } %>
-                </p>
-              </td>
-
-              <td class="text-center align-middle">
-                <a href="/decretos/<%= decreto._id %>" class="link-primary fs-5">Ver</a>
-              </td>
-            </tr>
-            <% }); %>
-        </tbody>
-      </table>
-      <%} else { %>
-        <div class="search-container container d-flex flex-column align-items-center py-4 fs-4 text-white w-50">
-          Ingresó algún parámetro incorrecto.
-        </div>
-        <% } %>
-  </main>
-  <!-- /Main -->
-
-  <nav>
-    <form action="/decretos" method="POST" class="pt-3">
-      <ul class="pagination justify-content-center gap-1">
-      </ul>
+<!-- Main -->
+<main
+  class="results-container container d-flex flex-column align-items-center justify-content-center flex-grow-1"
+>
+  <% if (data.totalDocs) { %>
+  <div class="row w-100 fs-5 fw-bold pb-3">
+    <div class="col-4 align-self-end">
+      Resultados encontrados: <%= data.totalDocs %>
+    </div>
+    <form class="col-4" method="POST">
+      <ul class="pagination justify-content-center gap-1 m-0"></ul>
     </form>
-  </nav>
+    <form
+      id="pag-limit"
+      class="col-4 justify-content-end align-items-center d-flex gap-1"
+      method="POST"
+    >
+      <label for="">Resultados por página:</label>
+    </form>
+  </div>
+  <table class="table table-bordered border-dark">
+    <tbody>
+      <% data.docs.forEach((decreto)=> {%>
+      <tr>
+        <td>
+          <p class="fs-5">
+            <a href="/decreto/<%= decreto._id %>" class="link-primary"
+              >Dec. N° <%= decreto.num %>/<%= decreto.anho %></a
+            ><br />
+            Del <%= decreto.fecha.toLocaleDateString() %> - Pub. <%=
+            decreto.fecha_pub.toLocaleDateString() %>
+            <br />
+            <%if (decreto.dnu !=='' ) { %> Decreto de Necesidad y Urgencia<br />
+            <% } %> <%if (decreto.ley_promul !=='' && decreto.ley_vetada !=='' )
+            { %> De promulgación y veto parcial<br />
+            <% } %> <%if (decreto.ley_promul !=='' && decreto.ley_vetada==='' )
+            { %> De promulgación<br />
+            <% } %> <%if (decreto.parte_vetada==='' && decreto.ley_vetada !==''
+            ) { %> De veto <br />
+            <% } %> <%if (decreto.reglamenta_ley !=='' ) { %> Decreto
+            reglamentario <br />
+            <% } %> <%if (decreto.derogado_por !=='' ) { %> DEROGADO <br />
+            <% } %> <%if (decreto.deroga_dec !=='' ) { %> De derogación <% } %>
+          </p>
+        </td>
 
-  <span id='variableJSON' hidden>
-    <%= JSON.stringify(data); %>
-  </span>
+        <td class="text-center align-middle">
+          <a href="/decretos/<%= decreto._id %>" class="link-primary fs-5"
+            >Ver</a
+          >
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <%} else { %>
+  <div
+    class="search-container container d-flex flex-column align-items-center py-4 fs-4 text-white w-50"
+  >
+    Ingresó algún parámetro incorrecto.
+  </div>
+  <% } %>
+</main>
+<!-- /Main -->
 
+<nav>
+  <form action="/decretos" method="POST" class="pt-3">
+    <ul class="pagination justify-content-center gap-1"></ul>
+  </form>
+</nav>
 
-  <!-- Footer -->
-  <%- include('partials/footer') %>
-    <!-- /Footer -->
+<span id="variableJSON" hidden> <%= JSON.stringify(data); %> </span>
+
+<!-- Footer -->
+<%- include('partials/footer') %>
+<!-- /Footer -->

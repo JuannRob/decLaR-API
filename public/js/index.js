@@ -95,44 +95,32 @@ myForm.addEventListener('submit', () => {
 
 });
 
-var variableJSON = JSON.parse($('#variableJSON').text());
+//gets backend's data from document and removes it from the document.
+const data = JSON.parse($('#variableJSON').text());
 $('#variableJSON').remove();
 
 const navPags = document.getElementsByClassName("pagination");
-
-
-for (let item of navPags) {
-    console.log(item);
+for (let nav of navPags) {
+    for (let i = data.page > 5 ? data.page - 4 : 1; i <= data.totalPages && i <= data.page + 4; i++) {
+        nav.innerHTML += i === data.page ?
+            `<li class="page-item">
+                <input class="btn btn-dark" type="submit" name="page" value="${i}" disabled></input>
+            </li>`
+            :
+            `<li class="page-item">
+                <input class="btn btn-outline-dark" type="submit" name="page" value="${i}" formaction="${document.location.pathname}${document.location.search}"></input>
+            </li>`;
+    }
 }
 
-// for(let i=data.page> 5 ? data.page - 4 : 1;i < data.totalPages && i<=data.page + 3; i++)
-
-/*  
-<li class="page-item">
-    <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= i %>" value="<%= i %>"></input>
-</li>
-
-<li class="page-item">
-    <input class="btn btn-outline-dark" type="submit" name="page" page2="<%= data.totalPages %>" value="<%= data.totalPages %>">
-</li> 
-*/
-
-// if (variableJSON !== undefined) {
-//     const page1Btn = document.querySelector(`[page1='${variableJSON.page}']`);
-//     page1Btn.classList.remove("btn-outline-dark");
-//     page1Btn.classList.add("btn-dark");
-//     page1Btn.setAttribute('disabled', '');
-
-//     const page2Btn = document.querySelector(`[page2='${variableJSON.page}']`);
-//     page2Btn.classList.remove("btn-outline-dark");
-//     page2Btn.classList.add("btn-dark");
-//     page2Btn.setAttribute('disabled', '');
-
-//     const limitBtn = document.querySelector(`[limit='${variableJSON.limit}']`);
-//     limitBtn.classList.remove("btn-outline-dark");
-//     limitBtn.classList.add("btn-dark");
-//     limitBtn.setAttribute('disabled', '');
-// }
+const pageLimitNav = document.getElementById("pag-limit");
+const limits = [10, 25, 50];
+limits.forEach(limit => {
+    pageLimitNav.innerHTML += limit === data.limit ?
+        `<input class="btn btn-dark btn-sm" type="submit" name="limit" value="${limit}" disabled></input>`
+        :
+        `<input class="btn btn-outline-dark btn-sm" type="submit" name="limit" value="${limit}" formaction="${document.location.pathname}${document.location.search}"></input>`;
+})
 
 //GO HOME
 function goHome() {
@@ -141,25 +129,4 @@ function goHome() {
 
 function prevPage() {
     window.location.href = document.referrer;
-}
-
-// function save() {
-//     const value = $("#search-form input").val();
-//     console.log(value);
-
-//     // if (value !== ""){
-//     //     $("#form2 input").val(encodeQuotes(value));
-//     //     $('#form').submit();
-//     // }
-
-
-// }
-
-
-function encodeQuotes(word) {
-    if (word.includes('"')) {
-        return word.replaceAll('"', '%22');
-    } else {
-        return word;
-    }
 }

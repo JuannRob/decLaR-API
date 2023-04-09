@@ -1,8 +1,54 @@
 const Decreto = require('../models/Decreto.js');
+
 let queries = {};
 let filters = {
     limit: 10,
     page: 1
+};
+
+const renderDecs = async (res) => {
+    let decretos = await Decreto.paginate(queries, filters);
+    console.log('res: ', decretos);
+    res.render('results', { data: decretos });
+};
+
+exports.getDecs = (req, res) => {
+    queries = {};
+    filters.page = 1;
+    const query = req.query;
+    const queryKeys = Object.keys(query);
+
+    console.log(queryKeys.length);
+    console.log(queryKeys);
+
+    if (queryKeys.length) {
+        for (const entry in query) {
+            console.log(`${entry}: ${query[entry]}`);
+            if (query[entry].charAt(0) === ':') {
+                queries[entry] = new RegExp('^' + query[entry].replace(':', '') + '$', 'i');
+            } else {
+                queries[entry] = new RegExp(query[entry], 'i');
+            }
+
+        }
+    };
+
+    renderDecs(res);
+};
+
+exports.filterDecs = (req, res) => {
+    const { limit, page } = req.body;
+    console.log('limit: ', limit);
+    console.log('filter limit: ', filters.limit);
+
+    filters.page = page ?? filters.page;
+
+    if (limit && limit !== filters.limit) {
+        filters.limit = limit;
+        filters.page = 1;
+    }
+
+    renderDecs(res);
 };
 
 const formatDec = (dec) => {
@@ -73,41 +119,6 @@ const formatDec = (dec) => {
     console.log('RESULTADO DE FORMATEO: ', dec);
     console.log('====================================');
     return decreto;
-};
-
-const renderDecs = async (res) => {
-    const decretos = await Decreto.paginate(queries, filters);
-    console.log('res: ', decretos);
-    res.render('results', { data: decretos });
-};
-
-exports.getDecs = (req, res) => {
-    queries = {};
-    filters.page = 1;
-    const query = req.query;
-    if (Object.keys(query).length > 0) {
-        for (const entry in query) {
-            if (query[entry]) {
-                console.log(`${entry}: ${query[entry]}`);
-                if (query[entry].charAt(0) === ':') {
-                    queries[entry] = new RegExp('^' + query[entry].replace(':', '') + '$', 'i');
-                } else {
-                    queries[entry] = new RegExp(query[entry], 'i');
-                }
-            }
-        }
-    };
-
-    renderDecs(res);
-};
-
-exports.filterDecs = (req, res) => {
-    const { limit, page } = req.body;
-
-    filters.limit = limit ?? filters.limit;
-    filters.page = page ?? filters.page;
-
-    renderDecs(res);
 };
 
 exports.saveDec = async (req, res) => {

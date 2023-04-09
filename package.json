@@ -18,5 +18,8 @@
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Juan Robledo"
+  "author": "Juan Robledo",
+  "engines": {
+    "node": ">=14.20.1"
+  }
 }

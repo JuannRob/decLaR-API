@@ -102,7 +102,7 @@ const decretoSchema = new mongoose.Schema({
     derogado_por: String,
     pendiente: String,
     obs_tomo: String
-}, { collection: 'decs_csv_v1.1' });
+}, { collection: 'decs_csv_v2.1' });
 
 decretoSchema.plugin(mongoosePaginate);
 

@@ -1,15 +1,16 @@
-const Decreto = require('../models/Decreto.js');
+const Decreto = require("../models/Decreto.js");
 
 let queries = {};
 let filters = {
     limit: 10,
-    page: 1
+    page: 1,
 };
 
 const renderDecs = async (res) => {
     let decretos = await Decreto.paginate(queries, filters);
-    console.log('res: ', decretos);
-    res.render('results', { data: decretos });
+    console.log("res: ", decretos);
+    // res.render('results', { data: decretos });
+    res.json(decretos);
 };
 
 exports.getDecs = (req, res) => {
@@ -21,22 +22,24 @@ exports.getDecs = (req, res) => {
     if (queryKeys.length) {
         for (const entry in query) {
             console.log(`${entry}: ${query[entry]}`);
-            if (query[entry].charAt(0) === ':') {
-                queries[entry] = new RegExp('^' + query[entry].replace(':', '') + '$', 'i');
+            if (query[entry].charAt(0) === ":") {
+                queries[entry] = new RegExp(
+                    "^" + query[entry].replace(":", "") + "$",
+                    "i"
+                );
             } else {
-                queries[entry] = new RegExp(query[entry], 'i');
+                queries[entry] = new RegExp(query[entry], "i");
             }
-
         }
-    };
+    }
 
     renderDecs(res);
 };
 
 exports.filterDecs = (req, res) => {
     const { limit, page } = req.body;
-    console.log('limit: ', limit);
-    console.log('filter limit: ', filters.limit);
+    console.log("limit: ", limit);
+    console.log("filter limit: ", filters.limit);
 
     filters.page = page ?? filters.page;
 
@@ -54,27 +57,32 @@ const formatDec = (dec) => {
     }
 
     const toDate = (dateStr) => {
-        const [day, month, year] = dateStr.split("/")
-        return new Date(year, month - 1, day)
-    }
+        const [day, month, year] = dateStr.split("/");
+        return new Date(year, month - 1, day);
+    };
 
     const date = toDate(dec.fecha);
     const pubDate = toDate(dec.fecha_pub);
 
     let loadDate = new Date();
-    if (dec.fecha_carga !== '') {
+    if (dec.fecha_carga !== "") {
         loadDate = toDate(dec.fecha_carga);
     }
 
     const pubPag = dec.pag_pub;
-    let pubLink = '';
+    let pubLink = "";
     if (!dec.link_pub) {
-        pubLink = `http://www.boletinoflarioja.com.ar/pdf/${pubDate.getFullYear()}//${pubDate.getFullYear()}-${pubDate.toLocaleString("default", { month: "2-digit" })}-${pubDate.toLocaleString("default", { day: "2-digit" })}.pdf#page=${pubPag}`
+        pubLink = `http://www.boletinoflarioja.com.ar/pdf/${pubDate.getFullYear()}//${pubDate.getFullYear()}-${pubDate.toLocaleString(
+            "default",
+            { month: "2-digit" }
+        )}-${pubDate.toLocaleString("default", {
+            day: "2-digit",
+        })}.pdf#page=${pubPag}`;
         // console.log('Se generó un link nuevo: ', pubLink);
     } else {
         pubLink = dec.link_pub;
         // console.log('Se usó el link cargado: ', pubLink);
-    };
+    }
 
     const decreto = new Decreto({
         num: dec.num,
@@ -110,16 +118,15 @@ const formatDec = (dec) => {
         derogado_por: dec.derogado_por,
         pendiente: dec.pendiente,
         obs_tomo: dec.obs_tomo,
-    })
+    });
 
-    console.log('====================================');
-    console.log('RESULTADO DE FORMATEO: ', dec);
-    console.log('====================================');
+    console.log("====================================");
+    console.log("RESULTADO DE FORMATEO: ", dec);
+    console.log("====================================");
     return decreto;
 };
 
 exports.saveDec = async (req, res) => {
-
     if (!req.body) {
         res.status(400).send({ message: "No se recibieron datos." });
         return;
@@ -129,15 +136,15 @@ exports.saveDec = async (req, res) => {
     const decretoFormateado = formatDec(req.body);
     await decretoFormateado
         .save(decretoFormateado)
-        .then(data => {
-            console.log('====================================');
-            console.log('data => ', data);
-            console.log('====================================');
+        .then((data) => {
+            console.log("====================================");
+            console.log("data => ", data);
+            console.log("====================================");
             res.status(200).send(data);
         })
-        .catch(err => {
+        .catch((err) => {
             res.status(500).send({
-                message: err.message || "Algo salió mal durante la creación"
+                message: err.message || "Algo salió mal durante la creación",
             });
         });
 };
@@ -145,5 +152,5 @@ exports.saveDec = async (req, res) => {
 exports.findDecById = async (req, res) => {
     const decretoId = req.params.id;
     const dcrto = await Decreto.findById(decretoId).exec();
-    res.render('decreto', { data: dcrto });
+    res.json(dcrto);
 };

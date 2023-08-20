@@ -4,13 +4,11 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const serveStatic = require('serve-static');
 const cors = require("cors");
-
+const connectDB = require('./server/database/connection');
+const routes = require('./server/routes/router');
 require('dotenv').config();
 
 const app = express();
-
-const connectDB = require('./server/database/connection');
-const routes = require('./server/routes/router');
 
 // CORS
 app.use(cors());

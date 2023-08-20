@@ -13,44 +13,6 @@ const renderDecs = async (res) => {
     res.json(decretos);
 };
 
-exports.getDecs = (req, res) => {
-    queries = {};
-    filters.page = 1;
-    const query = req.query;
-    const queryKeys = Object.keys(query);
-
-    if (queryKeys.length) {
-        for (const entry in query) {
-            console.log(`${entry}: ${query[entry]}`);
-            if (query[entry].charAt(0) === ":") {
-                queries[entry] = new RegExp(
-                    "^" + query[entry].replace(":", "") + "$",
-                    "i"
-                );
-            } else {
-                queries[entry] = new RegExp(query[entry], "i");
-            }
-        }
-    }
-
-    renderDecs(res);
-};
-
-exports.filterDecs = (req, res) => {
-    const { limit, page } = req.body;
-    console.log("limit: ", limit);
-    console.log("filter limit: ", filters.limit);
-
-    filters.page = page ?? filters.page;
-
-    if (limit && limit !== filters.limit) {
-        filters.limit = limit;
-        filters.page = 1;
-    }
-
-    renderDecs(res);
-};
-
 const formatDec = (dec) => {
     if (!dec) {
         console.log({ message: "🛑 No se recibieron datos para formatear" });
@@ -126,6 +88,44 @@ const formatDec = (dec) => {
     return decreto;
 };
 
+exports.getDecs = (req, res) => {
+    queries = {};
+    filters.page = 1;
+    const query = req.query;
+    const queryKeys = Object.keys(query);
+
+    if (queryKeys.length) {
+        for (const entry in query) {
+            console.log(`${entry}: ${query[entry]}`);
+            if (query[entry].charAt(0) === ":") {
+                queries[entry] = new RegExp(
+                    "^" + query[entry].replace(":", "") + "$",
+                    "i"
+                );
+            } else {
+                queries[entry] = new RegExp(query[entry], "i");
+            }
+        }
+    }
+
+    renderDecs(res);
+};
+
+exports.filterDecs = (req, res) => {
+    const { limit, page } = req.body;
+    console.log("limit: ", limit);
+    console.log("filter limit: ", filters.limit);
+
+    filters.page = page ?? filters.page;
+
+    if (limit && limit !== filters.limit) {
+        filters.limit = limit;
+        filters.page = 1;
+    }
+
+    renderDecs(res);
+};
+
 exports.saveDec = async (req, res) => {
     if (!req.body) {
         res.status(400).send({ message: "No se recibieron datos." });
@@ -134,19 +134,17 @@ exports.saveDec = async (req, res) => {
 
     //formatea el decreto recibido en el body utilizando la función anterior formatDecreto()
     const decretoFormateado = formatDec(req.body);
-    await decretoFormateado
-        .save(decretoFormateado)
-        .then((data) => {
-            console.log("====================================");
-            console.log("data => ", data);
-            console.log("====================================");
-            res.status(200).send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: err.message || "Algo salió mal durante la creación",
-            });
+    try {
+        const savedDec = await decretoFormateado.save();
+        console.log("====================================");
+        console.log("data => ", savedDec);
+        console.log("====================================");
+        res.status(200).send(savedDec);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Algo salió mal durante la creación",
         });
+    }
 };
 
 exports.findDecById = async (req, res) => {

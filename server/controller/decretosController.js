@@ -2,13 +2,16 @@ const Decreto = require("../models/Decreto.js");
 
 let queries = {};
 let filters = {
-    limit: 10,
-    page: 1,
+    limit: '10',
+    page: '1',
+    sort: { 'num': 1 }
 };
 
+
+
 const renderDecs = async (res) => {
-    let decretos = await Decreto.paginate(queries, filters);
-    console.log("res: ", decretos);
+    let decretos = await Decreto.paginate(queries, filters)
+    // console.log("res: ", decretos);
     // res.render('results', { data: decretos });
     res.json(decretos);
 };
@@ -88,41 +91,41 @@ const formatDec = (dec) => {
     return decreto;
 };
 
-exports.getDecs = (req, res) => {
-    queries = {};
-    filters.page = 1;
-    const query = req.query;
-    const queryKeys = Object.keys(query);
+const filterDecs = (limit = '10', page = '1', sortBy = 'num', order = 1) => {
+    console.log(limit, page, sortBy, order)
+    filters.page = page;
+    filters.sort = { [sortBy]: order }
 
-    if (queryKeys.length) {
+    if (limit !== filters.limit) {
+        filters.limit = limit;
+        filters.page = 1;
+    }
+
+    console.log('filtrossss:', filters)
+};
+
+exports.getDecs = (req, res) => {
+    const query = req.query;
+    const keys2Delete = ['limit', 'page', 'sortBy', 'order'];
+    keys2Delete.forEach(key => { if (query.hasOwnProperty(key)) delete query[key] });
+    console.log('query: ', query)
+    const { limit, page, sortBy, order } = req.query
+    filterDecs(limit, page, sortBy, order);
+
+    queries = {};
+    if (Object.keys(query).length) {
         for (const entry in query) {
-            console.log(`${entry}: ${query[entry]}`);
+            // console.log(`${entry}: ${query[entry]}`);
             if (query[entry].charAt(0) === ":") {
+                // "^" + query[entry].replace(":", "") + "$", "i"
                 queries[entry] = new RegExp(
-                    "^" + query[entry].replace(":", "") + "$",
-                    "i"
+                    `^${query[entry].replace(":", "")}$`, "i"
                 );
             } else {
                 queries[entry] = new RegExp(query[entry], "i");
             }
         }
     }
-
-    renderDecs(res);
-};
-
-exports.filterDecs = (req, res) => {
-    const { limit, page } = req.body;
-    console.log("limit: ", limit);
-    console.log("filter limit: ", filters.limit);
-
-    filters.page = page ?? filters.page;
-
-    if (limit && limit !== filters.limit) {
-        filters.limit = limit;
-        filters.page = 1;
-    }
-
     renderDecs(res);
 };
 

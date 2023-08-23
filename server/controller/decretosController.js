@@ -7,8 +7,6 @@ let filters = {
     sort: { 'num': 1 }
 };
 
-
-
 const renderDecs = async (res) => {
     let decretos = await Decreto.paginate(queries, filters)
     // console.log("res: ", decretos);
@@ -91,8 +89,7 @@ const formatDec = (dec) => {
     return decreto;
 };
 
-const filterDecs = (limit = '10', page = '1', sortBy = 'num', order = 1) => {
-    console.log(limit, page, sortBy, order)
+const filterDecs = (limit = 10, page = 1, sortBy = 'num', order = 1) => {
     filters.page = page;
     filters.sort = { [sortBy]: order }
 
@@ -100,17 +97,16 @@ const filterDecs = (limit = '10', page = '1', sortBy = 'num', order = 1) => {
         filters.limit = limit;
         filters.page = 1;
     }
-
-    console.log('filtrossss:', filters)
 };
 
 exports.getDecs = (req, res) => {
     const query = req.query;
-    const keys2Delete = ['limit', 'page', 'sortBy', 'order'];
-    keys2Delete.forEach(key => { if (query.hasOwnProperty(key)) delete query[key] });
-    console.log('query: ', query)
     const { limit, page, sortBy, order } = req.query
+
     filterDecs(limit, page, sortBy, order);
+
+    const deleteKeys = ['limit', 'page', 'sortBy', 'order'];
+    deleteKeys.forEach(key => { if (query.hasOwnProperty(key)) delete query[key] });
 
     queries = {};
     if (Object.keys(query).length) {

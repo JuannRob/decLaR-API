@@ -9,8 +9,6 @@ let filters = {
 
 const renderDecs = async (res) => {
     let decretos = await Decreto.paginate(queries, filters)
-    // console.log("res: ", decretos);
-    // res.render('results', { data: decretos });
     res.json(decretos);
 };
 

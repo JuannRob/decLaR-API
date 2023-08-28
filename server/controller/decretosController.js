@@ -9,7 +9,7 @@ let filters = {
 
 const renderDecs = async (res) => {
     let decretos = await Decreto.paginate(queries, filters)
-    res.json(decretos);
+    res.status(200).json(decretos);
 };
 
 const formatDec = (dec) => {

@@ -1,14 +1,14 @@
 const Decreto = require("../models/Decreto.js");
 
 let queries = {};
-let filters = {
+let options = {
     limit: '10',
     page: '1',
     sort: { 'num': 1 }
 };
 
 const renderDecs = async (res) => {
-    let decretos = await Decreto.paginate(queries, filters)
+    let decretos = await Decreto.paginate(queries, options)
     res.status(200).json(decretos);
 };
 
@@ -88,12 +88,12 @@ const formatDec = (dec) => {
 };
 
 const filterDecs = (limit = 10, page = 1, sortBy = 'num', order = 1) => {
-    filters.page = page;
-    filters.sort = { [sortBy]: order }
+    options.page = page;
+    options.sort = { [sortBy]: order }
 
-    if (limit !== filters.limit) {
-        filters.limit = limit;
-        filters.page = 1;
+    if (limit !== options.limit) {
+        options.limit = limit;
+        options.page = 1;
     }
 };
 

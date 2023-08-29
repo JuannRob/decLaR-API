@@ -87,9 +87,9 @@ const formatDec = (dec) => {
     return decreto;
 };
 
-const filterDecs = (limit = 10, page = 1, sortBy = 'num', order = 1) => {
+const filterDecs = (limit, page, sortBy, order) => {
     options.page = page;
-    options.sort = { [sortBy]: order }
+    options.sort = { [sortBy]: order };
 
     if (limit !== options.limit) {
         options.limit = limit;
@@ -101,7 +101,10 @@ exports.getDecs = (req, res) => {
     const query = req.query;
     const { limit, page, sortBy, order } = req.query
 
+    console.log('options 1: ', options);
+    console.log('query: ', query);
     filterDecs(limit, page, sortBy, order);
+    console.log('options 2: ', options);
 
     const deleteKeys = ['limit', 'page', 'sortBy', 'order'];
     deleteKeys.forEach(key => { if (query.hasOwnProperty(key)) delete query[key] });

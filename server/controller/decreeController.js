@@ -1,4 +1,4 @@
-const Decreto = require("../models/Decreto.js");
+const Decree = require("../models/Decree.js");
 
 let queries = {};
 let options = {
@@ -8,8 +8,8 @@ let options = {
 };
 
 const renderDecs = async (res) => {
-    let decretos = await Decreto.paginate(queries, options)
-    res.status(200).json(decretos);
+    let decrees = await Decree.paginate(queries, options)
+    res.status(200).json(decrees);
 };
 
 const formatDec = (dec) => {
@@ -45,7 +45,7 @@ const formatDec = (dec) => {
         // console.log('Se usó el link cargado: ', pubLink);
     }
 
-    const decreto = new Decreto({
+    const decree = new Decree({
         num: dec.num,
         anho: date.getFullYear().toString(),
         fecha: date.getTime().toString(),
@@ -84,10 +84,10 @@ const formatDec = (dec) => {
     console.log("====================================");
     console.log("RESULTADO DE FORMATEO: ", dec);
     console.log("====================================");
-    return decreto;
+    return decree;
 };
 
-const filterDecs = (limit, page, sortBy, order) => {
+const filterDecs = (limit = 10, page = 1, sortBy = 'num', order = 1) => {
     options.page = page;
     options.sort = { [sortBy]: order };
 
@@ -103,7 +103,7 @@ exports.getDecs = (req, res) => {
 
     console.log('options 1: ', options);
     console.log('query: ', query);
-    filterDecs(limit, page, sortBy, order);
+    filterDecs(limit, parseInt(page), sortBy, order)
     console.log('options 2: ', options);
 
     const deleteKeys = ['limit', 'page', 'sortBy', 'order'];
@@ -132,10 +132,10 @@ exports.saveDec = async (req, res) => {
         return;
     }
 
-    //formatea el decreto recibido en el body utilizando la función anterior formatDecreto()
-    const decretoFormateado = formatDec(req.body);
+    //format incoming Decree using formatDec()
+    const formattedDecree = formatDec(req.body);
     try {
-        const savedDec = await decretoFormateado.save();
+        const savedDec = await formattedDecree.save();
         console.log("====================================");
         console.log("data => ", savedDec);
         console.log("====================================");
@@ -148,7 +148,7 @@ exports.saveDec = async (req, res) => {
 };
 
 exports.findDecById = async (req, res) => {
-    const decretoId = req.params.id;
-    const dcrto = await Decreto.findById(decretoId).exec();
-    res.json(dcrto);
+    const decId = req.params.id;
+    const decree = await Decree.findById(decId).exec();
+    res.json(decree);
 };

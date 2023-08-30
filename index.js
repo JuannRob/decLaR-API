@@ -14,14 +14,17 @@ app.use(cors());
 //log requests
 app.use(morgan('tiny'));
 
-//parse request to body-parser
+//body parsing
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //mongodb connection
 connectDB();
 
-app.use(bodyParser.json());
+//router
 app.use('/', routes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => { console.log(`Server running: http://localhost:${PORT}/`) });
+app.listen(PORT, () => {
+    console.log(`Server running: http://localhost:${PORT}/`)
+});

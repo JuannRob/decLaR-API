@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getDecs, saveDec, findDecById } = require('../controller/decreeController');
+const { getDecs, saveDec, findDecById } = require('../controllers/decree.controllers');
 
 router.get("/", (req, res) => {
     res.render('search')

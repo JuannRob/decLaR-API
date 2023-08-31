@@ -2,8 +2,8 @@ const Decree = require("../models/Decree.js");
 
 let queries = {};
 let options = {
-    limit: '10',
-    page: '1',
+    limit: 10,
+    page: 1,
     sort: { 'num': 1 }
 };
 
@@ -88,11 +88,15 @@ const formatDec = (dec) => {
 };
 
 const filterDecs = (limit = 10, page = 1, sortBy = 'num', order = 1) => {
-    options.page = page;
-    options.sort = { [sortBy]: order };
+    const parsedPage = parseInt(page)
+    const parsedLimit = parseInt(limit)
+    const parsedOrder = parseInt(order)
 
-    if (limit !== options.limit) {
-        options.limit = limit;
+    options.page = parsedPage;
+    options.sort = { [sortBy]: parsedOrder };
+
+    if (parsedLimit !== options.limit) {
+        options.limit = parsedLimit;
         options.page = 1;
     }
 };
@@ -103,7 +107,7 @@ exports.getDecs = (req, res) => {
 
     console.log('options 1: ', options);
     console.log('query: ', query);
-    filterDecs(limit, parseInt(page), sortBy, order)
+    filterDecs(limit, page, sortBy, order)
     console.log('options 2: ', options);
 
     const deleteKeys = ['limit', 'page', 'sortBy', 'order'];

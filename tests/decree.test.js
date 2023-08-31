@@ -45,69 +45,57 @@ const getRandomCategory = () => {
     ]
     return categories[getRandomInt(0, (categories.length - 1))]
 }
+const checkOrdering = (arr, order) => {
+    for (let i = 1; i < arr.length; i++) {
+        expect(arr[i - 1][sortBy || num].toLowerCase() <= response.body.docs[i][sortBy || num].toLowerCase()).toBe(true);
+    }
+}
+
+async function sendRequest(query) {
+    const { limit, page, sortBy, order } = query
+    const response = await request(baseURL).get("/decretos").query(query)
+    expect(response.statusCode).toBe(200);
+    expect(response.body.docs.length).toBeGreaterThan(0);
+    expect(response.body.docs).toHaveLength(limit || 10);
+    expect(response.body.page).toBe(page || 1);
+
+
+
+    if (order === 1) {
+        for (let i = 1; i < response.body.docs.length; i++) {
+            expect(response.body.docs[i - 1][sortBy || num].toLowerCase() <= response.body.docs[i][sortBy || num].toLowerCase()).toBe(true);
+        }
+    } else {
+        for (let i = 1; i < response.body.docs.length; i++) {
+            expect(response.body.docs[i - 1][sortBy || num].toLowerCase() >= response.body.docs[i][sortBy || num].toLowerCase()).toBe(true);
+        }
+    }
+}
 
 //?---------------TESTS---------------//
 
 //----Sorting and pagination---//
 describe('Test ordering & pagination', () => {
     it('should get paginated and sorted items', async () => {
-
-        const query = {
+        await sendRequest({
             limit: 10,
             page: getRandomInt(1, 263),
             sortBy: getRandomCategory(),
             order: 1
-        }
-
-        console.log('query: ', query);
-        const response = await request(baseURL).get("/decretos")
-            .query(query)
-
-        const body = response.body
-        console.log(body.docs);
-        expect(response.statusCode).toBe(200); //http status == 200
-        expect(body.docs.length).toBeGreaterThan(0); //is not empty
-        expect(body.page).toBe(query.page); //tests if the page is the same as the query
-        expect(body.docs).toHaveLength(10); //tests limit
-        for (let i = 1; i < body.docs.length; i++) { //tests if the sorting category and the order are correct
-            expect(body.docs[i - 1][query.sortBy].toLowerCase() <= body.docs[i][query.sortBy].toLowerCase()).toBe(true);
-        }
+        })
     });
 });
 describe('Test limit and page default values', () => {
     it('page number should be 1 and limit should be 10', async () => {
-
-        const query = {
+        await sendRequest({
             sortBy: getRandomCategory(),
             order: 1
-        }
-
-        const response = await request(baseURL).get("/decretos")
-            .query(query)
-
-        const body = response.body
-        expect(response.statusCode).toBe(200); //http status == 200
-        expect(body.docs.length).toBeGreaterThan(0); //is not empty
-        expect(body.page).toBe(1); //tests if the page is the same as the query
-        expect(body.docs).toHaveLength(10); //tests limit
-        for (let i = 1; i < body.docs.length; i++) { //tests if the sorting category and the order are correct
-            expect(body.docs[i - 1][query.sortBy].toLowerCase() <= body.docs[i][query.sortBy].toLowerCase()).toBe(true);
-        }
+        })
     });
 });
 describe('Test sortBy, limit and order default values', () => {
     it('sortBy should be "num", limit should be 10 and order should be ascending', async () => {
-        const query = { page: getRandomInt(1, 263) }
-        const response = await request(baseURL).get("/decretos").query(query)
-
-        const body = response.body
-        expect(response.statusCode).toBe(200); //http status == 200
-        expect(body.docs.length).toBeGreaterThan(0); //is not empty
-        expect(body.page).toBe(query.page); //tests if the page is the same as the query
-        expect(body.docs).toHaveLength(10); //tests limit
-        for (let i = 1; i < body.docs.length; i++) { //tests if the sorting category and the order are correct
-            expect(body.docs[i - 1].num.toLowerCase() <= body.docs[i].num.toLowerCase()).toBe(true);
-        }
+        await sendRequest({ page: getRandomInt(1, 263) })
     });
 });
 

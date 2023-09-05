@@ -45,9 +45,17 @@ const getRandomCategory = () => {
     ]
     return categories[getRandomInt(0, (categories.length - 1))]
 }
-const checkOrdering = (arr, order) => {
-    for (let i = 1; i < arr.length; i++) {
-        expect(arr[i - 1][sortBy || num].toLowerCase() <= response.body.docs[i][sortBy || num].toLowerCase()).toBe(true);
+const checkOrdering = (arr, order = 1, sortBy = 'num') => {
+    console.log(arr);
+    if (order === 1) {
+        for (let i = 1; i < arr.length; i++) {
+            expect(arr[i - 1][sortBy].toLowerCase() <= arr[i][sortBy].toLowerCase()).toBe(true);
+        }
+    } else {
+        for (let i = 1; i < arr.length; i++) {
+            if (arr)
+                expect(arr[i - 1][sortBy].toLowerCase() >= arr[i][sortBy].toLowerCase()).toBe(true);
+        }
     }
 }
 
@@ -59,17 +67,7 @@ async function sendRequest(query) {
     expect(response.body.docs).toHaveLength(limit || 10);
     expect(response.body.page).toBe(page || 1);
 
-
-
-    if (order === 1) {
-        for (let i = 1; i < response.body.docs.length; i++) {
-            expect(response.body.docs[i - 1][sortBy || num].toLowerCase() <= response.body.docs[i][sortBy || num].toLowerCase()).toBe(true);
-        }
-    } else {
-        for (let i = 1; i < response.body.docs.length; i++) {
-            expect(response.body.docs[i - 1][sortBy || num].toLowerCase() >= response.body.docs[i][sortBy || num].toLowerCase()).toBe(true);
-        }
-    }
+    checkOrdering(response.body.docs, order, sortBy);
 }
 
 //?---------------TESTS---------------//
@@ -84,17 +82,22 @@ describe('Test ordering & pagination', () => {
             order: 1
         })
     });
-});
-describe('Test limit and page default values', () => {
-    it('page number should be 1 and limit should be 10', async () => {
+
+    it('should set page number to 1 and limit to 10 by default', async () => {
         await sendRequest({
             sortBy: getRandomCategory(),
             order: 1
         })
     });
-});
-describe('Test sortBy, limit and order default values', () => {
-    it('sortBy should be "num", limit should be 10 and order should be ascending', async () => {
+
+    it('should return decrees in descending order', async () => {
+        await sendRequest({
+            sortBy: getRandomCategory(),
+            order: -1
+        })
+    });
+
+    it('should return decrees in ascending order, sorted by number \n and up to 10 items per page', async () => {
         await sendRequest({ page: getRandomInt(1, 263) })
     });
 });

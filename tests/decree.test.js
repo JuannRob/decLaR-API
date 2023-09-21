@@ -1,5 +1,7 @@
 const request = require("supertest")
-const baseURL = "http://localhost:5000"
+require("dotenv").config();
+const PORT = process.env.PORT || 5000;
+const URL = `http://localhost:${PORT}`
 
 //Utilities
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
@@ -45,33 +47,32 @@ const getRandomCategory = () => {
     ]
     return categories[getRandomInt(0, (categories.length - 1))]
 }
+
 const checkOrdering = (arr, order = 1, sortBy = 'num') => {
-    console.log(arr);
     if (order === 1) {
         for (let i = 1; i < arr.length; i++) {
             expect(arr[i - 1][sortBy].toLowerCase() <= arr[i][sortBy].toLowerCase()).toBe(true);
         }
     } else {
         for (let i = 1; i < arr.length; i++) {
-            if (arr)
-                expect(arr[i - 1][sortBy].toLowerCase() >= arr[i][sortBy].toLowerCase()).toBe(true);
+            expect(arr[i - 1][sortBy].toLowerCase() >= arr[i][sortBy].toLowerCase()).toBe(true);
         }
     }
 }
 
 async function sendRequest(query) {
     const { limit, page, sortBy, order } = query
-    const response = await request(baseURL).get("/decretos").query(query)
+    const response = await request(URL).get("/decretos").query(query)
+    const data = response.body.data;
     expect(response.statusCode).toBe(200);
-    expect(response.body.docs.length).toBeGreaterThan(0);
-    expect(response.body.docs).toHaveLength(limit || 10);
-    expect(response.body.page).toBe(page || 1);
+    expect(data.docs.length).toBeGreaterThan(0);
+    expect(data.docs).toHaveLength(limit || 10);
+    expect(data.page).toBe(page || 1);
 
-    checkOrdering(response.body.docs, order, sortBy);
+    checkOrdering(data.docs, order, sortBy);
 }
 
 //?---------------TESTS---------------//
-
 //----Sorting and pagination---//
 describe('Test ordering & pagination', () => {
     it('should get paginated and sorted items', async () => {
@@ -85,14 +86,14 @@ describe('Test ordering & pagination', () => {
 
     it('should set page number to 1 and limit to 10 by default', async () => {
         await sendRequest({
-            sortBy: getRandomCategory(),
+            sortBy: 'num',
             order: 1
         })
     });
 
     it('should return decrees in descending order', async () => {
         await sendRequest({
-            sortBy: getRandomCategory(),
+            sortBy: 'tema',
             order: -1
         })
     });
@@ -102,4 +103,10 @@ describe('Test ordering & pagination', () => {
     });
 });
 
-//-----------Search----------//
+//-----------API Requests----------//
+// describe('API Route: /api/decs', () => {
+//     it('debería manejar parámetros de consulta incorrectos', async () => {
+//         const { data } = await request(URL).get("/decretos").query({ limit: 'invalid', page: 'invalid', sortBy: 'invalid', order: 'invalid' })
+//         expect(data.statusCode).toBe(400);
+//     });
+// });

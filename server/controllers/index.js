@@ -1,0 +1,1 @@
+export { findDecById, getDecs, saveDec } from './decree.controller.js'

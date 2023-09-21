@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
+import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const decreeSchema = new mongoose.Schema({
     num: {
@@ -114,6 +114,4 @@ decreeSchema.pre('validate', function (next) {
     }
 });
 
-
-
-module.exports = mongoose.model('Decree', decreeSchema);
+export default mongoose.model('Decree', decreeSchema);

@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { getDecs, saveDec, findDecById } = require('../controllers/decree.controllers');
+import { getDecs, saveDec, findDecById } from '../controllers/index.js';
 
 router.get("/", (req, res) => {
     res.render('search')
@@ -10,4 +10,4 @@ router.get("/decretos", getDecs);
 
 router.get("/decreto/:id", findDecById);
 
-module.exports = router;
+export default router;

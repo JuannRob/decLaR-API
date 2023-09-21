@@ -1,0 +1,1 @@
+export { getDecs } from './decree.service.js'

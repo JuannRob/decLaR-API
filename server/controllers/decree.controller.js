@@ -1,20 +1,17 @@
-const Decree = require("../models/Decree.js");
+import Decree from '../models/Decree.js'
+import { getDecs as getDecsService } from '../services/index.js'
 
-let queries = {};
-let options = {
-    limit: 10,
-    page: 1,
-    sort: { 'num': 1 }
-};
-
-const renderDecs = async (res) => {
-    let decrees = await Decree.paginate(queries, options)
-    res.status(200).json(decrees);
+export const getDecs = (req, res) => {
+    getDecsService(req.query).then((data) => {
+        res.status(200).send({ status: "OK", data: data })
+    }).catch((e) => {
+        res.status(400).send({ status: "FAILED", message: e });
+    })
 };
 
 const formatDec = (dec) => {
     if (!dec) {
-        console.log({ message: "🛑 No se recibieron datos para formatear" });
+        throw new Error("🛑 No se recibieron datos para formatear");
     }
 
     const toDate = (dateStr) => {
@@ -86,51 +83,7 @@ const formatDec = (dec) => {
     console.log("====================================");
     return decree;
 };
-
-const filterDecs = (limit = 10, page = 1, sortBy = 'num', order = 1) => {
-    const parsedPage = parseInt(page)
-    const parsedLimit = parseInt(limit)
-    const parsedOrder = parseInt(order)
-
-    options.page = parsedPage;
-    options.sort = { [sortBy]: parsedOrder };
-
-    if (parsedLimit !== options.limit) {
-        options.limit = parsedLimit;
-        options.page = 1;
-    }
-};
-
-exports.getDecs = (req, res) => {
-    const query = req.query;
-    const { limit, page, sortBy, order } = req.query
-
-    console.log('options 1: ', options);
-    console.log('query: ', query);
-    filterDecs(limit, page, sortBy, order)
-    console.log('options 2: ', options);
-
-    const deleteKeys = ['limit', 'page', 'sortBy', 'order'];
-    deleteKeys.forEach(key => { if (query.hasOwnProperty(key)) delete query[key] });
-
-    queries = {};
-    if (Object.keys(query).length) {
-        for (const entry in query) {
-            // console.log(`${entry}: ${query[entry]}`);
-            if (query[entry].charAt(0) === ":") {
-                // "^" + query[entry].replace(":", "") + "$", "i"
-                queries[entry] = new RegExp(
-                    `^${query[entry].replace(":", "")}$`, "i"
-                );
-            } else {
-                queries[entry] = new RegExp(query[entry], "i");
-            }
-        }
-    }
-    renderDecs(res);
-};
-
-exports.saveDec = async (req, res) => {
+export const saveDec = async (req, res) => {
     if (!req.body) {
         res.status(400).send({ message: "No se recibieron datos." });
         return;
@@ -151,7 +104,7 @@ exports.saveDec = async (req, res) => {
     }
 };
 
-exports.findDecById = async (req, res) => {
+export const findDecById = async (req, res) => {
     const decId = req.params.id;
     const decree = await Decree.findById(decId).exec();
     res.json(decree);

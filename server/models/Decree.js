@@ -79,6 +79,7 @@ const decreeSchema = new mongoose.Schema({
         match: /^\d+$/
     },
     dnu: String,
+    art_126_12: Boolean,
     reglamenta_ley: {
         type: String,
         match: /^\d+$/
@@ -88,6 +89,8 @@ const decreeSchema = new mongoose.Schema({
     estado: String,
     modif_por: String,
     modif_a: String,
+    modif_por_ley: String,
+    modif_a_ley: String,
     link_pub: String,
     ref_norm: String,
     obs: String,
@@ -101,7 +104,8 @@ const decreeSchema = new mongoose.Schema({
     deroga_dec: String,
     derogado_por: String,
     pendiente: String,
-    obs_tomo: String
+    obs_tomo: String,
+    clave: String
 }, { collection: 'decs_csv_v2.1' });
 
 decreeSchema.plugin(mongoosePaginate);

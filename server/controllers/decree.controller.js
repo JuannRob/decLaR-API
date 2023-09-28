@@ -89,7 +89,7 @@ export const saveDec = async (req, res) => {
         return;
     }
 
-    //format incoming Decree using formatDec()
+    //formats incoming Decree using formatDec()
     const formattedDecree = formatDec(req.body);
     try {
         const savedDec = await formattedDecree.save();

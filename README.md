@@ -10,12 +10,12 @@
 ---
 
 ## Instalación
-> npm install
-> npm start
+` npm install `
+` npm start `
 
 ## Endpoints
 **Obtener todos los documentos**
-GET > http://localhost:5000/decretos
+GET `http://localhost:5000/decretos`
   **Respuesta:**
   ```
   {

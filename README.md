@@ -1,11 +1,11 @@
-# API Decretos - Tribunal Sup. Jus. LR
+# API Decretos - Tribunal Sup. Just. LR
 
 **API para obtener decretos de la base de datos del Tribunal Superior de Justicia de La Rioja.**
 
 - Permite realizar busquedas personalizadas.
 - Respuesta con paginación y ordenamiento.
 
-*Incluye algunos tests.*
+*Incluye algunos tests*
 
 
 ## Instalación
@@ -22,7 +22,7 @@ npm start
 
 GET `http://localhost:5000/decretos`
 
-  **Respuesta:**
+  **Respuesta: **
   ```
   {
   "status": "OK",
@@ -86,4 +86,14 @@ GET `http://localhost:5000/decretos`
 }
 ```
 
-**
+** Búsquedas personalizadas:  **
+
+GET `http://localhost:5000/decretos?**queries**`
+
+**Queries**
+```
+limit: int   // cant. de documentos por página
+page: int    // página 
+sortBy: str  // atributo del documento utilizado para ordenar
+order: int  // 1: ascendente | -1: descendente
+```

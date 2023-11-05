@@ -7,7 +7,6 @@
 
 *Incluye algunos tests.*
 
----
 
 ## Instalación
 ` npm install `
@@ -15,7 +14,9 @@
 
 ## Endpoints
 **Obtener todos los documentos**
+
 GET `http://localhost:5000/decretos`
+
   **Respuesta:**
   ```
   {
@@ -34,6 +35,7 @@ GET `http://localhost:5000/decretos`
     }
   }
   ```
+
 **Formato de documento:**
 ```
 {

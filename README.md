@@ -18,11 +18,11 @@ npm start
 ```
 
 ## Endpoints
-### Obtener todos los documentos
+### - Obtener todos los documentos
 
 GET `http://localhost:5000/decretos`
 
-  **Respuesta: **
+  **Respuesta:**
   ```
   {
   "status": "OK",
@@ -86,7 +86,7 @@ GET `http://localhost:5000/decretos`
 }
 ```
 
-### Búsquedas personalizadas:
+### - Búsquedas personalizadas:
 
 GET `http://localhost:5000/decretos?limit=15&page=1&sortBy=firma&order=-1&tema=salud&anho=2011`
 

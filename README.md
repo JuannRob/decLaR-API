@@ -18,7 +18,7 @@ npm start
 ```
 
 ## Endpoints
-**Obtener todos los documentos**
+###Obtener todos los documentos
 
 GET `http://localhost:5000/decretos`
 
@@ -86,14 +86,16 @@ GET `http://localhost:5000/decretos`
 }
 ```
 
-** Búsquedas personalizadas:  **
+###Búsquedas personalizadas:
 
-GET `http://localhost:5000/decretos?**queries**`
+GET `http://localhost:5000/decretos?limit=15&page=1&sortBy=firma&order=-1&tema=salud&anho=2011`
 
-**Queries**
+**Filtros**
 ```
 limit: int   // cant. de documentos por página
 page: int    // página 
 sortBy: str  // atributo del documento utilizado para ordenar
 order: int  // 1: ascendente | -1: descendente
+-
+{cualquier atributo del documento} : str // búsqueda por contenido
 ```

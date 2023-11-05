@@ -95,7 +95,7 @@ GET `http://localhost:5000/decretos?limit=15&page=1&sortBy=firma&order=-1&tema=s
 limit: int   // cant. de documentos por página
 page: int    // página 
 sortBy: str  // atributo del documento utilizado para ordenar
-order: int  // 1: ascendente | -1: descendente
+order: int  // 1 -> ascendente | -1 -> descendente
 -
 {cualquier atributo del documento} : str // búsqueda por contenido
 ```

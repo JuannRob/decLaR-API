@@ -20,7 +20,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=5000",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "node --watch index.js"
   },
   "author": "Juan Robledo",
   "engines": {

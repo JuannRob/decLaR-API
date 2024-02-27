@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Read Me</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body class="markdown-body">
+  <div class="container">
+    <h1 id="api-decretos-tribunal-sup-just-lr">
+      API Decretos - Tribunal Sup. Just. LR
+    </h1>
+    <p>
+      <strong>API para obtener decretos de la base de datos del Tribunal Superior
+        de Justicia de La Rioja.</strong>
+    </p>
+    <ul>
+      <li>Permite realizar busquedas personalizadas.</li>
+      <li>Respuesta con paginación y ordenamiento.</li>
+    </ul>
+    <h2 id="instalaci-n">Instalación</h2>
+    <pre><code>npm <span class="hljs-keyword">install</span>
+</code></pre>
+    <pre><code><span class="hljs-built_in">npm</span> start
+</code></pre>
+    <h2 id="endpoints">Endpoints</h2>
+    <h3 id="-obtener-todos-los-documentos">- Obtener todos los documentos</h3>
+    <p>GET <code>http://localhost:5000/decretos</code></p>
+    <p><strong>Respuesta:</strong></p>
+    <pre><code>  {
+  <span class="hljs-string">"status"</span>: <span class="hljs-string">"OK"</span>,
+  <span class="hljs-string">"data"</span>: {
+    <span class="hljs-string">"docs"</span>: [], <span class="hljs-comment">// &lt;--- DECRETOS</span>
+    <span class="hljs-string">"totalDocs"</span>: <span class="hljs-keyword">int</span>,
+    <span class="hljs-string">"limit"</span>: <span class="hljs-keyword">int</span>,
+    <span class="hljs-string">"totalPages"</span>: <span class="hljs-keyword">int</span>,
+    <span class="hljs-string">"page"</span>: <span class="hljs-keyword">int</span>,
+    <span class="hljs-string">"pagingCounter"</span>: <span class="hljs-keyword">int</span>,
+    <span class="hljs-string">"hasPrevPage"</span>: <span class="hljs-keyword">bool</span>,
+    <span class="hljs-string">"hasNextPage"</span>: <span class="hljs-keyword">bool</span>,
+    <span class="hljs-string">"prevPage"</span>: <span class="hljs-keyword">int</span>,
+    <span class="hljs-string">"nextPage"</span>: <span class="hljs-keyword">int</span>
+    }
+  }
+</code></pre>
+    <p><strong>Formato de documento:</strong></p>
+    <pre><code>{
+<span class="hljs-attr">"_id"</span>: str,
+<span class="hljs-attr">"num"</span>: str,
+<span class="hljs-attr">"anho"</span>: str,
+<span class="hljs-attr">"fecha"</span>: Date,
+<span class="hljs-attr">"fecha_pub"</span>: Date,
+<span class="hljs-attr">"cant_arts"</span>: str,
+<span class="hljs-attr">"firma"</span>: str,
+<span class="hljs-attr">"otros_firman"</span>: [str],
+<span class="hljs-attr">"pub"</span>: str,
+<span class="hljs-attr">"num_ed_pub"</span>: str,
+<span class="hljs-attr">"pag_pub"</span>: str,
+<span class="hljs-attr">"anho_tomo"</span>: str,
+<span class="hljs-attr">"nro_tomo"</span>: str,
+<span class="hljs-attr">"anexo"</span>: str,
+<span class="hljs-attr">"ley_promul"</span>: str,
+<span class="hljs-attr">"ley_vetada"</span>: str,
+<span class="hljs-attr">"parte_vetada"</span>: str,
+<span class="hljs-attr">"ratif_x_ley"</span>: str,
+<span class="hljs-attr">"dnu"</span>: str,
+<span class="hljs-attr">"art_126_12"</span>: bool,
+<span class="hljs-attr">"reglamenta_ley"</span>: str,
+<span class="hljs-attr">"tema"</span>: str,
+<span class="hljs-attr">"titulo"</span>: str,
+<span class="hljs-attr">"estado"</span>: str,
+<span class="hljs-attr">"modif_por"</span>: str,
+<span class="hljs-attr">"modif_a"</span>: str,
+<span class="hljs-attr">"modif_por_ley"</span>: str,
+<span class="hljs-attr">"modif_a_ley"</span>: str,
+<span class="hljs-attr">"link_pub"</span>: str,
+<span class="hljs-attr">"ref_norm"</span>: str,
+<span class="hljs-attr">"obs"</span>: <span class="hljs-string">""</span>,
+<span class="hljs-attr">"fecha_carga"</span>: Date,
+<span class="hljs-attr">"tipeo_dictado"</span>: str,
+<span class="hljs-attr">"deroga_dec"</span>: str,
+<span class="hljs-attr">"derogado_por"</span>: str,
+<span class="hljs-attr">"pendiente"</span>: str,
+<span class="hljs-attr">"obs_tomo"</span>: str,
+<span class="hljs-attr">"claves"</span>: str,
+<span class="hljs-attr">"__v"</span>: int
+}
+</code></pre>
+    <h3 id="-b-squedas-personalizadas-">- Búsquedas personalizadas:</h3>
+    <p>
+      GET
+      <code>http://localhost:5000/decretos?limit=15&amp;page=1&amp;sortBy=firma&amp;order=-1&amp;tema=salud&amp;anho=2011</code>
+    </p>
+    <p><strong>Filtros</strong></p>
+    <pre><code><span class="hljs-string">limit:</span> <span class="hljs-keyword">int</span>   <span class="hljs-comment">// cant. de documentos por página</span>
+<span class="hljs-string">page:</span> <span class="hljs-keyword">int</span>    <span class="hljs-comment">// página </span>
+<span class="hljs-string">sortBy:</span> str  <span class="hljs-comment">// atributo del documento utilizado para ordenar</span>
+<span class="hljs-string">order:</span> <span class="hljs-keyword">int</span>  <span class="hljs-comment">// 1 -&gt; ascendente | -1 -&gt; descendente</span>
+-
+{cualquier atributo del documento} : str <span class="hljs-comment">// búsqueda por contenido</span>
+</code></pre>
+  </div>
+</body>
+
+</html>

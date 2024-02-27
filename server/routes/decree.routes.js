@@ -1,11 +1,11 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
-import { getDecs, saveDec, findDecById } from '../controllers/index.js';
+import { getDecs, saveDec, findDecById } from "../controllers/index.js";
 
-router.get("/decretos", getDecs);
+router.get("/", getDecs);
 
-router.get("/decreto/:id", findDecById);
+router.get("/:id", findDecById);
 
-router.post("/decretos", saveDec)
+router.post("/", saveDec);
 
 export default router;

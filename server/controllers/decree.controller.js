@@ -89,7 +89,7 @@ export const saveDec = async (req, res) => {
   const formattedDecree = formatDec(req.body);
   try {
     const savedDec = await formattedDecree.save();
-    res.status(200).send(savedDec);
+    res.status(201).send(savedDec);
   } catch (error) {
     res.status(500).send({
       message: error.message || "Algo salió mal durante la creación",

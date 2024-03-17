@@ -32,13 +32,14 @@ export const saveDec = async (req, res) => {
 
 export const findDecById = async (req, res) => {
   const decId = req.params.id;
-  const decree = await Decree.findById(decId).exec();
-  res.json(decree);
+  await Decree.findById(decId)
+    .then((r) => res.status(200).json({ status: "OK", dec: r }))
+    .catch((e) => res.status(400).json({ status: "FAILED", message: e }));
 };
 
 export const deleteDecById = async (req, res) => {
   const decId = req.params.id;
-  const r = await Decree.deleteOne({ _id: decId });
-  console.log("res", r);
-  // res.json(res);
+  await Decree.findByIdAndDelete(decId)
+    .then((r) => res.status(200).json({ status: "OK", dec: r }))
+    .catch((e) => res.status(400).json({ status: "FAILED", message: e }));
 };

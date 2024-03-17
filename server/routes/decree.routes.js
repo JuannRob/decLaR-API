@@ -14,6 +14,11 @@ router.get("/:id", findDecById);
 
 router.post("/", checkToken, checkRole(["admin", "editor"]), saveDec);
 
-router.delete("/", checkToken, checkRole(["admin", "editor"]), deleteDecById);
+router.delete(
+  "/:id",
+  checkToken,
+  checkRole(["admin", "editor"]),
+  deleteDecById
+);
 
 export default router;

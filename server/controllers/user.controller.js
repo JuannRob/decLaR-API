@@ -1,6 +1,7 @@
 import Joi from "joi";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import jsonwebtoken from "jsonwebtoken";
 import { CreateToken } from "../services/user.service.js";
 import "dotenv/config.js";
 

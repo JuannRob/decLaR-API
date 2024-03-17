@@ -1,1 +1,6 @@
-export { findDecById, getDecs, saveDec } from './decree.controller.js'
+export {
+  findDecById,
+  getDecs,
+  saveDec,
+  deleteDecById,
+} from "./decree.controller.js";

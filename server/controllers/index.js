@@ -1,6 +1,7 @@
 export {
-  findDecById,
+  findDec,
   getDecs,
   saveDec,
-  deleteDecById,
+  deleteDec,
+  updateDec,
 } from "./decree.controller.js";

@@ -3,22 +3,20 @@ const router = express.Router();
 import {
   getDecs,
   saveDec,
-  findDecById,
-  deleteDecById,
+  findDec,
+  deleteDec,
+  updateDec,
 } from "../controllers/index.js";
 import { checkRole, checkToken } from "../services/user.service.js";
 
 router.get("/", getDecs);
 
-router.get("/:id", findDecById);
+router.get("/:id", findDec);
 
 router.post("/", checkToken, checkRole(["admin", "editor"]), saveDec);
 
-router.delete(
-  "/:id",
-  checkToken,
-  checkRole(["admin", "editor"]),
-  deleteDecById
-);
+router.delete("/:id", checkToken, checkRole(["admin", "editor"]), deleteDec);
+
+router.patch("/:id", checkToken, checkRole(["admin", "editor"]), updateDec);
 
 export default router;

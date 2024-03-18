@@ -87,8 +87,6 @@ export const logout = (req, res) => {
 
   //extracting token from the cookies
   const previousToken = cookies.split("=")[1];
-
-  //if token is not found return this response
   if (!previousToken) {
     return res.status(400).json({ message: "Couldn't find token" });
   }
@@ -99,9 +97,7 @@ export const logout = (req, res) => {
     process.env.JWT_SECRET,
     (err, user) => {
       if (err) {
-        console.log(err);
         return res.status(403).json({ message: "Authentication failed" });
-        //if not verified return this error
       }
       res.clearCookie(`${user.id}`);
       req.cookies[`${user.id}`] = "";
@@ -119,7 +115,6 @@ export const getAllUsers = async (req, res) => {
       res.status(200).json({ allusers });
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "Error in getting the Users" });
   }
 };

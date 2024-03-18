@@ -3,7 +3,6 @@ import User from "../models/User.js";
 import "dotenv/config.js";
 
 export const CreateToken = (id) => {
-  console.log("secret: ", process.env.JWT_SECRET);
   return jsonwebtoken.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "60s",
   });
@@ -12,8 +11,6 @@ export const CreateToken = (id) => {
 export const checkToken = async (req, res, next) => {
   try {
     const cookies = req.headers.cookie;
-    console.log("cookies: ", cookies);
-
     if (!cookies) {
       return res.status(403).json({ message: "Login first" });
     }

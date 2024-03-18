@@ -5,21 +5,21 @@ let queries = {};
 let options = {
   limit: 10,
   page: 1,
-  sort: { num: 1 },
+  sort: { tema: -1 },
 };
 
 export const getDecs = async ({
   limit = 10,
   page = 1,
-  sortBy = "num",
-  order = 1,
+  sortBy = "tema",
+  order = -1,
   ...filters
 }) => {
   //*---Options handler---*
-  options.page = page;
-  options.sort = { [sortBy]: order };
+  options.page = parseInt(page);
+  options.sort = { [sortBy]: parseInt(order) };
   if (limit != options.limit) {
-    options.limit = limit;
+    options.limit = parseInt(limit);
     options.page = 1;
   }
   //*---------------------*

@@ -5,12 +5,12 @@
 - Permite realizar busquedas personalizadas.
 - Respuesta con paginación y ordenamiento.
 
-*Incluye algunos tests*
-
+_Incluye algunos tests_
 
 ## Instalación
+
 ```
-npm install 
+npm install
 ```
 
 ```
@@ -18,30 +18,33 @@ npm start
 ```
 
 ## Endpoints
+
 ### - Obtener todos los documentos
 
-GET `http://localhost:5000/decretos`
+GET `http://localhost:5000/decrees`
 
-  **Respuesta:**
-  ```
-  {
-  "status": "OK",
-  "data": {
-    "docs": [], // <--- DECRETOS
-    "totalDocs": int,
-    "limit": int,
-    "totalPages": int,
-    "page": int,
-    "pagingCounter": int,
-    "hasPrevPage": bool,
-    "hasNextPage": bool,
-    "prevPage": int,
-    "nextPage": int
-    }
+**Respuesta:**
+
+```
+{
+"status": "OK",
+"data": {
+  "docs": [], // <--- DECRETOS
+  "totalDocs": int,
+  "limit": int,
+  "totalPages": int,
+  "page": int,
+  "pagingCounter": int,
+  "hasPrevPage": bool,
+  "hasNextPage": bool,
+  "prevPage": int,
+  "nextPage": int
   }
-  ```
+}
+```
 
 **Formato de documento:**
+
 ```
 {
 "_id": str,
@@ -88,12 +91,13 @@ GET `http://localhost:5000/decretos`
 
 ### - Búsquedas personalizadas:
 
-GET `http://localhost:5000/decretos?limit=15&page=1&sortBy=firma&order=-1&tema=salud&anho=2011`
+GET `http://localhost:5000/decrees?limit=15&page=1&sortBy=firma&order=-1&tema=salud&anho=2011`
 
 **Filtros**
+
 ```
 limit: int   // cant. de documentos por página
-page: int    // página 
+page: int    // página
 sortBy: str  // atributo del documento utilizado para ordenar
 order: int  // 1 -> ascendente | -1 -> descendente
 -

@@ -1,12 +1,7 @@
 import express from "express";
-import {
-  register,
-  login,
-  getAllUsers,
-  logout,
-} from "../controllers/user.controller.js";
-import { checkRole, checkToken } from "../services/user.service.js";
 const router = express.Router();
+import { getAllUsers, login, logout, register } from "../controllers/index.js";
+import { checkRole, checkToken } from "../services/index.js";
 
 router.get("/register", register);
 router.get("/login", login);

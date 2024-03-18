@@ -1,3 +1,4 @@
+export { register, login, logout, getAllUsers } from "./user.controller.js";
 export {
   findDec,
   getDecs,

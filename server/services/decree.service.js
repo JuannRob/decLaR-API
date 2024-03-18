@@ -50,7 +50,7 @@ export const getDecs = async ({
   //*--------------------*
 };
 
-export const formatDec = (dec) => {
+export const formatDecree = (dec) => {
   if (!dec) {
     throw new Error("🛑 No se recibieron datos para formatear");
   }

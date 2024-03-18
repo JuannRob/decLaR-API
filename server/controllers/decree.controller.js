@@ -1,6 +1,5 @@
 import Decree from "../models/Decree.js";
-import { formatDec } from "../services/decree.service.js";
-import { getDecs as getDecsService } from "../services/index.js";
+import { getDecs as getDecsService, formatDecree } from "../services/index.js";
 
 export const getDecs = async (req, res) => {
   try {
@@ -19,7 +18,7 @@ export const saveDec = async (req, res) => {
   }
 
   //formats incoming Decree using formatDec()
-  const formattedDecree = formatDec(req.body);
+  const formattedDecree = formatDecree(req.body);
   try {
     const savedDec = await formattedDecree.save();
     return res.status(201).send({ status: "OK", dec: savedDec });

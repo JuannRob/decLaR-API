@@ -3,9 +3,7 @@ import User from "../models/User.js";
 import "dotenv/config.js";
 
 export const CreateToken = (id) => {
-  return jsonwebtoken.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "60s",
-  });
+  return jsonwebtoken.sign({ id }, process.env.JWT_SECRET);
 };
 
 export const checkToken = async (req, res, next) => {

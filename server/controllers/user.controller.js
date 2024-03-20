@@ -70,10 +70,17 @@ export const login = async (req, res) => {
   const token = CreateToken(user._id);
   //Create and setting a cookie with the user's ID and token
   res.cookie(String(user._id), token, {
+    // httpOnly: true,
+    // path = where the cookie is valid
     path: "/",
-    expires: new Date(Date.now() + 1000 * 59),
-    httpOnly: true, //if this option isn't here cookie will be visible to the frontend
-    sameSite: "lax",
+    // domain = what domain the cookie is valid on
+    domain: "localhost",
+    // secure = only send cookie over https
+    secure: false,
+    // sameSite = only send cookie if the request is coming from the same origin
+    sameSite: "lax", // "strict" | "lax" | "none" (secure must be true)
+    // maxAge = how long the cookie is valid for in milliseconds
+    maxAge: 3600000,
   });
 
   //send this message along with logged user details

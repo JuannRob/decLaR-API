@@ -70,7 +70,7 @@ export const login = async (req, res) => {
   const token = CreateToken(user._id);
   //Create and setting a cookie with the user's ID and token
   res.cookie(String(user._id), token, {
-    // httpOnly: true,
+    httpOnly: true,
     // path = where the cookie is valid
     path: "/",
     // domain = what domain the cookie is valid on
@@ -125,3 +125,21 @@ export const getAllUsers = async (req, res) => {
     return res.status(500).json({ message: "Error in getting the Users" });
   }
 };
+
+// export const refreshToken = async (req, res) => {
+//   const refreshToken = req.cookies["refreshToken"];
+//   if (!refreshToken) {
+//     return res.status(401).send("Access Denied. No refresh token provided.");
+//   }
+
+//   try {
+//     const decoded = jsonwebtoken.verify(refreshToken, secretKey);
+//     const accessToken = jsonwebtoken.sign({ user: decoded.user }, secretKey, {
+//       expiresIn: "1h",
+//     });
+
+//     res.header("Authorization", accessToken).send(decoded.user);
+//   } catch (error) {
+//     return res.status(400).send("Invalid refresh token.");
+//   }
+// };

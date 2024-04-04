@@ -1,16 +1,13 @@
 import Decree from "../models/Decree.js";
 import { getDecs as getDecsService, formatDecree } from "../services/index.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-export const getDecs = async (req, res) => {
-  try {
-    const allDecs = await getDecsService(req.query);
-    return res.status(200).send({ status: "OK", data: allDecs });
-  } catch (error) {
-    return res.status(400).send({ status: "FAILED", message: e });
-  }
-};
+export const getDecs = asyncHandler(async (req, res) => {
+  const allDecs = await getDecsService(req.query);
+  return res.status(200).send({ status: "OK", data: allDecs });
+});
 
-export const saveDec = async (req, res) => {
+export const saveDec = asyncHandler(async (req, res) => {
   if (!req.body) {
     return res
       .status(400)
@@ -19,35 +16,23 @@ export const saveDec = async (req, res) => {
 
   //formats incoming Decree using formatDec()
   const formattedDecree = formatDecree(req.body);
-  try {
-    const savedDec = await formattedDecree.save();
-    return res.status(201).send({ status: "OK", dec: savedDec });
-  } catch (error) {
-    return res.status(500).send({ status: "FAILED", message: error.message });
-  }
-};
+  const savedDec = await formattedDecree.save();
+  return res.status(201).send({ status: "OK", dec: savedDec });
+});
 
-export const findDec = async (req, res) => {
+export const findDec = asyncHandler(async (req, res) => {
   const decId = req.params.id;
-  try {
-    const dec = await Decree.findById(decId);
-    return res.status(200).json({ status: "OK", dec: dec });
-  } catch (e) {
-    return res.status(400).json({ status: "FAILED", message: e });
-  }
-};
+  const dec = await Decree.findById(decId);
+  return res.status(200).json({ status: "OK", dec: dec });
+});
 
-export const deleteDec = async (req, res) => {
+export const deleteDec = asyncHandler(async (req, res) => {
   const decId = req.params.id;
-  try {
-    const dec = await Decree.findByIdAndDelete(decId);
-    return res.status(200).json({ status: "OK", dec: dec });
-  } catch (e) {
-    return res.status(400).json({ status: "FAILED", message: e });
-  }
-};
+  const dec = await Decree.findByIdAndDelete(decId);
+  return res.status(200).json({ status: "OK", dec: dec });
+});
 
-export const updateDec = async (req, res) => {
+export const updateDec = asyncHandler(async (req, res) => {
   if (!req.body) {
     return res
       .status(400)
@@ -55,12 +40,8 @@ export const updateDec = async (req, res) => {
   }
 
   const id = req.params.id;
-  try {
-    const updatedDoc = await Decree.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    return res.status(200).send({ status: "OK", dec: updatedDoc });
-  } catch (error) {
-    return res.status(500).send({ status: "FAILED", message: error.message });
-  }
-};
+  const updatedDoc = await Decree.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  return res.status(200).send({ status: "OK", dec: updatedDoc });
+});

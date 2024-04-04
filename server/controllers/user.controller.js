@@ -2,8 +2,9 @@ import Joi from "joi";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
-import { CreateToken } from "../services/index.js";
 import "dotenv/config.js";
+import { CreateTokens } from "../services/index.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const register = async (req, res) => {
   const { name, email, password, role } = req.body;
@@ -47,7 +48,7 @@ export const register = async (req, res) => {
     });
 };
 
-export const login = async (req, res) => {
+export const login = asyncHandler(async (req, res) => {
   const schemaLogin = Joi.object({
     email: Joi.string().min(6).max(255).required().email(),
     password: Joi.string().min(6).max(1024).required(),
@@ -67,27 +68,16 @@ export const login = async (req, res) => {
     return res.status(400).json({ error: "Invalid password" });
   }
 
-  const token = CreateToken(user._id);
-  //Create and setting a cookie with the user's ID and token
-  res.cookie(String(user._id), token, {
-    httpOnly: true,
-    // path = where the cookie is valid
-    path: "/",
-    // domain = what domain the cookie is valid on
-    domain: "localhost",
-    // secure = only send cookie over https
-    secure: false,
-    // sameSite = only send cookie if the request is coming from the same origin
-    sameSite: "lax", // "strict" | "lax" | "none" (secure must be true)
-    // maxAge = how long the cookie is valid for in milliseconds
-    maxAge: 3600000,
-  });
-
-  //send this message along with logged user details
-  return res
+  const tokens = CreateTokens(user._id);
+  res
+    .cookie("refreshToken", tokens.refreshToken, {
+      httpOnly: true,
+      sameSite: "strict",
+    })
+    .header("Authorization", tokens.accessToken)
     .status(200)
-    .json({ message: "Successfully logged in", User: user });
-};
+    .json({ message: "Successfully logged in", user: user });
+});
 
 export const logout = (req, res) => {
   const cookies = req.headers.cookie; //request cookie from the header
@@ -126,20 +116,17 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// export const refreshToken = async (req, res) => {
-//   const refreshToken = req.cookies["refreshToken"];
-//   if (!refreshToken) {
-//     return res.status(401).send("Access Denied. No refresh token provided.");
-//   }
+export const refreshToken = asyncHandler(async (req, res) => {
+  const refreshToken = req.cookies["refreshToken"];
+  if (!refreshToken) {
+    return res.status(401).send("Access Denied. No refresh token provided.");
+  }
 
-//   try {
-//     const decoded = jsonwebtoken.verify(refreshToken, secretKey);
-//     const accessToken = jsonwebtoken.sign({ user: decoded.user }, secretKey, {
-//       expiresIn: "1h",
-//     });
-
-//     res.header("Authorization", accessToken).send(decoded.user);
-//   } catch (error) {
-//     return res.status(400).send("Invalid refresh token.");
-//   }
-// };
+  const decoded = jsonwebtoken.verify(refreshToken, process.env.REFRESH_SECRET);
+  console.log(decoded);
+  const accessToken = CreateTokens(decoded.id).accessToken;
+  res
+    .header("Authorization", accessToken)
+    .status(200)
+    .json({ message: "Token refreshed", user: decoded.user });
+});

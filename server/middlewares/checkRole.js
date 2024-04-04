@@ -1,3 +1,5 @@
+import User from "../models/User.js";
+
 export const checkRole = (requiredRoles) => async (req, res, next) => {
   try {
     const convertedRoles = requiredRoles.map((role) => role.toLowerCase());

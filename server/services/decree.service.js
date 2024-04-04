@@ -39,7 +39,6 @@ export const getDecs = async ({
     }
   }
   //*-----------------------------------*
-
   //*---Query executor---*
   try {
     let decrees = await Decree.paginate(queries, options);

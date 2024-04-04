@@ -7,7 +7,7 @@ import {
   deleteDec,
   updateDec,
 } from "../controllers/index.js";
-import { checkRole, checkToken } from "../services/index.js";
+import { checkRole, checkToken } from "../middlewares/index.js";
 
 router.get("/", getDecs);
 

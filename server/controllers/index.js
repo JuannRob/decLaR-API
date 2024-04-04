@@ -1,4 +1,3 @@
-export { register, login, logout, getAllUsers } from "./user.controller.js";
 export {
   findDec,
   getDecs,
@@ -6,3 +5,10 @@ export {
   deleteDec,
   updateDec,
 } from "./decree.controller.js";
+export {
+  register,
+  login,
+  logout,
+  getAllUsers,
+  refreshToken,
+} from "./user.controller.js";

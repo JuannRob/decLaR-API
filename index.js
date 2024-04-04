@@ -11,12 +11,7 @@ import "dotenv/config.js";
 const app = express();
 
 // CORS
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 //log requests
 app.use(morgan("tiny"));

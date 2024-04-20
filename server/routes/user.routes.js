@@ -12,7 +12,7 @@ import { checkRole, checkToken } from "../middlewares/index.js";
 router.post("/register", register);
 router.post("/login", login);
 router.post("/logout", logout);
-router.get("/", checkToken, checkRole(["admin", "editor"]), getAllUsers);
 router.get("/refresh", refreshToken);
+router.get("/", checkToken, checkRole(["admin", "editor"]), getAllUsers);
 
 export default router;

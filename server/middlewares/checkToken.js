@@ -8,12 +8,21 @@ export const checkToken = async (req, res, next) => {
       return res.status(403).json({ message: "Invalid access token" });
     }
 
-    const decode = jsonwebtoken.verify(accessToken, process.env.JWT_SECRET);
+    let parsedToken = accessToken;
+    if (accessToken.startsWith("Bearer ")) {
+      parsedToken = accessToken.split(" ")[1];
+    }
+
+    const decode = jsonwebtoken.verify(parsedToken, process.env.JWT_SECRET);
     req.userId = decode.id;
     next();
   } catch (err) {
-    return res
-      .status(401)
-      .json({ message: "Error in the token checking", err });
+    if (err.name === "TokenExpiredError") {
+      return res.status(403).json({ message: "Access token expired" });
+    } else {
+      return res
+        .status(401)
+        .json({ message: "Error checking access token: " + err.message });
+    }
   }
 };

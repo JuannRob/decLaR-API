@@ -3,7 +3,7 @@ import "dotenv/config.js";
 
 export const CreateTokens = (id) => {
   const accessToken = jsonwebtoken.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "20s",
+    expiresIn: "10m",
   });
   const refreshToken = jsonwebtoken.sign(
     { id },

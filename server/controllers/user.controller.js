@@ -71,7 +71,7 @@ export const login = asyncHandler(async (req, res) => {
   const tokens = CreateTokens(user._id);
   res
     .cookie("refreshToken", tokens.refreshToken, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "strict",
     })
     .header("Authorization", tokens.accessToken)
@@ -122,11 +122,14 @@ export const refreshToken = asyncHandler(async (req, res) => {
     return res.status(401).send("Access Denied. No refresh token provided.");
   }
 
-  const decoded = jsonwebtoken.verify(refreshToken, process.env.REFRESH_SECRET);
-  console.log(decoded);
+  const decoded = jsonwebtoken.verify(
+    refreshToken,
+    process.env.JWT_REFRESH_SECRET
+  );
+  console.log("Decoded: ", decoded);
   const accessToken = CreateTokens(decoded.id).accessToken;
   res
     .header("Authorization", accessToken)
     .status(200)
-    .json({ message: "Token refreshed", user: decoded.user });
+    .json({ message: "Token refreshed" });
 });

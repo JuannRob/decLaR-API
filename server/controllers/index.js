@@ -9,6 +9,6 @@ export {
   register,
   login,
   logout,
-  getAllUsers,
+  getUser,
   refreshToken,
 } from "./user.controller.js";

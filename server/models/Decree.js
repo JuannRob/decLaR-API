@@ -108,7 +108,7 @@ const decreeSchema = new mongoose.Schema(
     obs_tomo: String,
     clave: String,
   },
-  { collection: "test" }
+  { collection: "decs_csv_v2.1" }
 );
 
 decreeSchema.plugin(mongoosePaginate);
